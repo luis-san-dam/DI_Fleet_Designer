@@ -9,15 +9,7 @@
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}",
-            "vmArgs": "--module-path C:\\javafx-sdk-25\\lib --add-modules javafx.base,javafx.controls --enable-native-access=javafx.graphics",
-            "projectName": "app"
-        },
-        {
-            "type": "java",
-            "name": "PlantillaFX-Launch",
-            "request": "launch",
-            "mainClass": "tema2.proyectobase.PlantillaFX",
-            "vmArgs": "--module-path C:\\javafx-sdk-25\\lib --add-modules javafx.base,javafx.controls --enable-native-access=javafx.graphics",
+            "vmArgs": "--module-path C:\\javafx-sdk-25\\lib --add-modules javafx.base,javafx.controls,javafx.fxml --enable-native-access=javafx.graphics",
             "projectName": "app"
         }
     ]

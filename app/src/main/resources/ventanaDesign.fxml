@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.vistaDesign.controladorDesign">
+   <top>
+      <HBox prefHeight="100.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="1000.0">
+               <children>
+                  <Button minHeight="100.0" minWidth="333.0" mnemonicParsing="false" onAction="#ventanaNaves" text="Naves" />
+                  <Button minHeight="100.0" minWidth="333.0" mnemonicParsing="false" onAction="#ventanaFlotas" text="Flotas" />
+                  <Button minHeight="100.0" minWidth="334.0" mnemonicParsing="false" onAction="#ventanaRanking" text="Ranking" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="35.0">
+               <children>
+                  <Button minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#opciones" text="&quot;&quot;">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+                  <Button minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#cerrarSesion" text="&quot;&quot;">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <opaqueInsets>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </opaqueInsets>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <top>
+            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <StackPane minWidth="700.0" prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <Pane fx:id="bannerNaves" prefHeight="100.0" prefWidth="700.0">
+                           <children>
+                              <Pane fx:id="bannerNaveCorveta" prefHeight="100.0" prefWidth="700.0" />
+                              <Pane fx:id="bannerNaveFragata" prefHeight="100.0" prefWidth="700.0" />
+                              <Pane fx:id="bannerNaveDestructor" prefHeight="100.0" prefWidth="700.0" />
+                              <Pane fx:id="bannerNaveCrucero" prefHeight="100.0" prefWidth="700.0" />
+                              <Pane fx:id="bannerNaveAcorazado" prefHeight="100.0" prefWidth="700.0" />
+                              <Pane fx:id="bannerNaveTitan" minHeight="100.0" minWidth="700.0" />
+                              <Pane fx:id="bannerNaveColoso" prefHeight="100.0" prefWidth="700.0" />
+                              <Pane fx:id="bannerNaveInsignia" prefHeight="100.0" prefWidth="700.0" />
+                           </children>
+                        </Pane>
+                        <Pane fx:id="bannerFlotas" prefHeight="100.0" prefWidth="700.0">
+                           <children>
+                              <Pane fx:id="bannerFlotaImperio" prefHeight="100.0" prefWidth="700.0" />
+                              <Pane fx:id="bannerFlotaRebeldes" prefHeight="100.0" prefWidth="700.0" />
+                              <Pane fx:id="bannerFlotaPiratas" prefHeight="100.0" prefWidth="700.0" />
+                              <Pane fx:id="bannerFlotaRepublica" prefHeight="100.0" prefWidth="700.0" />
+                              <Pane fx:id="bannerFlotaSeparatistas" prefHeight="100.0" prefWidth="700.0" />
+                              <Pane fx:id="bannerFlotaMercenarios" minHeight="100.0" minWidth="700.0" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </StackPane>
+                  <StackPane prefHeight="150.0" prefWidth="350.0">
+                     <children>
+                        <Pane fx:id="panelNuevaNave" prefHeight="150.0" prefWidth="350.0">
+                           <children>
+                              <Button minHeight="100.0" minWidth="350.0" mnemonicParsing="false" onAction="#nuevaNave" text="Nueva Nave" />
+                           </children>
+                        </Pane>
+                        <Pane fx:id="panelNuevaFlota" prefHeight="150.0" prefWidth="350.0" visible="false">
+                           <children>
+                              <Button minHeight="100.0" minWidth="350.0" mnemonicParsing="false" onAction="#nuevaFlota" text="Nueva Flota" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+         </top>
+         <center>
+            <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                <AnchorPane fx:id="panelTablaNaves">
+                     <children>
+                        <ScrollPane minWidth="1048.0">
+                           <content>
+                              <TableView fx:id="tablaNaves" prefHeight="600.0" prefWidth="1050.0">
+                                <columns>
+                                  <TableColumn fx:id="nombreNave" editable="false" minWidth="210.0" prefWidth="75.0" resizable="false" />
+                                  <TableColumn fx:id="tipoNave" minWidth="210.0" prefWidth="75.0" resizable="false" />
+                                    <TableColumn fx:id="potenciaNave" minWidth="210.0" prefWidth="75.0" resizable="false" />
+                                    <TableColumn fx:id="fotoNave" minWidth="210.0" prefWidth="75.0" resizable="false" />
+                                    <TableColumn fx:id="botonesNave" minWidth="210.0" prefWidth="75.0" resizable="false" />
+                                </columns>
+                              </TableView>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                     <StackPane.margin>
+                        <Insets />
+                     </StackPane.margin>
+                  </AnchorPane>
+                  <AnchorPane fx:id="panelTablaFlotas" visible="false">
+                     <children>
+                        <ScrollPane minWidth="1048.0">
+                           <content>
+                              <TableView fx:id="tablaFlotas" prefHeight="600.0" prefWidth="1050.0">
+                                 <columns>
+                                    <TableColumn fx:id="nombreFlota" editable="false" minWidth="262.5" prefWidth="75.0" resizable="false" />
+                                    <TableColumn fx:id="tiposFlota" minWidth="262.5" prefWidth="75.0" resizable="false" />
+                                    <TableColumn fx:id="navesTotalesFlota" minWidth="262.5" prefWidth="75.0" resizable="false" />
+                                    <TableColumn fx:id="botonesFlota" minWidth="262.5" prefWidth="75.0" resizable="false" />
+                                 </columns>
+                              </TableView>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+                  <Pane fx:id="panelGlobal" prefHeight="200.0" prefWidth="200.0" visible="false">
+                     <children>
+                        <VBox minHeight="600.0" minWidth="525.0">
+                           <children>
+                              <ImageView fx:id="primeroRankingFoto" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                                 <VBox.margin>
+                                    <Insets left="187.5" top="80.0" />
+                                 </VBox.margin>
+                              </ImageView>
+                              <Label fx:id="primeroRanking" alignment="CENTER" minWidth="525.0" text="&quot;&quot; ha creado &quot;&quot; naves">
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <HBox prefHeight="335.0" prefWidth="525.0">
+                                 <children>
+                                    <VBox minWidth="262.5">
+                                       <children>
+                                          <ImageView fx:id="segundoRankingFoto" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                             <VBox.margin>
+                                                <Insets left="85.0" top="50.0" />
+                                             </VBox.margin>
+                                          </ImageView>
+                                          <Label fx:id="segundoRanking" alignment="CENTER" minWidth="262.5" text="&quot;&quot; ha creado &quot;&quot; naves">
+                                             <VBox.margin>
+                                                <Insets top="30.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <VBox minWidth="262.5">
+                                       <children>
+                                          <ImageView fx:id="terceroRankingFoto" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                             <VBox.margin>
+                                                <Insets left="85.0" top="50.0" />
+                                             </VBox.margin>
+                                          </ImageView>
+                                          <Label fx:id="terceroRanking" alignment="CENTER" minWidth="262.5" text="&quot;&quot; ha creado &quot;&quot; naves">
+                                             <VBox.margin>
+                                                <Insets top="30.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="525.0" minHeight="600.0" minWidth="525.0">
+                           <children>
+                            <AnchorPane>
+                                 <children>
+                                    <ScrollPane minHeight="600.0" minWidth="525.0">
+                                       <content>
+                                          <Label fx:id="listadoUser" alignment="CENTER" minWidth="520.0" text="&quot;&quot; ha creado &quot;&quot; naves">
+                                             <padding>
+                                                <Insets top="100.0" />
+                                             </padding>
+                                          </Label>
+                                       </content>
+                                    </ScrollPane>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </VBox>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="panelPersonal" minHeight="600.0" minWidth="1050.0" visible="false">
+                     <children>
+                        <HBox minHeight="300.0" minWidth="1050.0">
+                           <children>
+                              <VBox>
+                                 <children>
+                                    <Label alignment="CENTER" minWidth="350.0" text="Imperio">
+                                       <padding>
+                                          <Insets top="50.0" />
+                                       </padding>
+                                    </Label>
+                                    <ImageView fx:id="faccionImperio" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <VBox.margin>
+                                          <Insets left="75.0" top="10.0" />
+                                       </VBox.margin>
+                                    </ImageView>
+                                    <Label fx:id="nNavesImperio" alignment="CENTER" minWidth="350.0" text="Has creado &quot;&quot; naves">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label alignment="CENTER" minWidth="350.0" text="Rebeldes">
+                                       <padding>
+                                          <Insets top="50.0" />
+                                       </padding>
+                                    </Label>
+                                    <ImageView fx:id="faccionRebeldes" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <VBox.margin>
+                                          <Insets left="75.0" top="10.0" />
+                                       </VBox.margin>
+                                    </ImageView>
+                                    <Label fx:id="nNavesRebeldes" alignment="CENTER" minWidth="350.0" text="Has creado &quot;&quot; naves">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label alignment="CENTER" minWidth="350.0" text="Piratas">
+                                       <padding>
+                                          <Insets top="50.0" />
+                                       </padding>
+                                    </Label>
+                                    <ImageView fx:id="faccionPiratas" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <VBox.margin>
+                                          <Insets left="75.0" top="10.0" />
+                                       </VBox.margin>
+                                    </ImageView>
+                                    <Label fx:id="nNavesPiratas" alignment="CENTER" minWidth="350.0" text="Has creado &quot;&quot; naves">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox layoutY="300.0" minHeight="300.0" minWidth="1050.0">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label alignment="CENTER" minWidth="350.0" text="República">
+                                       <padding>
+                                          <Insets top="50.0" />
+                                       </padding>
+                                    </Label>
+                                    <ImageView fx:id="faccionRepublica" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <VBox.margin>
+                                          <Insets left="75.0" top="10.0" />
+                                       </VBox.margin>
+                                    </ImageView>
+                                    <Label fx:id="nNavesRepública" alignment="CENTER" minWidth="350.0" text="Has creado &quot;&quot; naves">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label alignment="CENTER" minWidth="350.0" text="Separatistas">
+                                       <padding>
+                                          <Insets top="50.0" />
+                                       </padding>
+                                    </Label>
+                                    <ImageView fx:id="faccionSeparatistas" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <VBox.margin>
+                                          <Insets left="75.0" top="10.0" />
+                                       </VBox.margin>
+                                    </ImageView>
+                                    <Label fx:id="nNavesSeparatistas" alignment="CENTER" minWidth="350.0" text="Has creado &quot;&quot; naves">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label alignment="CENTER" minWidth="350.0" text="Mercenarios">
+                                       <padding>
+                                          <Insets top="50.0" />
+                                       </padding>
+                                    </Label>
+                                    <ImageView fx:id="faccionMercenarios" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <VBox.margin>
+                                          <Insets left="75.0" top="10.0" />
+                                       </VBox.margin>
+                                    </ImageView>
+                                    <Label fx:id="nNavesMercenarios" alignment="CENTER" minWidth="350.0" text="Has creado &quot;&quot; naves">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </Pane>
+               </children>
+            </StackPane>
+         </center>
+      </BorderPane>
+   </center>
+   <left>
+      <StackPane prefHeight="700.0" prefWidth="150.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane fx:id="paneListaNaves" prefHeight="700.0" prefWidth="150.0">
+               <children>
+                  <VBox prefHeight="700.0" prefWidth="150.0">
+                     <children>
+                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaCorveta" text="Corveta" />
+                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaFragata" text="Fragata" />
+                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaDestructor" text="Destructor" />
+                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaCrucero" text="Crucero" />
+                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaAcorazado" text="Acorazado" />
+                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaTitan" text="Titán" />
+                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaColoso" text="Coloso" />
+                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaInsignia" text="Insignia" />
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+            <Pane fx:id="paneListaFlotas" prefHeight="700.0" prefWidth="150.0" visible="false">
+               <children>
+                  <VBox prefHeight="700.0" prefWidth="150.0">
+                     <children>
+                        <Button minHeight="116.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaImperio" text="Imperio" />
+                        <Button minHeight="116.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaRebeldes" text="Rebeldes" />
+                        <Button minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaPiratas" text="Piratas" />
+                        <Button minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaRepublica" text="República" />
+                        <Button minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaSeparatistas" text="Separatistas" />
+                        <Button minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaMercenarios" text="Mercenarios" />
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+            <Pane fx:id="paneListaRanking" prefHeight="700.0" prefWidth="150.0" visible="false">
+               <children>
+                  <VBox prefHeight="700.0" prefWidth="150.0">
+                     <children>
+                        <Button minHeight="350.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaGlobal" text="Global" />
+                        <Button minHeight="350.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaPersonal" text="Personal" />
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </StackPane>
+   </left>
+</BorderPane>

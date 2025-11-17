@@ -9,11 +9,12 @@ repositories {
 
 javafx {
     version = "25"
-    modules = [ 'javafx.base', 'javafx.controls']
+    modules = [ 'javafx.base', 'javafx.swing', 'javafx.graphics', 'javafx.controls', 'javafx.fxml', 'javafx.media']
 }
 
 dependencies {
-    //No es necesario incluir las dependencias porque ya lo hace el plugin por nosotros
+    //implementation("com.mysql:mysql-connector-j:9.2.0")
+    implementation("org.mariadb.jdbc:mariadb-java-client:3.5.3")
 }
 
 java { //Se indica la versión de JDK que ha de utilizar
@@ -23,18 +24,17 @@ java { //Se indica la versión de JDK que ha de utilizar
 }
 
 application { //Definimos clase principal del proyecto
-    mainClass = 'tema2.proyectobase.PlantillaFX'
+    mainClass = 'com.javafx.vistaNaves.Main'
 }
 
 sourceSets {
   main {
     resources {
         srcDirs = ["src/main/resources"]
-        includes = ["**/*.fxml"]  //Importante para poder abrir una extensión no reconocida
+        includes = ["**/*.fxml","**/*.png","**/*.properties"]  //Importante para poder abrir una extensión no reconocida
     }
   }
 }
-
 
 
 
