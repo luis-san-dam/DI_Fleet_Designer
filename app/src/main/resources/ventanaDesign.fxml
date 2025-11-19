@@ -186,57 +186,76 @@
                      <children>
                         <HBox minHeight="300.0" minWidth="1050.0">
                            <children>
-                              <VBox>
+                              <VBox alignment="CENTER">
                                  <children>
-                                    <Label alignment="CENTER" minWidth="350.0" text="Imperio">
+                                    <Label alignment="CENTER" minWidth="262.5" text="Corveta">
                                        <padding>
                                           <Insets top="50.0" />
                                        </padding>
                                     </Label>
-                                    <ImageView fx:id="faccionImperio" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="iconoCorveta" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <VBox.margin>
-                                          <Insets left="75.0" top="10.0" />
+                                          <Insets top="10.0" />
                                        </VBox.margin>
                                     </ImageView>
-                                    <Label fx:id="nNavesImperio" alignment="CENTER" minWidth="350.0" text="Has creado &quot;&quot; naves">
+                                    <Label fx:id="nNavesCorveta" alignment="CENTER" minWidth="262.5" text="Has creado &quot;&quot; naves">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin>
                                     </Label>
                                  </children>
                               </VBox>
-                              <VBox prefHeight="200.0" prefWidth="100.0">
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Label alignment="CENTER" minWidth="350.0" text="Rebeldes">
+                                    <Label alignment="CENTER" minWidth="262.5" text="Fragata">
                                        <padding>
                                           <Insets top="50.0" />
                                        </padding>
                                     </Label>
-                                    <ImageView fx:id="faccionRebeldes" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="iconoFragata" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <VBox.margin>
-                                          <Insets left="75.0" top="10.0" />
+                                          <Insets top="10.0" />
                                        </VBox.margin>
                                     </ImageView>
-                                    <Label fx:id="nNavesRebeldes" alignment="CENTER" minWidth="350.0" text="Has creado &quot;&quot; naves">
+                                    <Label fx:id="nNavesFragata" alignment="CENTER" minWidth="262.5" text="Has creado &quot;&quot; naves">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin>
                                     </Label>
                                  </children>
                               </VBox>
-                              <VBox prefHeight="200.0" prefWidth="100.0">
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Label alignment="CENTER" minWidth="350.0" text="Piratas">
+                                    <Label alignment="CENTER" minWidth="262.5" text="Destructor">
                                        <padding>
                                           <Insets top="50.0" />
                                        </padding>
                                     </Label>
-                                    <ImageView fx:id="faccionPiratas" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="iconoDestructor" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <VBox.margin>
-                                          <Insets left="75.0" top="10.0" />
+                                          <Insets top="10.0" />
                                        </VBox.margin>
                                     </ImageView>
-                                    <Label fx:id="nNavesPiratas" alignment="CENTER" minWidth="350.0" text="Has creado &quot;&quot; naves">
+                                    <Label fx:id="nNavesDestructor" alignment="CENTER" minWidth="262.5" text="Has creado &quot;&quot; naves">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <Label alignment="CENTER" minWidth="262.5" text="Crucero">
+                                       <padding>
+                                          <Insets top="50.0" />
+                                       </padding>
+                                    </Label>
+                                    <ImageView fx:id="iconoCrucero" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </ImageView>
+                                    <Label fx:id="nNavesCrucero" alignment="CENTER" minWidth="262.5" text="Has creado &quot;&quot; naves">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin>
@@ -247,57 +266,76 @@
                         </HBox>
                         <HBox layoutY="300.0" minHeight="300.0" minWidth="1050.0">
                            <children>
-                              <VBox prefHeight="200.0" prefWidth="100.0">
+                              <VBox alignment="CENTER">
                                  <children>
-                                    <Label alignment="CENTER" minWidth="350.0" text="República">
+                                    <Label alignment="CENTER" minWidth="262.5" text="Acorazado">
                                        <padding>
                                           <Insets top="50.0" />
                                        </padding>
                                     </Label>
-                                    <ImageView fx:id="faccionRepublica" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="iconoAcorazado" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <VBox.margin>
-                                          <Insets left="75.0" top="10.0" />
+                                          <Insets top="10.0" />
                                        </VBox.margin>
                                     </ImageView>
-                                    <Label fx:id="nNavesRepública" alignment="CENTER" minWidth="350.0" text="Has creado &quot;&quot; naves">
+                                    <Label fx:id="nNavesAcorazado" alignment="CENTER" minWidth="262.5" text="Has creado &quot;&quot; naves">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin>
                                     </Label>
                                  </children>
                               </VBox>
-                              <VBox prefHeight="200.0" prefWidth="100.0">
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Label alignment="CENTER" minWidth="350.0" text="Separatistas">
+                                    <Label alignment="CENTER" minWidth="262.5" text="Titan">
                                        <padding>
                                           <Insets top="50.0" />
                                        </padding>
                                     </Label>
-                                    <ImageView fx:id="faccionSeparatistas" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="iconoTitan" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <VBox.margin>
-                                          <Insets left="75.0" top="10.0" />
+                                          <Insets top="10.0" />
                                        </VBox.margin>
                                     </ImageView>
-                                    <Label fx:id="nNavesSeparatistas" alignment="CENTER" minWidth="350.0" text="Has creado &quot;&quot; naves">
+                                    <Label fx:id="nNavesTitan" alignment="CENTER" minWidth="262.5" text="Has creado &quot;&quot; naves">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin>
                                     </Label>
                                  </children>
                               </VBox>
-                              <VBox prefHeight="200.0" prefWidth="100.0">
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Label alignment="CENTER" minWidth="350.0" text="Mercenarios">
+                                    <Label alignment="CENTER" minWidth="262.5" text="Coloso">
                                        <padding>
                                           <Insets top="50.0" />
                                        </padding>
                                     </Label>
-                                    <ImageView fx:id="faccionMercenarios" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="iconoColoso" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <VBox.margin>
-                                          <Insets left="75.0" top="10.0" />
+                                          <Insets top="10.0" />
                                        </VBox.margin>
                                     </ImageView>
-                                    <Label fx:id="nNavesMercenarios" alignment="CENTER" minWidth="350.0" text="Has creado &quot;&quot; naves">
+                                    <Label fx:id="nNavesColoso" alignment="CENTER" minWidth="262.5" text="Has creado &quot;&quot; naves">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <Label alignment="CENTER" minWidth="262.5" text="Insignia">
+                                       <padding>
+                                          <Insets top="50.0" />
+                                       </padding>
+                                    </Label>
+                                    <ImageView fx:id="iconoInsignia" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </ImageView>
+                                    <Label fx:id="nNavesInsignia" alignment="CENTER" minWidth="262.5" text="Has creado &quot;&quot; naves">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin>

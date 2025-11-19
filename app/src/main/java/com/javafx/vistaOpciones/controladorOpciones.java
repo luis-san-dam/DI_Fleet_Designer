@@ -20,7 +20,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class controladorOpciones implements Initializable {
@@ -55,6 +54,9 @@ public class controladorOpciones implements Initializable {
 
     @FXML
     void botonCerrarSesion(ActionEvent event) {
+
+        Sesion.cerrarSesion();
+
         Stage modal = (Stage) ((Node) event.getSource()).getScene().getWindow();
         modal.close();
 

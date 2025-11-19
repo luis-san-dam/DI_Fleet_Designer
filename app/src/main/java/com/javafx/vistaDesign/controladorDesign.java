@@ -73,46 +73,58 @@ public class controladorDesign implements Initializable {
     private TableColumn<Nave, HBox> botonesNave;
 
     @FXML
-    private ImageView faccionImperio;
-
-    @FXML
-    private ImageView faccionMercenarios;
-
-    @FXML
-    private ImageView faccionPiratas;
-
-    @FXML
-    private ImageView faccionRebeldes;
-
-    @FXML
-    private ImageView faccionRepublica;
-
-    @FXML
-    private ImageView faccionSeparatistas;
-
-    @FXML
     private TableColumn<Nave, String> fotoNave;
+
+    @FXML
+    private ImageView iconoAcorazado;
+
+    @FXML
+    private ImageView iconoColoso;
+
+    @FXML
+    private ImageView iconoCorveta;
+
+    @FXML
+    private ImageView iconoCrucero;
+
+    @FXML
+    private ImageView iconoDestructor;
+
+    @FXML
+    private ImageView iconoFragata;
+
+    @FXML
+    private ImageView iconoInsignia;
+
+    @FXML
+    private ImageView iconoTitan;
 
     @FXML
     private Label listadoUser;
 
     @FXML
-    private Label nNavesImperio;
+    private Label nNavesAcorazado;
 
     @FXML
-    private Label nNavesMercenarios;
+    private Label nNavesCorveta;
 
     @FXML
-    private Label nNavesPiratas;
+    private Label nNavesColoso;
 
     @FXML
-    private Label nNavesRebeldes;
+    private Label nNavesCrucero;
 
     @FXML
-    private Label nNavesRepública;
+    private Label nNavesDestructor;
 
     @FXML
-    private Label nNavesSeparatistas;
+    private Label nNavesFragata;
+
+    @FXML
+    private Label nNavesInsignia;
+
+    @FXML
+    private Label nNavesTitan;
 
     @FXML
     private TableColumn<Flota, String> navesTotalesFlota;
@@ -183,9 +195,21 @@ public class controladorDesign implements Initializable {
     @FXML
     private TableColumn<Flota, Void> tiposFlota;
 
-    @FXML // TODO
+    @FXML
     void cerrarSesion(ActionEvent event) {
+        Sesion.cerrarSesion();
 
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ventanaLogin.fxml"));
+            Parent root = loader.load();
+
+            Stage stagePrincipal = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stagePrincipal.setScene(new Scene(root));
+            stagePrincipal.setTitle("Fleet Designer");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -235,6 +259,8 @@ public class controladorDesign implements Initializable {
         panelPersonal.setVisible(false);
         panelTablaNaves.setVisible(false);
         panelTablaFlotas.setVisible(false);
+
+        cargarRankingGlobal();
     }
 
     @FXML
@@ -270,6 +296,9 @@ public class controladorDesign implements Initializable {
         panelGlobal.setVisible(false);
         panelTablaNaves.setVisible(false);
         panelTablaFlotas.setVisible(false);
+
+        cargarPanelPersonal();
+        cargarIconosTipos();
     }
 
     @FXML
@@ -695,6 +724,62 @@ public class controladorDesign implements Initializable {
         }
 
         listadoUser.setText(sb.toString());
+    }
+
+    private void cargarPanelPersonal() {
+
+    String query = 
+        "SELECT tipo, COUNT(*) AS total " +
+        "FROM nave " +
+        "WHERE id_usuario = ? " +
+        "GROUP BY tipo";
+
+    try (PreparedStatement pst = conexion.prepareStatement(query)) {
+
+        pst.setInt(1, u.getId_usuario());
+        ResultSet rs = pst.executeQuery();
+
+        // Reiniciamos contadores a 0
+        nNavesCorveta.setText("0");
+        nNavesCrucero.setText("0");
+        nNavesDestructor.setText("0");
+        nNavesFragata.setText("0");
+        nNavesInsignia.setText("0");
+        nNavesAcorazado.setText("0");
+        nNavesTitan.setText("0");
+        nNavesColoso.setText("0");
+
+        while (rs.next()) {
+
+            String tipo = rs.getString("tipo");
+            int total = rs.getInt("total");
+
+            switch (tipo) {
+                case "Corveta":      nNavesCorveta.setText("Has creado " + String.valueOf(total) + " naves"); break;
+                case "Fragata":      nNavesFragata.setText("Has creado " + String.valueOf(total) + " naves"); break;
+                case "Destructor":   nNavesDestructor.setText("Has creado " + String.valueOf(total) + " naves"); break;
+                case "Crucero":      nNavesCrucero.setText("Has creado " + String.valueOf(total) + " naves"); break;
+                case "Acorazado":    nNavesAcorazado.setText("Has creado " + String.valueOf(total) + " naves"); break;
+                case "Titan":        nNavesTitan.setText("Has creado " + String.valueOf(total) + " naves"); break;
+                case "Coloso":       nNavesColoso.setText("Has creado " + String.valueOf(total) + " naves"); break;
+                case "Insignia":     nNavesInsignia.setText("Has creado " + String.valueOf(total) + " naves"); break;
+            }
+        }
+
+        } catch (SQLException e) {
+            System.out.println("ERROR PANEL PERSONAL: " + e.getMessage());
+        }
+    }
+
+    private void cargarIconosTipos() {
+        iconoCorveta.setImage(new Image(getClass().getResourceAsStream("/icons/corveta.png")));
+        iconoFragata.setImage(new Image(getClass().getResourceAsStream("/icons/fragata.png")));
+        iconoDestructor.setImage(new Image(getClass().getResourceAsStream("/icons/destructor.png")));
+        iconoCrucero.setImage(new Image(getClass().getResourceAsStream("/icons/crucero.png")));
+        iconoAcorazado.setImage(new Image(getClass().getResourceAsStream("/icons/acorazado.png")));
+        iconoTitan.setImage(new Image(getClass().getResourceAsStream("/icons/titan.png")));
+        iconoColoso.setImage(new Image(getClass().getResourceAsStream("/icons/coloso.png")));
+        iconoInsignia.setImage(new Image(getClass().getResourceAsStream("/icons/insignia.png")));
     }
 
     private void cargarBanner(Pane banner, String nombreImagen) {
