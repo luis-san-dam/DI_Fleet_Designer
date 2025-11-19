@@ -688,9 +688,7 @@ public class controladorDesign implements Initializable {
         StringBuilder sb = new StringBuilder();
 
         for (int i = 3; i < nombres.size(); i++) {
-            sb.append((i + 1))
-            .append("º - ")
-            .append(nombres.get(i))
+            sb.append(nombres.get(i))
             .append(" ha creado ")
             .append(totales.get(i))
             .append(" naves\n");
