@@ -3,9 +3,9 @@ package com.javafx.vistaLogin;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ResourceBundle;
 
 import com.javafx.bbdd.BBDD;
@@ -19,6 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -26,36 +27,21 @@ import javafx.stage.Stage;
 public class controladorLogin implements Initializable{
 
     Connection conexion;
-    Statement st;
     ResultSet rs;
 
     @FXML
-    private TextField contrasenia;
+    private PasswordField contrasenia;
 
     @FXML
     private TextField usuario;
 
     @FXML
     void botonLogin(ActionEvent event) {
+
         if (credencialesCorrectas()) {
 
-        try {
-            // Cargar datos del usuario desde la BD (usuario con id=1 por ejemplo)
-            rs = st.executeQuery("SELECT * FROM usuario WHERE id_usuario = 1");
-            if (rs.next()) {
-                // Crear objeto Usuario con los datos de la BD
-                com.javafx.modelos.Usuario u = new com.javafx.modelos.Usuario(
-                        rs.getInt("id_usuario"),
-                        rs.getString("nombre_usuario"),
-                        rs.getString("email"),
-                        rs.getString("contrasenia"),
-                        rs.getBoolean("es_admin")
-                );
-
-                // Guardar usuario en la sesión
-                com.javafx.modelos.Sesion.iniciarSesion(u);
-
-                // Abrir la ventana principal
+            try {
+                // Ya tenemos Sesion.getUsuario() con el usuario activo
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/ventanaDesign.fxml"));
                 Parent root = loader.load();
 
@@ -63,10 +49,10 @@ public class controladorLogin implements Initializable{
                 stage.setScene(new Scene(root));
                 stage.setTitle("Fleet Designer");
                 stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-        }
 
         } else {
             Alert alert = new Alert(AlertType.ERROR);
@@ -98,9 +84,43 @@ public class controladorLogin implements Initializable{
     }
 }
 
-    private boolean credencialesCorrectas() { //TODO
-        return true;
+    private boolean credencialesCorrectas() {
+
+    String user = usuario.getText().trim();
+    String pass = contrasenia.getText().trim();
+
+    if (user.isEmpty() || pass.isEmpty()) {
+        return false;
     }
+
+    String query = "SELECT * FROM usuario WHERE nombre_usuario = ? AND contrasenia = ?";
+
+    try (PreparedStatement pst = conexion.prepareStatement(query)) {
+
+        pst.setString(1, user);
+        pst.setString(2, pass);
+
+        rs = pst.executeQuery();
+
+        if (rs.next()) {
+            com.javafx.modelos.Usuario u = new com.javafx.modelos.Usuario(
+                rs.getInt("id_usuario"),
+                rs.getString("nombre_usuario"),
+                rs.getString("email"),
+                rs.getString("contrasenia"),
+                rs.getBoolean("es_admin")
+            );
+
+            com.javafx.modelos.Sesion.iniciarSesion(u);
+            return true;
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return false;
+}
 
     @FXML
     void botonSalir(ActionEvent event) {
@@ -119,14 +139,11 @@ public class controladorLogin implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-            try {
-                this.conexion = BBDD.getInstance().getConnection();
-                if (this.conexion != null) {
-                    this.st = this.conexion.createStatement();
-                }
-            } catch (SQLException var4) {
+        conexion = BBDD.getInstance().getConnection();
 
-            }
+        if (conexion == null) {
+            System.out.println("ERROR: No se pudo obtener la conexión a la BD.");
+        }
     }
 
 }

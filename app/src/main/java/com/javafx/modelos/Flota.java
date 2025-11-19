@@ -3,7 +3,7 @@ package com.javafx.modelos;
 public class Flota {
     
     private int id_flota;
-    private int id_nave;
+    private Integer id_nave;
     private int id_usuario;
     private String nombre;
     private String faccion;
@@ -12,6 +12,15 @@ public class Flota {
     public Flota(int id_flota, int id_nave, int id_usuario, String nombre, String faccion, int cantidad) {
         this.id_flota = id_flota;
         this.id_nave = id_nave;
+        this.id_usuario = id_usuario;
+        this.nombre = nombre;
+        this.faccion = faccion;
+        this.cantidad = cantidad;
+    }
+
+    public Flota(int id_flota, int id_usuario, String nombre, String faccion, int cantidad) {
+        this.id_flota = id_flota;
+        this.id_nave = null;
         this.id_usuario = id_usuario;
         this.nombre = nombre;
         this.faccion = faccion;

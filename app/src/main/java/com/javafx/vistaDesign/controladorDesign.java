@@ -13,6 +13,7 @@ import com.javafx.bbdd.BBDD;
 import com.javafx.modelos.Flota;
 import com.javafx.modelos.Nave;
 import com.javafx.modelos.Sesion;
+import com.javafx.modelos.Usuario;
 import com.javafx.vistaEditarFlota.controladorEditarFlota;
 import com.javafx.vistaEditarNave.controladorEditarNave;
 import com.javafx.vistaEliminar.controladorEliminar;
@@ -35,8 +36,14 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -47,54 +54,13 @@ public class controladorDesign implements Initializable {
     Connection conexion;
     Statement st;
     ResultSet rs;
+    Usuario u = Sesion.getUsuario();
 
     ObservableList<Nave> listaNaves = FXCollections.observableArrayList();
     ObservableList<Flota> listaFlotas = FXCollections.observableArrayList();
 
     @FXML
-    private Pane bannerFlotaImperio;
-
-    @FXML
-    private Pane bannerFlotaMercenarios;
-
-    @FXML
-    private Pane bannerFlotaPiratas;
-
-    @FXML
-    private Pane bannerFlotaRebeldes;
-
-    @FXML
-    private Pane bannerFlotaRepublica;
-
-    @FXML
-    private Pane bannerFlotaSeparatistas;
-
-    @FXML
     private Pane bannerFlotas;
-
-    @FXML
-    private Pane bannerNaveAcorazado;
-
-    @FXML
-    private Pane bannerNaveColoso;
-
-    @FXML
-    private Pane bannerNaveCorveta;
-
-    @FXML
-    private Pane bannerNaveCrucero;
-
-    @FXML
-    private Pane bannerNaveDestructor;
-
-    @FXML
-    private Pane bannerNaveFragata;
-
-    @FXML
-    private Pane bannerNaveInsignia;
-
-    @FXML
-    private Pane bannerNaveTitan;
 
     @FXML
     private Pane bannerNaves;
@@ -193,7 +159,7 @@ public class controladorDesign implements Initializable {
     private TableColumn<Nave, String> tipoNave;
 
     @FXML
-    private TableColumn<Flota, String> tiposFlota;
+    private TableColumn<Flota, Void> tiposFlota;
 
     @FXML // TODO
     void cerrarSesion(ActionEvent event) {
@@ -240,13 +206,6 @@ public class controladorDesign implements Initializable {
         bannerNaves.setVisible(false);
         bannerFlotas.setVisible(false);
 
-        bannerFlotaImperio.setVisible(false);
-        bannerFlotaMercenarios.setVisible(false);
-        bannerFlotaPiratas.setVisible(false);
-        bannerFlotaRebeldes.setVisible(false);
-        bannerFlotaRepublica.setVisible(false);
-        bannerFlotaSeparatistas.setVisible(false);
-
         panelNuevaNave.setVisible(false);
         panelNuevaFlota.setVisible(false);
 
@@ -259,6 +218,7 @@ public class controladorDesign implements Initializable {
     @FXML
     void listaImperio(ActionEvent event) {
         dameListaFlotas("Imperio");
+        cargarBanner(bannerFlotas, "bannerImperio");
     }
 
     @FXML
@@ -280,13 +240,6 @@ public class controladorDesign implements Initializable {
         
         bannerNaves.setVisible(false);
         bannerFlotas.setVisible(false);
-
-        bannerFlotaImperio.setVisible(false);
-        bannerFlotaMercenarios.setVisible(false);
-        bannerFlotaPiratas.setVisible(false);
-        bannerFlotaRebeldes.setVisible(false);
-        bannerFlotaRepublica.setVisible(false);
-        bannerFlotaSeparatistas.setVisible(false);
 
         panelNuevaNave.setVisible(false);
         panelNuevaFlota.setVisible(false);
@@ -398,13 +351,6 @@ public class controladorDesign implements Initializable {
         bannerNaves.setVisible(false);
         bannerFlotas.setVisible(false);
 
-        bannerFlotaImperio.setVisible(false);
-        bannerFlotaMercenarios.setVisible(false);
-        bannerFlotaPiratas.setVisible(false);
-        bannerFlotaRebeldes.setVisible(false);
-        bannerFlotaRepublica.setVisible(false);
-        bannerFlotaSeparatistas.setVisible(false);
-
         panelNuevaNave.setVisible(false);
         panelNuevaFlota.setVisible(false);
 
@@ -424,15 +370,6 @@ public class controladorDesign implements Initializable {
         bannerFlotas.toFront();
         bannerFlotas.setVisible(true);
         bannerNaves.setVisible(false);
-        
-
-        bannerFlotaImperio.toFront();
-        bannerFlotaImperio.setVisible(true);
-        bannerFlotaMercenarios.setVisible(false);
-        bannerFlotaPiratas.setVisible(false);
-        bannerFlotaRebeldes.setVisible(false);
-        bannerFlotaRepublica.setVisible(false);
-        bannerFlotaSeparatistas.setVisible(false);
 
         panelNuevaFlota.toFront();
         panelNuevaFlota.setVisible(true);
@@ -445,6 +382,7 @@ public class controladorDesign implements Initializable {
         panelPersonal.setVisible(false);
 
         mostrarFlotas("Imperio");
+        cargarBanner(bannerFlotas, "bannerImperio");
     }
 
     @FXML
@@ -457,16 +395,6 @@ public class controladorDesign implements Initializable {
         bannerNaves.toFront();
         bannerNaves.setVisible(true);
         bannerFlotas.setVisible(false);
-
-        bannerNaveCorveta.toFront();
-        bannerNaveCorveta.setVisible(true);
-        bannerNaveFragata.setVisible(false);
-        bannerNaveDestructor.setVisible(false);
-        bannerNaveCrucero.setVisible(false);
-        bannerNaveAcorazado.setVisible(false);
-        bannerNaveTitan.setVisible(false);
-        bannerNaveColoso.setVisible(false);
-        bannerNaveInsignia.setVisible(false);
 
         panelNuevaNave.toFront();
         panelNuevaNave.setVisible(true);
@@ -483,16 +411,17 @@ public class controladorDesign implements Initializable {
     }
 
     public void mostrarNaves(String tipoNave) {
-        this.tablaNaves.setItems(this.dameListaNaves(tipoNave));
+        tablaNaves.setItems(this.dameListaNaves(tipoNave));
     }
 
     public ObservableList<Nave> dameListaNaves(String tipoNave) {
 
-        String query = "SELECT * FROM nave WHERE tipo = ?";
+        String query = "SELECT n.* FROM nave n JOIN flota f ON n.id_nave = f.id_nave WHERE f.id_usuario = ? AND n.tipo = ?";
 
         try (PreparedStatement pst = conexion.prepareStatement(query)) {
 
             pst.setString(1, tipoNave);
+            pst.setInt(2, u.getId_usuario());
             rs = pst.executeQuery();
 
             listaNaves.clear();
@@ -519,32 +448,59 @@ public class controladorDesign implements Initializable {
     }
 
     public void mostrarFlotas(String tipoFlota) {
-        this.tablaFlotas.setItems(this.dameListaFlotas(tipoFlota));
+        tablaFlotas.setItems(this.dameListaFlotas(tipoFlota));
     }
 
     public ObservableList<Flota> dameListaFlotas(String tipoFlota) {
         if (conexion != null) {
             listaFlotas.clear();
-            String query = "SELECT * FROM flota WHERE faccion = ?";
+
+            String query = "SELECT f.id_flota, f.id_usuario, f.nombre, f.faccion, SUM(f.cantidad) AS cantidad_total FROM flota f WHERE f.id_usuario = ?  AND f.faccion = ? GROUP BY " +
+    "f.id_flota, f.id_usuario, f.nombre, f.faccion;";
+
 
         try (PreparedStatement pst = conexion.prepareStatement(query)) {
 
-            pst.setString(1, tipoFlota);
+            pst.setString(2, tipoFlota);
+            pst.setInt(1, u.getId_usuario());
             rs = pst.executeQuery();
 
-                while (this.rs.next()) {
-                    Flota flota = new Flota(this.rs.getInt("id_flota"),
-                            rs.getInt("id_nave"),
+                while (rs.next()) {
+                    Flota flota = new Flota(rs.getInt("id_flota"),
                             rs.getInt("id_usuario"),
                             rs.getString("nombre"),
                             rs.getString("faccion"),
-                            rs.getInt("cantidad"));
+                            rs.getInt("cantidad_total"));
                     listaFlotas.add(flota);
                 }
             } catch (SQLException var3) {
                 System.out.println("Excepción SQL: " + var3.getMessage());
             }
-            return this.listaFlotas;
+            return listaFlotas;
+        } else {
+            return null;
+        }
+    }
+
+    public ObservableList<String> generarIconoTipoNaveFlota(int id_flota) {
+        ObservableList<String> tipos = FXCollections.observableArrayList();
+        if (conexion != null) {
+
+            String query = "SELECT tipo FROM nave JOIN flota USING (id_nave) where id_flota=?";
+
+        try (PreparedStatement pst = conexion.prepareStatement(query)) {
+
+            pst.setInt(1, id_flota);
+            rs = pst.executeQuery();
+
+                while (rs.next()) {
+                    tipos.add(rs.getString("tipo"));
+                }
+            } catch (SQLException e) {
+                System.out.println("SQL Error: " + e.getMessage());
+            }
+
+            return tipos;
         } else {
             return null;
         }
@@ -647,12 +603,29 @@ public class controladorDesign implements Initializable {
         }
     }
 
+    private void cargarBanner(Pane banner, String nombreImagen) {
+        Image img = new Image(getClass().getResourceAsStream("/banners/" + nombreImagen + ".png"));
+
+        ImageView view = new ImageView(img);
+
+        view.fitWidthProperty().bind(banner.widthProperty());
+        view.fitHeightProperty().bind(banner.heightProperty());
+
+        view.setPreserveRatio(false);
+
+        banner.getChildren().setAll(view);
+    }
+
+    private Image cargarIconoPorTipo(String tipo) {
+        return new Image(getClass().getResourceAsStream("/icons/" + tipo.toLowerCase() + ".png"));
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            this.conexion = BBDD.getInstance().getConnection();
-            if (this.conexion != null) {
-                this.st = this.conexion.createStatement();
+            conexion = BBDD.getInstance().getConnection();
+            if (conexion != null) {
+                st = conexion.createStatement();
             }
         } catch (SQLException var4) {
 
@@ -662,8 +635,7 @@ public class controladorDesign implements Initializable {
 
         nombreNave.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tipoNave.setCellValueFactory(new PropertyValueFactory<>("tipo"));
-        potenciaNave
-                .setCellValueFactory(cellData -> new SimpleStringProperty(calcularPotenciaNave(cellData.getValue())));
+        potenciaNave.setCellValueFactory(cellData -> new SimpleStringProperty(calcularPotenciaNave(cellData.getValue())));
         fotoNave.setCellValueFactory(new PropertyValueFactory<>("imagen")); //TODO
         botonesNave.setCellFactory(col -> new TableCell<>() {
             private final Button btnEditar = new Button("Editar");
@@ -704,8 +676,36 @@ public class controladorDesign implements Initializable {
         listaFlotas = dameListaFlotas("Imperio");
 
         nombreFlota.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        // this.tiposFlota.setCellValueFactory(cellData -> generarIconoTipoNaveFlota()); //TODO
-        // this.navesTotalesFlota.setCellValueFactory(new PropertyValueFactory<>("imagen")); //TODO
+        tiposFlota.setCellFactory(col -> new TableCell<Flota, Void>() {
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || getTableRow().getItem() == null) {
+                    setGraphic(null);
+                    return;
+                }
+
+                Flota flota = getTableRow().getItem();
+
+                ObservableList<String> tipos = generarIconoTipoNaveFlota(flota.getId_flota());
+
+                HBox contenedor = new HBox(4);
+                contenedor.setAlignment(Pos.CENTER_LEFT);
+
+                for (String tipo : tipos) {
+                    ImageView img = new ImageView(cargarIconoPorTipo(tipo));
+
+                    img.setFitWidth(24);
+                    img.setFitHeight(24);
+
+                    contenedor.getChildren().add(img);
+                }
+
+                setGraphic(contenedor);
+            }
+        });
+        navesTotalesFlota.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
         botonesFlota.setCellFactory(col -> new TableCell<>() {
             private final Button btnEditar = new Button("Editar");
             private final Button btnBorrar = new Button("Borrar");

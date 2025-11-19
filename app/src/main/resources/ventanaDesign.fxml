@@ -55,28 +55,8 @@
                <children>
                   <StackPane minWidth="700.0" prefHeight="150.0" prefWidth="200.0">
                      <children>
-                        <Pane fx:id="bannerNaves" prefHeight="100.0" prefWidth="700.0">
-                           <children>
-                              <Pane fx:id="bannerNaveCorveta" prefHeight="100.0" prefWidth="700.0" />
-                              <Pane fx:id="bannerNaveFragata" prefHeight="100.0" prefWidth="700.0" />
-                              <Pane fx:id="bannerNaveDestructor" prefHeight="100.0" prefWidth="700.0" />
-                              <Pane fx:id="bannerNaveCrucero" prefHeight="100.0" prefWidth="700.0" />
-                              <Pane fx:id="bannerNaveAcorazado" prefHeight="100.0" prefWidth="700.0" />
-                              <Pane fx:id="bannerNaveTitan" minHeight="100.0" minWidth="700.0" />
-                              <Pane fx:id="bannerNaveColoso" prefHeight="100.0" prefWidth="700.0" />
-                              <Pane fx:id="bannerNaveInsignia" prefHeight="100.0" prefWidth="700.0" />
-                           </children>
-                        </Pane>
-                        <Pane fx:id="bannerFlotas" prefHeight="100.0" prefWidth="700.0">
-                           <children>
-                              <Pane fx:id="bannerFlotaImperio" prefHeight="100.0" prefWidth="700.0" />
-                              <Pane fx:id="bannerFlotaRebeldes" prefHeight="100.0" prefWidth="700.0" />
-                              <Pane fx:id="bannerFlotaPiratas" prefHeight="100.0" prefWidth="700.0" />
-                              <Pane fx:id="bannerFlotaRepublica" prefHeight="100.0" prefWidth="700.0" />
-                              <Pane fx:id="bannerFlotaSeparatistas" prefHeight="100.0" prefWidth="700.0" />
-                              <Pane fx:id="bannerFlotaMercenarios" minHeight="100.0" minWidth="700.0" />
-                           </children>
-                        </Pane>
+                        <Pane fx:id="bannerNaves" prefHeight="100.0" prefWidth="700.0" />
+                        <Pane fx:id="bannerFlotas" maxHeight="100.0" maxWidth="700.0" minHeight="100.0" minWidth="700.0" prefHeight="100.0" prefWidth="700.0" />
                      </children>
                   </StackPane>
                   <StackPane prefHeight="150.0" prefWidth="350.0">
