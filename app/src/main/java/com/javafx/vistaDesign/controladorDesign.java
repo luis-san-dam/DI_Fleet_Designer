@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.javafx.bbdd.BBDD;
@@ -54,6 +56,10 @@ public class controladorDesign implements Initializable {
     ObservableList<Nave> listaNaves = FXCollections.observableArrayList();
     ObservableList<Flota> listaFlotas = FXCollections.observableArrayList();
 
+    private List<String> nombres = new ArrayList<String>();
+    private List<Integer> totales = new ArrayList<Integer>();
+    private List<Integer> ids = new ArrayList<Integer>();
+
     @FXML
     private Pane bannerFlotas;
 
@@ -86,6 +92,27 @@ public class controladorDesign implements Initializable {
 
     @FXML
     private TableColumn<Nave, String> fotoNave;
+
+    @FXML
+    private Label listadoUser;
+
+    @FXML
+    private Label nNavesImperio;
+
+    @FXML
+    private Label nNavesMercenarios;
+
+    @FXML
+    private Label nNavesPiratas;
+
+    @FXML
+    private Label nNavesRebeldes;
+
+    @FXML
+    private Label nNavesRepública;
+
+    @FXML
+    private Label nNavesSeparatistas;
 
     @FXML
     private TableColumn<Flota, String> navesTotalesFlota;
@@ -353,6 +380,8 @@ public class controladorDesign implements Initializable {
         panelPersonal.setVisible(false);
         panelTablaNaves.setVisible(false);
         panelTablaFlotas.setVisible(false);
+
+        cargarRankingGlobal();
     }
 
     @FXML
@@ -609,6 +638,65 @@ public class controladorDesign implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void obtenerRanking() {
+        nombres.clear();
+        totales.clear();
+        ids.clear();
+
+        String query =
+            "SELECT u.id_usuario, u.nombre_usuario, COUNT(n.id_nave) AS total_naves " +
+            "FROM usuario u " +
+            "LEFT JOIN nave n ON u.id_usuario = n.id_usuario " +
+            "GROUP BY u.id_usuario, u.nombre_usuario " +
+            "ORDER BY total_naves DESC";
+
+        try (PreparedStatement pst = conexion.prepareStatement(query);
+            ResultSet rs = pst.executeQuery()) {
+
+            while (rs.next()) {
+                ids.add(rs.getInt("id_usuario"));
+                nombres.add(rs.getString("nombre_usuario"));
+                totales.add(rs.getInt("total_naves"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("ERROR RANKING: " + e.getMessage());
+        }
+    }
+
+    private void cargarRankingGlobal() {
+
+        obtenerRanking();
+
+        if (nombres.size() > 0)
+            primeroRanking.setText(nombres.get(0) + " ha creado " + totales.get(0) + " naves");
+        else 
+            primeroRanking.setText("");
+
+        if (nombres.size() > 1)
+            segundoRanking.setText(nombres.get(1) + " ha creado " + totales.get(1) + " naves");
+        else 
+            segundoRanking.setText("");
+
+        if (nombres.size() > 2)
+            terceroRanking.setText(nombres.get(2) + " ha creado " + totales.get(2) + " naves");
+        else 
+            terceroRanking.setText("");
+
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 3; i < nombres.size(); i++) {
+            sb.append((i + 1))
+            .append("º - ")
+            .append(nombres.get(i))
+            .append(" ha creado ")
+            .append(totales.get(i))
+            .append(" naves\n");
+        }
+
+        listadoUser.setText(sb.toString());
     }
 
     private void cargarBanner(Pane banner, String nombreImagen) {
