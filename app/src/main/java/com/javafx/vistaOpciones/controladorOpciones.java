@@ -9,6 +9,8 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 
 import com.javafx.bbdd.BBDD;
+import com.javafx.modelos.Sesion;
+import com.javafx.modelos.Usuario;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -78,6 +80,15 @@ public class controladorOpciones implements Initializable {
 
     }
 
+    private void cargarDatosUsuario() {
+        Usuario u = Sesion.getUsuario();
+
+        if (u != null) {
+            datoNombreUsuario.setText(u.getNombre_usuario());
+            datoEmailUsuario.setText(u.getEmail());
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -88,6 +99,7 @@ public class controladorOpciones implements Initializable {
             } catch (SQLException var4) {
                 
             }
+        cargarDatosUsuario();
     }
 
 }

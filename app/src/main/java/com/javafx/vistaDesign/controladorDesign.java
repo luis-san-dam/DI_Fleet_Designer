@@ -39,11 +39,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -503,7 +498,11 @@ public class controladorDesign implements Initializable {
             rs = pst.executeQuery();
 
                 while (rs.next()) {
-                    tipos.add(rs.getString("tipo"));
+                    String tipo = rs.getString("tipo");
+                    if (!tipos.contains(tipo)) {
+                        tipos.add(tipo);
+                    }
+    
                 }
             } catch (SQLException e) {
                 System.out.println("SQL Error: " + e.getMessage());
@@ -735,8 +734,8 @@ public class controladorDesign implements Initializable {
                 for (String tipo : tipos) {
                     ImageView img = new ImageView(cargarIconoPorTipo(tipo));
 
-                    img.setFitWidth(24);
-                    img.setFitHeight(24);
+                    img.setFitWidth(32);
+                    img.setFitHeight(32);
 
                     contenedor.getChildren().add(img);
                 }

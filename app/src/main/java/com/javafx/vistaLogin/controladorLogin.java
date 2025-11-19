@@ -88,6 +88,7 @@ public class controladorLogin implements Initializable{
 
     String user = usuario.getText().trim();
     String pass = contrasenia.getText().trim();
+    Boolean correcto = false;
 
     if (user.isEmpty() || pass.isEmpty()) {
         return false;
@@ -112,14 +113,43 @@ public class controladorLogin implements Initializable{
             );
 
             com.javafx.modelos.Sesion.iniciarSesion(u);
-            return true;
+            correcto = true;
+            return correcto;
         }
 
     } catch (SQLException e) {
         e.printStackTrace();
     }
 
-    return false;
+    if(!correcto){
+        query = "SELECT * FROM usuario WHERE email = ? AND contrasenia = ?";
+
+        try (PreparedStatement pst = conexion.prepareStatement(query)) {
+
+            pst.setString(1, user);
+            pst.setString(2, pass);
+
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+                com.javafx.modelos.Usuario u = new com.javafx.modelos.Usuario(
+                    rs.getInt("id_usuario"),
+                    rs.getString("nombre_usuario"),
+                    rs.getString("email"),
+                    rs.getString("contrasenia"),
+                    rs.getBoolean("es_admin")
+                );
+
+                com.javafx.modelos.Sesion.iniciarSesion(u);
+                correcto = true;
+                return correcto;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    return correcto;
 }
 
     @FXML
