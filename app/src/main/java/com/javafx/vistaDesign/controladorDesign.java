@@ -420,8 +420,8 @@ public class controladorDesign implements Initializable {
 
         try (PreparedStatement pst = conexion.prepareStatement(query)) {
 
-            pst.setString(1, tipoNave);
-            pst.setInt(2, u.getId_usuario());
+            pst.setInt(1, u.getId_usuario());
+            pst.setString(2, tipoNave);
             rs = pst.executeQuery();
 
             listaNaves.clear();
@@ -636,7 +636,37 @@ public class controladorDesign implements Initializable {
         nombreNave.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tipoNave.setCellValueFactory(new PropertyValueFactory<>("tipo"));
         potenciaNave.setCellValueFactory(cellData -> new SimpleStringProperty(calcularPotenciaNave(cellData.getValue())));
-        fotoNave.setCellValueFactory(new PropertyValueFactory<>("imagen")); //TODO
+        fotoNave.setCellFactory(column -> new TableCell<Nave, String>() {
+            private final ImageView imageView = new ImageView();
+
+            {
+                imageView.setFitWidth(40);
+                imageView.setFitHeight(40);
+                imageView.setPreserveRatio(true);
+            }
+
+            @Override
+            protected void updateItem(String base64Image, boolean empty) {
+                super.updateItem(base64Image, empty);
+
+                if (empty || base64Image == null || base64Image.isEmpty()) {
+                    setGraphic(null);
+                } else {
+                    try {
+
+                        byte[] imageBytes = java.util.Base64.getDecoder().decode(base64Image);
+
+                        Image img = new Image(new java.io.ByteArrayInputStream(imageBytes));
+
+                        imageView.setImage(img);
+                        setGraphic(imageView);
+                    } catch (IllegalArgumentException e) {
+                        setGraphic(null);
+                    }
+                }
+            }
+        });
+        fotoNave.setCellValueFactory(new PropertyValueFactory<>("imagen"));
         botonesNave.setCellFactory(col -> new TableCell<>() {
             private final Button btnEditar = new Button("Editar");
             private final Button btnBorrar = new Button("Borrar");
