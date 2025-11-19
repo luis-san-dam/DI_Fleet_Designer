@@ -23,7 +23,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 public class controladorEditarFlota implements Initializable {
 
@@ -98,11 +97,11 @@ public class controladorEditarFlota implements Initializable {
                         rs.getString("nombre"),
                         rs.getString("faccion"),
                         rs.getInt("cantidad"));
-                String nombreNave = rs.getString("nombre_nave"); // ESTE ES EL NOMBRE QUE PONE EN EL COMBOBOX
+                String nombreNave = rs.getString("nombre_nave");
 
                 HBox fila = new HBox(10);
                 ComboBox<String> combo = new ComboBox<>(FXCollections.observableArrayList(opcionesUsuario));
-                combo.setValue(nombreNave); // ahora sí aparece la nave correcta
+                combo.setValue(nombreNave);
                 TextField cantidad = new TextField(String.valueOf(f.getCantidad()));
                 fila.getChildren().addAll(combo, cantidad);
                 contenedorNaves.getChildren().add(fila);
@@ -116,7 +115,6 @@ public class controladorEditarFlota implements Initializable {
             e.printStackTrace();
         }
 
-        // Creamos los HBox con ComboBox + TextField para cada nave de la flota
         for (Flota f : navesDeLaFlota) {
             HBox fila = new HBox(10);
             ComboBox<String> combo = new ComboBox<>(FXCollections.observableArrayList(opcionesUsuario));
@@ -125,10 +123,8 @@ public class controladorEditarFlota implements Initializable {
             fila.getChildren().addAll(combo, cantidad);
             contenedorNaves.getChildren().add(fila);
 
-            // Quitamos la nave seleccionada de las opciones disponibles
             opcionesUsuario.remove(f.getNombre());
 
-            // Listener recursivo
             combo.setOnAction(e -> crearNuevaFila(combo, opcionesUsuario));
         }
 
@@ -169,8 +165,8 @@ public class controladorEditarFlota implements Initializable {
         for (Flota f : navesDeLaFlota) {
             HBox fila = new HBox(10);
             ComboBox<String> combo = new ComboBox<>(FXCollections.observableArrayList(opcionesUsuario));
-            combo.setValue(f.getNombre()); // selecciona la nave actual
-            TextField cantidad = new TextField(String.valueOf(f.getCantidad())); // cantidad actual
+            combo.setValue(f.getNombre());
+            TextField cantidad = new TextField(String.valueOf(f.getCantidad()));
 
             fila.getChildren().addAll(combo, cantidad);
             contenedorNaves.getChildren().add(fila);
@@ -194,7 +190,6 @@ public class controladorEditarFlota implements Initializable {
         nuevaFila.getChildren().addAll(nuevoCombo, nuevaCantidad);
         contenedorNaves.getChildren().add(nuevaFila);
 
-        // Actualizamos las opciones quitando las ya seleccionadas
         for (Node node : contenedorNaves.getChildren()) {
             if (node instanceof HBox hbox) {
                 for (Node n : hbox.getChildren()) {
@@ -212,7 +207,7 @@ public class controladorEditarFlota implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            this.conexion = BBDD.getInstance().getConnection();
+            conexion = BBDD.getInstance().getConnection();
         } catch (Exception e) {
             e.printStackTrace();
         }

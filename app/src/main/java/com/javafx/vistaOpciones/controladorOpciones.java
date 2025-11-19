@@ -94,9 +94,9 @@ public class controladorOpciones implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-                this.conexion = BBDD.getInstance().getConnection();
-                if (this.conexion != null) {
-                    this.st = this.conexion.createStatement();
+                conexion = BBDD.getInstance().getConnection();
+                if (conexion != null) {
+                    st = conexion.createStatement();
                 }
             } catch (SQLException var4) {
                 

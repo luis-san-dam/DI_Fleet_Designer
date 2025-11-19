@@ -17,7 +17,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primeraEscena) throws Exception { //puede lanzar excep'
+    public void start(Stage primeraEscena) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/ventanaLogin.fxml"));
 
         Scene scene = new Scene(root);

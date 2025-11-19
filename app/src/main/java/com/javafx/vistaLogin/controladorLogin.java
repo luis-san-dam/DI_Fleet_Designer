@@ -41,7 +41,6 @@ public class controladorLogin implements Initializable{
         if (credencialesCorrectas()) {
 
             try {
-                // Ya tenemos Sesion.getUsuario() con el usuario activo
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/ventanaDesign.fxml"));
                 Parent root = loader.load();
 
