@@ -416,12 +416,16 @@ public class controladorDesign implements Initializable {
 
     public ObservableList<Nave> dameListaNaves(String tipoNave) {
 
-        String query = "SELECT n.* FROM nave n JOIN flota f ON n.id_nave = f.id_nave WHERE f.id_usuario = ? AND n.tipo = ?";
+        String query =
+            "SELECT n.* FROM nave n " +
+            "JOIN usuario u_owner ON n.id_usuario = u_owner.id_usuario " +
+            "WHERE n.tipo = ? " +
+                "AND (n.id_usuario = ? OR u_owner.es_admin = 1)";
 
         try (PreparedStatement pst = conexion.prepareStatement(query)) {
 
-            pst.setInt(1, u.getId_usuario());
-            pst.setString(2, tipoNave);
+            pst.setInt(2, u.getId_usuario());
+            pst.setString(1, tipoNave);
             rs = pst.executeQuery();
 
             listaNaves.clear();
@@ -454,15 +458,20 @@ public class controladorDesign implements Initializable {
     public ObservableList<Flota> dameListaFlotas(String tipoFlota) {
         if (conexion != null) {
             listaFlotas.clear();
-
-            String query = "SELECT f.id_flota, f.id_usuario, f.nombre, f.faccion, SUM(f.cantidad) AS cantidad_total FROM flota f WHERE f.id_usuario = ?  AND f.faccion = ? GROUP BY " +
-    "f.id_flota, f.id_usuario, f.nombre, f.faccion;";
-
+            
+        String query =
+        "SELECT f.id_flota, f.id_usuario, f.nombre, f.faccion, SUM(f.cantidad) AS cantidad_total " +
+        "FROM flota f " +
+        "JOIN usuario u_owner ON f.id_usuario = u_owner.id_usuario " +
+        "WHERE f.faccion = ? " +
+        "  AND (f.id_usuario = ? OR u_owner.es_admin = 1) " +
+        "GROUP BY f.id_flota, f.id_usuario, f.nombre, f.faccion;";
 
         try (PreparedStatement pst = conexion.prepareStatement(query)) {
 
-            pst.setString(2, tipoFlota);
-            pst.setInt(1, u.getId_usuario());
+            pst.setString(1, tipoFlota);
+            pst.setInt(2, u.getId_usuario());
+            
             rs = pst.executeQuery();
 
                 while (rs.next()) {
