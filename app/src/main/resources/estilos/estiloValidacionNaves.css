@@ -1,0 +1,14 @@
+.combo-box-error {
+    -fx-border-color: red;
+    -fx-border-width: 2px;
+    -fx-border-radius: 4px;
+}
+.text-field-error {
+    -fx-border-color: red;
+    -fx-border-width: 2px;
+    -fx-border-radius: 4px;
+}
+.label-error {
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+}

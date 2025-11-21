@@ -277,6 +277,7 @@ public class controladorDesign implements Initializable {
     @FXML
     void listaMercenarios(ActionEvent event) {
         dameListaFlotas("Mercenarios");
+        cargarBanner(bannerFlotas, "bannerMercenarios");
     }
 
     @FXML
@@ -304,21 +305,25 @@ public class controladorDesign implements Initializable {
     @FXML
     void listaPiratas(ActionEvent event) {
         dameListaFlotas("Piratas");
+        cargarBanner(bannerFlotas, "bannerPiratas");
     }
 
     @FXML
     void listaRebeldes(ActionEvent event) {
         dameListaFlotas("Rebeldes");
+        cargarBanner(bannerFlotas, "bannerRebeldes");
     }
 
     @FXML
     void listaRepublica(ActionEvent event) {
         dameListaFlotas("Republica");
+        cargarBanner(bannerFlotas, "bannerRepublica");
     }
 
     @FXML
     void listaSeparatistas(ActionEvent event) {
         dameListaFlotas("Separatistas");
+        cargarBanner(bannerFlotas, "bannerSeparatistas");
     }
 
     @FXML
@@ -341,6 +346,7 @@ public class controladorDesign implements Initializable {
             Stage parentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             modal.initOwner(parentStage);
             modal.showAndWait();
+            mostrarFlotas("Imperio");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -353,15 +359,19 @@ public class controladorDesign implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ventanaNuevaNave.fxml"));
             Parent root = loader.load();
 
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/estilos/estiloValidacionNaves.css").toExternalForm());
+
             Stage modal = new Stage();
             modal.setTitle("Fleet Designer");
-            modal.setScene(new Scene(root));
+            modal.setScene(scene);
 
             modal.initModality(Modality.APPLICATION_MODAL);
 
             Stage parentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             modal.initOwner(parentStage);
             modal.showAndWait();
+            mostrarNaves("Corveta");
 
         } catch (IOException e) {
             e.printStackTrace();

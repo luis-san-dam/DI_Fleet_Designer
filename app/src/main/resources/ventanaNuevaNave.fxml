@@ -43,7 +43,7 @@
             <TextField fx:id="nombreNave" minWidth="400.0" />
          </children>
          <VBox.margin>
-            <Insets top="20.0" />
+            <Insets />
          </VBox.margin>
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
@@ -53,13 +53,13 @@
                   <Insets left="50.0" />
                </HBox.margin>
             </Label>
-            <ComboBox fx:id="propulsion" minWidth="150.0" />
+            <ComboBox fx:id="propulsion" editable="true" maxWidth="150.0" minWidth="150.0" visibleRowCount="5" />
             <Label minWidth="80.0" text="Armadura:">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
             </Label>
-            <ComboBox fx:id="armadura" minWidth="150.0" />
+            <ComboBox fx:id="armadura" editable="true" maxWidth="150.0" minWidth="150.0" visibleRowCount="5" />
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
@@ -69,13 +69,13 @@
                   <Insets left="50.0" />
                </HBox.margin>
             </Label>
-            <ComboBox fx:id="sistemaDefensivo" minWidth="150.0" />
+            <ComboBox fx:id="sistemaDefensivo" editable="true" maxWidth="150.0" minWidth="150.0" visibleRowCount="5" />
             <Label minWidth="80.0" text="Escudo:">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
             </Label>
-            <ComboBox fx:id="escudo" minWidth="150.0" />
+            <ComboBox fx:id="escudo" editable="true" maxWidth="150.0" minWidth="150.0" visibleRowCount="5" />
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
@@ -85,13 +85,13 @@
                   <Insets left="50.0" />
                </HBox.margin>
             </Label>
-            <ComboBox fx:id="armamento1" minWidth="150.0" />
+            <ComboBox fx:id="armamento1" editable="true" maxWidth="150.0" minWidth="150.0" visibleRowCount="5" />
             <Label minWidth="80.0" text="Armamento 2:">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
             </Label>
-            <ComboBox fx:id="armamento2" minWidth="150.0" />
+            <ComboBox fx:id="armamento2" editable="true" maxWidth="150.0" minWidth="150.0" visibleRowCount="5" />
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
@@ -101,13 +101,13 @@
                   <Insets left="50.0" />
                </HBox.margin>
             </Label>
-            <ComboBox fx:id="armamento3" minWidth="150.0" />
+            <ComboBox fx:id="armamento3" editable="true" maxWidth="150.0" minWidth="150.0" visibleRowCount="5" />
             <Label minWidth="80.0" text="Armamento 4:">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
             </Label>
-            <ComboBox fx:id="armamento4" minWidth="150.0" />
+            <ComboBox fx:id="armamento4" editable="true" maxWidth="150.0" minWidth="150.0" visibleRowCount="5" />
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
@@ -117,13 +117,13 @@
                   <Insets left="50.0" />
                </HBox.margin>
             </Label>
-            <ComboBox fx:id="armamento5" minWidth="150.0" />
+            <ComboBox fx:id="armamento5" editable="true" maxWidth="150.0" minWidth="150.0" visibleRowCount="5" />
             <Label minWidth="80.0" text="Armamento 6:">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
             </Label>
-            <ComboBox fx:id="armamento6" minWidth="150.0" />
+            <ComboBox fx:id="armamento6" editable="true" maxWidth="150.0" minWidth="150.0" visibleRowCount="5" />
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
@@ -133,18 +133,18 @@
                   <Insets left="50.0" />
                </HBox.margin>
             </Label>
-            <ComboBox fx:id="armamento7" minWidth="150.0" />
+            <ComboBox fx:id="armamento7" editable="true" maxWidth="150.0" minWidth="150.0" visibleRowCount="5" />
             <Label minWidth="80.0" text="Armamento 8:">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
             </Label>
-            <ComboBox fx:id="armamento8" minWidth="150.0" />
+            <ComboBox fx:id="armamento8" editable="true" maxWidth="150.0" minWidth="150.0" visibleRowCount="5" />
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
          <children>
-            <Label minWidth="100.0" text="Apariencia:">
+            <Label fx:id="aparienciaNave" minWidth="100.0" text="Apariencia:">
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
@@ -159,12 +159,15 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="600.0">
          <children>
-            <Button minHeight="60.0" minWidth="255.0" mnemonicParsing="false" onAction="#botonCancelar" text="Cancelar">
+            <Button cancelButton="true" minHeight="60.0" minWidth="150.0" mnemonicParsing="false" onAction="#botonCancelar" text="Cancelar">
                <HBox.margin>
-                  <Insets right="20.0" />
+                  <Insets left="20.0" />
                </HBox.margin>
             </Button>
-            <Button minHeight="60.0" minWidth="230.0" mnemonicParsing="false" onAction="#botonEditar" text="Añadir Nave" />
+            <Button defaultButton="true" minHeight="60.0" minWidth="150.0" mnemonicParsing="false" onAction="#botonNuevaNave" text="Añadir Nave">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin></Button>
          </children>
       </HBox>
    </children>

@@ -59,14 +59,14 @@
                         <Pane fx:id="bannerFlotas" maxHeight="100.0" maxWidth="700.0" minHeight="100.0" minWidth="700.0" prefHeight="100.0" prefWidth="700.0" />
                      </children>
                   </StackPane>
-                  <StackPane prefHeight="150.0" prefWidth="350.0">
+                  <StackPane minHeight="100.0" minWidth="350.0">
                      <children>
-                        <Pane fx:id="panelNuevaNave" prefHeight="150.0" prefWidth="350.0">
+                        <Pane fx:id="panelNuevaNave" minHeight="100.0" minWidth="350.0">
                            <children>
                               <Button minHeight="100.0" minWidth="350.0" mnemonicParsing="false" onAction="#nuevaNave" text="Nueva Nave" />
                            </children>
                         </Pane>
-                        <Pane fx:id="panelNuevaFlota" prefHeight="150.0" prefWidth="350.0" visible="false">
+                        <Pane fx:id="panelNuevaFlota" minHeight="100.0" minWidth="350.0" visible="false">
                            <children>
                               <Button minHeight="100.0" minWidth="350.0" mnemonicParsing="false" onAction="#nuevaFlota" text="Nueva Flota" />
                            </children>
@@ -182,17 +182,13 @@
                         </VBox>
                      </children>
                   </Pane>
-                  <Pane fx:id="panelPersonal" minHeight="600.0" minWidth="1050.0" visible="false">
+                  <Pane fx:id="panelPersonal" minHeight="595.0" minWidth="1050.0" prefWidth="1052.0" visible="false">
                      <children>
-                        <HBox minHeight="300.0" minWidth="1050.0">
+                        <HBox fillHeight="false" minHeight="300.0" minWidth="1050.0">
                            <children>
                               <VBox alignment="CENTER">
                                  <children>
-                                    <Label alignment="CENTER" minWidth="262.5" text="Corveta">
-                                       <padding>
-                                          <Insets top="50.0" />
-                                       </padding>
-                                    </Label>
+                                    <Label alignment="CENTER" minWidth="262.5" text="Corveta" />
                                     <ImageView fx:id="iconoCorveta" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <VBox.margin>
                                           <Insets top="10.0" />
@@ -207,11 +203,7 @@
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Label alignment="CENTER" minWidth="262.5" text="Fragata">
-                                       <padding>
-                                          <Insets top="50.0" />
-                                       </padding>
-                                    </Label>
+                                    <Label alignment="CENTER" minWidth="262.5" text="Fragata" />
                                     <ImageView fx:id="iconoFragata" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <VBox.margin>
                                           <Insets top="10.0" />
@@ -226,11 +218,7 @@
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Label alignment="CENTER" minWidth="262.5" text="Destructor">
-                                       <padding>
-                                          <Insets top="50.0" />
-                                       </padding>
-                                    </Label>
+                                    <Label alignment="CENTER" minWidth="262.5" text="Destructor" />
                                     <ImageView fx:id="iconoDestructor" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <VBox.margin>
                                           <Insets top="10.0" />
@@ -245,11 +233,7 @@
                               </VBox>
                               <VBox alignment="CENTER">
                                  <children>
-                                    <Label alignment="CENTER" minWidth="262.5" text="Crucero">
-                                       <padding>
-                                          <Insets top="50.0" />
-                                       </padding>
-                                    </Label>
+                                    <Label alignment="CENTER" minWidth="262.5" text="Crucero" />
                                     <ImageView fx:id="iconoCrucero" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <VBox.margin>
                                           <Insets top="10.0" />
@@ -264,15 +248,11 @@
                               </VBox>
                            </children>
                         </HBox>
-                        <HBox layoutY="300.0" minHeight="300.0" minWidth="1050.0">
+                        <HBox fillHeight="false" layoutY="300.0" minHeight="300.0" minWidth="1050.0">
                            <children>
                               <VBox alignment="CENTER">
                                  <children>
-                                    <Label alignment="CENTER" minWidth="262.5" text="Acorazado">
-                                       <padding>
-                                          <Insets top="50.0" />
-                                       </padding>
-                                    </Label>
+                                    <Label alignment="CENTER" minWidth="262.5" text="Acorazado" />
                                     <ImageView fx:id="iconoAcorazado" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <VBox.margin>
                                           <Insets top="10.0" />
@@ -287,11 +267,7 @@
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Label alignment="CENTER" minWidth="262.5" text="Titan">
-                                       <padding>
-                                          <Insets top="50.0" />
-                                       </padding>
-                                    </Label>
+                                    <Label alignment="CENTER" minWidth="262.5" text="Titan" />
                                     <ImageView fx:id="iconoTitan" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <VBox.margin>
                                           <Insets top="10.0" />
@@ -306,11 +282,7 @@
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Label alignment="CENTER" minWidth="262.5" text="Coloso">
-                                       <padding>
-                                          <Insets top="50.0" />
-                                       </padding>
-                                    </Label>
+                                    <Label alignment="CENTER" minWidth="262.5" text="Coloso" />
                                     <ImageView fx:id="iconoColoso" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <VBox.margin>
                                           <Insets top="10.0" />
@@ -325,11 +297,7 @@
                               </VBox>
                               <VBox alignment="CENTER">
                                  <children>
-                                    <Label alignment="CENTER" minWidth="262.5" text="Insignia">
-                                       <padding>
-                                          <Insets top="50.0" />
-                                       </padding>
-                                    </Label>
+                                    <Label alignment="CENTER" minWidth="262.5" text="Insignia" />
                                     <ImageView fx:id="iconoInsignia" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <VBox.margin>
                                           <Insets top="10.0" />
