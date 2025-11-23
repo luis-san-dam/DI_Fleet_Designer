@@ -3,56 +3,107 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.vistaRegistro.controladorRegistro">
+<VBox maxHeight="400.0" maxWidth="600.0" minHeight="300.0" minWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.vistaRegistro.controladorRegistro">
    <children>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
          <children>
-            <Label minWidth="100.0" text="Usuario: ">
+            <VBox alignment="CENTER_LEFT" minWidth="150.0">
+               <children>
+                  <Label minWidth="0.0" text="Usuario: ">
+                     <VBox.margin>
+                        <Insets left="50.0" top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="errorNombre" maxWidth="150.0">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+            <TextField fx:id="datoNombreUsuario" minWidth="400.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></TextField>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
+         <children>
+            <VBox alignment="CENTER_LEFT" minWidth="150.0">
+               <children>
+                  <Label minWidth="0.0" text="Email: ">
+                     <VBox.margin>
+                        <Insets left="50.0" top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="errorEmail" maxWidth="150.0">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+            <TextField fx:id="datoEmailUsuario" minWidth="400.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></TextField>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
+         <children>
+            <VBox alignment="CENTER_LEFT" minWidth="100.0">
+               <children>
+                  <Label minWidth="0.0" text="Contraseña: ">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Label>
+               </children>
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
-            </Label>
-            <TextField fx:id="datoNombreUsuario" minWidth="400.0" />
+            </VBox>
+            <PasswordField fx:id="datoContrasenia" minWidth="400.0" />
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
          <children>
-            <Label minWidth="100.0" text="Email: ">
+            <VBox alignment="CENTER_LEFT" minWidth="100.0">
+               <children>
+                  <Label minWidth="0.0" text="Repetir C.: ">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Label>
+               </children>
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
-            </Label>
-            <TextField fx:id="datoEmailUsuario" minWidth="400.0" />
+            </VBox>
+            <PasswordField fx:id="datoContraseniaRepetida" minWidth="400.0" />
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Label minWidth="100.0" text="Contraseña: ">
+            <Button minHeight="60.0" minWidth="150.0" mnemonicParsing="false" onAction="#botonCancelar" text="Cancelar">
                <HBox.margin>
-                  <Insets left="50.0" />
-               </HBox.margin>
-            </Label>
-            <TextField fx:id="datoContrasenia" minWidth="400.0" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <Label minWidth="100.0" text="Repetir C.: ">
+                  <Insets left="20.0" />
+               </HBox.margin></Button>
+            <Button minHeight="60.0" minWidth="150.0" mnemonicParsing="false" onAction="#botonRegistrarse" text="Registrarse">
                <HBox.margin>
-                  <Insets left="50.0" />
-               </HBox.margin>
-            </Label>
-            <TextField fx:id="datoContraseniaRepetida" minWidth="400.0" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
-         <children>
-            <Button minHeight="60.0" minWidth="200.0" mnemonicParsing="false" onAction="#botonCancelar" text="Cancelar" />
-            <Button minHeight="60.0" minWidth="200.0" mnemonicParsing="false" onAction="#botonRegistrarse" text="Registrarse" />
+                  <Insets left="20.0" />
+               </HBox.margin></Button>
          </children>
       </HBox>
    </children>

@@ -77,6 +77,9 @@ public class controladorDesign implements Initializable {
 
     @FXML
     private ImageView iconoAcorazado;
+    
+    @FXML
+    private ImageView iconoCerrarSesion;
 
     @FXML
     private ImageView iconoColoso;
@@ -95,6 +98,9 @@ public class controladorDesign implements Initializable {
 
     @FXML
     private ImageView iconoInsignia;
+
+    @FXML
+    private ImageView iconoOpciones;
 
     @FXML
     private ImageView iconoTitan;
@@ -195,6 +201,11 @@ public class controladorDesign implements Initializable {
     @FXML
     private TableColumn<Flota, Void> tiposFlota;
 
+    public void refrescarTablaNaves(String tipo) {
+        tablaNaves.setItems(dameListaNaves(tipo));
+        tablaNaves.refresh();
+    }
+
     @FXML
     void cerrarSesion(ActionEvent event) {
         Sesion.cerrarSesion();
@@ -215,31 +226,37 @@ public class controladorDesign implements Initializable {
     @FXML
     void listaAcorazado(ActionEvent event) {
         dameListaNaves("Acorazado");
+        cargarBanner(bannerNaves, "bannerAcorazado");
     }
 
     @FXML
     void listaColoso(ActionEvent event) {
         dameListaNaves("Coloso");
+        cargarBanner(bannerNaves, "bannerColoso");
     }
 
     @FXML
     void listaCorveta(ActionEvent event) {
         dameListaNaves("Corveta");
+        cargarBanner(bannerNaves, "bannerCorveta");
     }
 
     @FXML
     void listaCrucero(ActionEvent event) {
         dameListaNaves("Crucero");
+        cargarBanner(bannerNaves, "bannerCrucero");
     }
 
     @FXML
     void listaDestructor(ActionEvent event) {
         dameListaNaves("Destructor");
+        cargarBanner(bannerNaves, "bannerDestructor");
     }
 
     @FXML
     void listaFragata(ActionEvent event) {
         dameListaNaves("Fragata");
+        cargarBanner(bannerNaves, "bannerFragata");
     }
 
     @FXML
@@ -272,6 +289,7 @@ public class controladorDesign implements Initializable {
     @FXML
     void listaInsignia(ActionEvent event) {
         dameListaNaves("Insignia");
+        cargarBanner(bannerNaves, "bannerInsignia");
     }
 
     @FXML
@@ -329,6 +347,7 @@ public class controladorDesign implements Initializable {
     @FXML
     void listaTitan(ActionEvent event) {
         dameListaNaves("Titan");
+        cargarBanner(bannerNaves, "bannerTitan");
     }
 
     @FXML // TODO
@@ -353,7 +372,7 @@ public class controladorDesign implements Initializable {
         }
     }
 
-    @FXML // TODO
+    @FXML
     void nuevaNave(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ventanaNuevaNave.fxml"));
@@ -386,12 +405,15 @@ public class controladorDesign implements Initializable {
 
             controladorOpciones controller = loader.getController();
 
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/estilos/estiloValidacionNaves.css").toExternalForm());
+
             Stage stagePrincipal = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
             controller.setStagePrincipal(stagePrincipal);
 
             Stage modal = new Stage();
-            modal.setScene(new Scene(root));
+            modal.setScene(scene);
             modal.setTitle("Fleet Designer");
             modal.initModality(Modality.WINDOW_MODAL);
             modal.initOwner(stagePrincipal);
@@ -471,6 +493,7 @@ public class controladorDesign implements Initializable {
         panelPersonal.setVisible(false);
 
         mostrarNaves("Corveta");
+        cargarBanner(bannerNaves, "bannerCorveta");
     }
 
     public void mostrarNaves(String tipoNave) {
@@ -496,6 +519,7 @@ public class controladorDesign implements Initializable {
             while (rs.next()) {
                 Nave nave = new Nave(
                     rs.getInt("id_nave"),
+                    rs.getInt("id_usuario"),
                     rs.getString("nombre"),
                     rs.getString("tipo"),
                     rs.getString("propulsion"),
@@ -604,9 +628,12 @@ public class controladorDesign implements Initializable {
 
             controller.cargarNave(nave);
 
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/estilos/estiloValidacionNaves.css").toExternalForm());
+
             Stage modal = new Stage();
             modal.initModality(Modality.APPLICATION_MODAL);
-            modal.setScene(new Scene(root));
+            modal.setScene(scene);
             modal.setTitle("Fleet Designer");
             
             modal.showAndWait();
@@ -616,7 +643,7 @@ public class controladorDesign implements Initializable {
         }
     }
 
-    private void borrarNave(Nave nave) { //TODO
+    private void borrarNave(Nave nave) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ventanaEliminar.fxml"));
             Parent root = loader.load();
@@ -624,6 +651,7 @@ public class controladorDesign implements Initializable {
             controladorEliminar controller = loader.getController();
 
             controller.cargar(nave);
+            controller.setControladorPrincipal(this);
 
             Stage modal = new Stage();
             modal.initModality(Modality.APPLICATION_MODAL);
@@ -819,8 +847,12 @@ public class controladorDesign implements Initializable {
         } catch (SQLException var4) {
 
         }
+
+        iconoOpciones.setImage(new Image(getClass().getResourceAsStream("/icons/iconoOpciones.png")));
+        iconoCerrarSesion.setImage(new Image(getClass().getResourceAsStream("/icons/iconoLogOut.png")));
         
         listaNaves = dameListaNaves("Corveta");
+        cargarBanner(bannerNaves, "bannerCorveta");
 
         nombreNave.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tipoNave.setCellValueFactory(new PropertyValueFactory<>("tipo"));
@@ -879,17 +911,26 @@ public class controladorDesign implements Initializable {
                 contenedor.setAlignment(Pos.CENTER);
             }
 
-    @Override
-    protected void updateItem(HBox item, boolean empty) {
-        super.updateItem(item, empty);
+            @Override
+            protected void updateItem(HBox item, boolean empty) {
+                super.updateItem(item, empty);
 
-        if (empty) {
-            setGraphic(null);
-        } else {
-            setGraphic(contenedor);
-        }
-    }
-});
+                if (empty) {
+                    setGraphic(null);
+                    return;
+                }
+
+                Nave nave = getTableView().getItems().get(getIndex());
+                int idActual = Sesion.getUsuario().getId_usuario();
+
+                if (nave.getId_usuario() != idActual) {
+                    setGraphic(null);
+                    return;
+                }
+
+                setGraphic(contenedor);
+            }
+        });
         tablaNaves.setItems(listaNaves);
 
         listaFlotas = dameListaFlotas("Imperio");

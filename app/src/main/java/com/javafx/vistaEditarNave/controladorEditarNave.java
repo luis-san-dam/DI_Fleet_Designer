@@ -1,34 +1,45 @@
 package com.javafx.vistaEditarNave;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.javafx.bbdd.BBDD;
-import com.javafx.modelos.Flota;
-import com.javafx.modelos.Nave;
+import javax.imageio.ImageIO;
 
+import com.javafx.bbdd.BBDD;
+import com.javafx.modelos.Nave;
+import com.javafx.modelos.PiezasNaves;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class controladorEditarNave implements Initializable {
 
     Connection conexion;
     Statement st;
-    ResultSet rs;
     Nave nave;
-    Flota flota;
+    String imagenActualBase64;
 
     @FXML
     private ComboBox<String> armadura;
@@ -78,26 +89,69 @@ public class controladorEditarNave implements Initializable {
         stage.close();
     }
 
-    @FXML //TODO
+    @FXML
     void botonEditar(ActionEvent event) {
-        nave.setNombre(nombreNave.getText());
-        nave.setPropulsion(propulsion.getPromptText());
-        nave.setSistema_defensivo(sistemaDefensivo.getPromptText());
-        nave.setArmadura(armadura.getPromptText());
-        nave.setEscudo(escudo.getPromptText());
+        ComboBox<String>[] armamentos = new ComboBox[]{
+            armamento1, armamento2, armamento3, armamento4,
+            armamento5, armamento6, armamento7, armamento8
+        };
 
-        String armamentos = armamento1 + "-" + armamento2 + "-" + armamento3 + "-" + armamento4
-         + "-" + armamento5 + "-" + armamento6 + "-" + armamento7 + "-" + armamento8;
+        boolean camposValidos = PiezasNaves.validarCamposObligatorios(
+            armadura, propulsion, sistemaDefensivo, escudo, nombreNave, armamentos
+        );
 
-        nave.setArmamento(armamentos);
-        //nave.setImagen(preview.getText()); //TODO
+        boolean imagenValida = imagenActualBase64 != null && !imagenActualBase64.isEmpty();
+
+        if (!camposValidos || !imagenValida) return;
+
+        StringBuilder armamento = new StringBuilder();
+        for (ComboBox<String> cb : armamentos) {
+            if (cb.getValue() != null && !cb.getValue().isEmpty()) {
+                if (armamento.length() > 0) armamento.append("-");
+                armamento.append(cb.getValue());
+            }
+        }
+
+        String sql = "UPDATE nave SET nombre=?, propulsion=?, sistema_defensivo=?, armadura=?, escudo=?, armamento=?, imagen=? WHERE id_nave=?";
+        try (PreparedStatement pst = conexion.prepareStatement(sql)) {
+            pst.setString(1, nombreNave.getText());
+            pst.setString(2, propulsion.getValue());
+            pst.setString(3, sistemaDefensivo.getValue());
+            pst.setString(4, armadura.getValue());
+            pst.setString(5, escudo.getValue());
+            pst.setString(6, armamento.toString());
+            pst.setString(7, imagenActualBase64);
+            pst.setInt(8, nave.getId_nave());
+
+            pst.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("ERROR EDITANDO NAVE: " + e.getMessage());
+        }
 
         ((Stage) nombreNave.getScene().getWindow()).close();
     }
 
-    @FXML //TODO
+    @FXML
     void botonInsertarImagen(ActionEvent event) {
+        FileChooser fc = new FileChooser();
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg"));
+        File archivo = fc.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
 
+        if (archivo != null) {
+            try {
+                Image scaledImage = new Image(archivo.toURI().toString(), 230, 100, false, true);
+                preview.setImage(scaledImage);
+
+                BufferedImage buffered = SwingFXUtils.fromFXImage(scaledImage, null);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ImageIO.write(buffered, "png", baos);
+                imagenActualBase64 = Base64.getEncoder().encodeToString(baos.toByteArray());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void cargarNave(Nave nave) {
@@ -108,6 +162,13 @@ public class controladorEditarNave implements Initializable {
         sistemaDefensivo.setValue(nave.getSistema_defensivo());
         armadura.setValue(nave.getArmadura());
         escudo.setValue(nave.getEscudo());
+        imagenActualBase64 = nave.getImagen();
+
+        if (imagenActualBase64 != null && !imagenActualBase64.isEmpty()) {
+            byte[] imageBytes = Base64.getDecoder().decode(imagenActualBase64);
+            Image img = new Image(new java.io.ByteArrayInputStream(imageBytes));
+            preview.setImage(img);
+        }
 
         String[] armamentos = nave.getArmamento().split("-");
 
@@ -123,19 +184,55 @@ public class controladorEditarNave implements Initializable {
                 combos.get(i).setValue(null);
             }
         }
-        
-        //preview.setValue(nave.getImagen()); //TODO
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-            try {
-                conexion = BBDD.getInstance().getConnection();
-                if (conexion != null) {
-                    st = conexion.createStatement();
-                }
-            } catch (SQLException var4) {
-
+        try {
+            conexion = BBDD.getInstance().getConnection();
+            if (conexion != null) {
+                st = conexion.createStatement();
             }
+        } catch (SQLException var4) {
+        
+        }
+        ObservableList<String> armaduras = FXCollections.observableArrayList(PiezasNaves.getArmaduras());
+        armadura.setItems(armaduras);
+        PiezasNaves.enableAutoComplete(armadura, armaduras);
+        PiezasNaves.validateComboBoxValue(armadura, armaduras, true);
+        PiezasNaves.quitarErrorAlEscribir(armadura);
+
+        ObservableList<String> armamentosItems = FXCollections.observableArrayList(PiezasNaves.getArmamento());
+        ComboBox<String>[] armamentos = new ComboBox[]{
+            armamento1, armamento2, armamento3, armamento4,
+            armamento5, armamento6, armamento7, armamento8
+        };
+
+        for (int i = 0; i < armamentos.length; i++) {
+            armamentos[i].setItems(armamentosItems);
+            PiezasNaves.enableAutoComplete(armamentos[i], armamentosItems);
+            PiezasNaves.validateComboBoxValue(armamentos[i], armamentosItems, i == 0);
+            PiezasNaves.quitarErrorAlEscribir(armamentos[i]);
+        }
+
+        ObservableList<String> escudos = FXCollections.observableArrayList(PiezasNaves.getEscudos());
+        escudo.setItems(escudos);
+        PiezasNaves.enableAutoComplete(escudo, escudos);
+        PiezasNaves.validateComboBoxValue(escudo, escudos, true);
+        PiezasNaves.quitarErrorAlEscribir(escudo);
+
+        ObservableList<String> propulsiones = FXCollections.observableArrayList(PiezasNaves.getPropulsiones());
+        propulsion.setItems(propulsiones);
+        PiezasNaves.enableAutoComplete(propulsion, propulsiones);
+        PiezasNaves.validateComboBoxValue(propulsion, propulsiones, true);
+        PiezasNaves.quitarErrorAlEscribir(propulsion);
+
+        ObservableList<String> sistemas = FXCollections.observableArrayList(PiezasNaves.getSistemaDefensivo());
+        sistemaDefensivo.setItems(sistemas);
+        PiezasNaves.enableAutoComplete(sistemaDefensivo, sistemas);
+        PiezasNaves.validateComboBoxValue(sistemaDefensivo, sistemas, true);
+        PiezasNaves.quitarErrorAlEscribir(sistemaDefensivo);
+
+        PiezasNaves.quitarErrorAlEscribir(nombreNave);
     }
 }

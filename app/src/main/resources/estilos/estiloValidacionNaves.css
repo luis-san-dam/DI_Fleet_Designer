@@ -12,3 +12,7 @@
     -fx-text-fill: red;
     -fx-font-weight: bold;
 }
+.error-label {
+    -fx-text-fill: red;
+    -fx-font-size: 12px;
+}

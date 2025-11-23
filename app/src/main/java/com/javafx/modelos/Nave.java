@@ -3,6 +3,7 @@ package com.javafx.modelos;
 public class Nave {
     
     private int id_nave;
+    private int id_usuario;
     private String nombre;
     private String tipo;
     private String propulsion;
@@ -12,9 +13,10 @@ public class Nave {
     private String armamento;
     private String imagen;
     
-    public Nave(int id_nave, String nombre, String tipo, String propulsion, String sistema_defensivo, String armadura,
+    public Nave(int id_nave, int id_usuario, String nombre, String tipo, String propulsion, String sistema_defensivo, String armadura,
             String escudo, String armamento, String imagen) {
         this.id_nave = id_nave;
+        this.id_usuario = id_usuario;
         this.nombre = nombre;
         this.tipo = tipo;
         this.propulsion = propulsion;
@@ -31,6 +33,14 @@ public class Nave {
 
     public void setId_nave(int id_nave) {
         this.id_nave = id_nave;
+    }
+
+    public int getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
     }
 
     public String getNombre() {

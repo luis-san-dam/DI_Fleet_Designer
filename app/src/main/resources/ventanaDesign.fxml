@@ -25,17 +25,23 @@
                   <Button minHeight="100.0" minWidth="334.0" mnemonicParsing="false" onAction="#ventanaRanking" text="Ranking" />
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="35.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Button minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#opciones" text="&quot;&quot;">
+                  <Button maxHeight="75.0" maxWidth="75.0" minHeight="75.0" minWidth="75.0" mnemonicParsing="false" onAction="#opciones">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
+                     <graphic>
+                        <ImageView fx:id="iconoOpciones" fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
                   </Button>
-                  <Button minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#cerrarSesion" text="&quot;&quot;">
+                  <Button cancelButton="true" maxHeight="75.0" maxWidth="75.0" minHeight="75.0" minWidth="75.0" mnemonicParsing="false" onAction="#cerrarSesion">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
+                     <graphic>
+                        <ImageView fx:id="iconoCerrarSesion" fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
                   </Button>
                </children>
                <HBox.margin>

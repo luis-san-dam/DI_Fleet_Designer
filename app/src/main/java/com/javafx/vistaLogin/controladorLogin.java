@@ -69,9 +69,14 @@ public class controladorLogin implements Initializable{
 
         Stage modal = new Stage();
         modal.setTitle("Fleet Designer");
-        modal.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        
 
+        scene.getStylesheets().add(
+            getClass().getResource("/estilos/estiloValidacionNaves.css").toExternalForm()
+        );
 
+        modal.setScene(scene);
         modal.initModality(Modality.APPLICATION_MODAL);
 
         Stage parentStage = (Stage)((Node)event.getSource()).getScene().getWindow();

@@ -138,10 +138,9 @@ public class controladorNuevaNave implements Initializable{
         if (!imagenValida) {
             aparienciaNave.getStyleClass().add("label-error");
         } else {
-            aparienciaNave.getStyleClass().remove("label-error"); // Reset al color original
+            aparienciaNave.getStyleClass().remove("label-error");
         }
 
-        // Solo insertar si todos los campos y la imagen son válidos
         if (camposValidos && imagenValida) {
             insertarNave();
 
@@ -257,7 +256,7 @@ public class controladorNuevaNave implements Initializable{
             ComboBox<String> cb = armamentos[i];
             cb.setItems(armamentosItems);
             PiezasNaves.enableAutoComplete(cb, armamentosItems);
-            PiezasNaves.validateComboBoxValue(cb, armamentosItems, i == 0); // solo armamento1 obligatorio
+            PiezasNaves.validateComboBoxValue(cb, armamentosItems, i == 0);
             PiezasNaves.quitarErrorAlEscribir(cb);
         }
 
