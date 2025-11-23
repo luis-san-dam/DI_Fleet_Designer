@@ -19,7 +19,7 @@
                <children>
                   <TextField fx:id="usuario" promptText="Usuario" />
                   <PasswordField fx:id="contrasenia" promptText="Contraseña" />
-                  <Button minHeight="60.0" minWidth="450.0" mnemonicParsing="false" onAction="#botonLogin" text="Login">
+                  <Button defaultButton="true" minHeight="60.0" minWidth="450.0" mnemonicParsing="false" onAction="#botonLogin" text="Login">
                      <VBox.margin>
                         <Insets top="15.0" />
                      </VBox.margin>

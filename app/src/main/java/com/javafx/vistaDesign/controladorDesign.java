@@ -36,6 +36,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -848,22 +849,33 @@ public class controladorDesign implements Initializable {
 
         }
 
-        iconoOpciones.setImage(new Image(getClass().getResourceAsStream("/icons/iconoOpciones.png")));
+        iconoOpciones.setImage(new Image(getClass().getResourceAsStream("/icons/iconoOpcionesUsuario.png")));
         iconoCerrarSesion.setImage(new Image(getClass().getResourceAsStream("/icons/iconoLogOut.png")));
         
         listaNaves = dameListaNaves("Corveta");
         cargarBanner(bannerNaves, "bannerCorveta");
 
+        String cellStyle = "-fx-alignment: CENTER; -fx-font-size: 14pt;"; 
+        nombreNave.setStyle(cellStyle);
+        tipoNave.setStyle(cellStyle);
+        potenciaNave.setStyle(cellStyle);
+
         nombreNave.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tipoNave.setCellValueFactory(new PropertyValueFactory<>("tipo"));
         potenciaNave.setCellValueFactory(cellData -> new SimpleStringProperty(calcularPotenciaNave(cellData.getValue())));
+        
+        tablaNaves.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
+        
+        tablaNaves.setRowFactory(tv -> {
+            TableRow<Nave> row = new TableRow<>();
+            row.setPrefHeight(80);
+            return row;
+        });
+        
         fotoNave.setCellFactory(column -> new TableCell<Nave, String>() {
             private final ImageView imageView = new ImageView();
-
             {
-                imageView.setFitWidth(40);
-                imageView.setFitHeight(40);
-                imageView.setPreserveRatio(true);
+                setAlignment(Pos.CENTER); 
             }
 
             @Override
@@ -874,12 +886,15 @@ public class controladorDesign implements Initializable {
                     setGraphic(null);
                 } else {
                     try {
-
                         byte[] imageBytes = java.util.Base64.getDecoder().decode(base64Image);
-
                         Image img = new Image(new java.io.ByteArrayInputStream(imageBytes));
 
                         imageView.setImage(img);
+                        
+                        imageView.setFitHeight(70); 
+                        imageView.setFitWidth(120);
+
+                        imageView.setPreserveRatio(true);
                         setGraphic(imageView);
                     } catch (IllegalArgumentException e) {
                         setGraphic(null);
@@ -887,26 +902,35 @@ public class controladorDesign implements Initializable {
                 }
             }
         });
+
         fotoNave.setCellValueFactory(new PropertyValueFactory<>("imagen"));
         botonesNave.setCellFactory(col -> new TableCell<>() {
-            private final Button btnEditar = new Button("Editar");
-            private final Button btnBorrar = new Button("Borrar");
-            private final HBox contenedor = new HBox(12, btnEditar, btnBorrar);
+            private final ImageView iconEditar = new ImageView(
+                new Image(getClass().getResourceAsStream("/icons/iconoOpcionesNave.png"))
+            );
+            private final ImageView iconBorrar = new ImageView(
+                new Image(getClass().getResourceAsStream("/icons/iconoOpcionesUsuario.png"))
+            );
+            private final Button btnEditar = new Button("", iconEditar);
+            private final Button btnBorrar = new Button("", iconBorrar);
+            private final HBox contenedor = new HBox(6, btnEditar, btnBorrar);
 
             {
+                iconEditar.setFitWidth(60);
+                iconEditar.setFitHeight(60);
+                iconBorrar.setFitWidth(60);
+                iconBorrar.setFitHeight(60);
+
                 btnEditar.setOnAction(event -> {
                     Nave nave = getTableView().getItems().get(getIndex());
                     editarNave(nave);
-                    dameListaNaves(nave.getTipo());
+                    refrescarTablaNaves(nave.getTipo());
                 });
 
                 btnBorrar.setOnAction(event -> {
                     Nave nave = getTableView().getItems().get(getIndex());
                     borrarNave(nave);
                 });
-
-                btnEditar.setPrefHeight(30);
-                btnBorrar.setPrefHeight(30);
 
                 contenedor.setAlignment(Pos.CENTER);
             }
@@ -931,6 +955,7 @@ public class controladorDesign implements Initializable {
                 setGraphic(contenedor);
             }
         });
+
         tablaNaves.setItems(listaNaves);
 
         listaFlotas = dameListaFlotas("Imperio");

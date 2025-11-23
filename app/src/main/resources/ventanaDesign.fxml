@@ -91,11 +91,11 @@
                            <content>
                               <TableView fx:id="tablaNaves" prefHeight="600.0" prefWidth="1050.0">
                                 <columns>
-                                  <TableColumn fx:id="nombreNave" editable="false" minWidth="210.0" prefWidth="75.0" resizable="false" />
-                                  <TableColumn fx:id="tipoNave" minWidth="210.0" prefWidth="75.0" resizable="false" />
-                                    <TableColumn fx:id="potenciaNave" minWidth="210.0" prefWidth="75.0" resizable="false" />
-                                    <TableColumn fx:id="fotoNave" minWidth="210.0" prefWidth="75.0" resizable="false" />
-                                    <TableColumn fx:id="botonesNave" minWidth="210.0" prefWidth="75.0" resizable="false" />
+                                  <TableColumn fx:id="nombreNave" editable="false" maxWidth="210.0" minWidth="210.0" prefWidth="75.0" resizable="false" />
+                                  <TableColumn fx:id="tipoNave" maxWidth="210.0" minWidth="210.0" prefWidth="75.0" resizable="false" />
+                                    <TableColumn fx:id="potenciaNave" maxWidth="210.0" minWidth="210.0" prefWidth="75.0" resizable="false" />
+                                    <TableColumn fx:id="fotoNave" maxWidth="210.0" minWidth="210.0" prefWidth="75.0" resizable="false" />
+                                    <TableColumn fx:id="botonesNave" maxWidth="210.0" minWidth="210.0" prefWidth="75.0" resizable="false" />
                                 </columns>
                               </TableView>
                            </content>
