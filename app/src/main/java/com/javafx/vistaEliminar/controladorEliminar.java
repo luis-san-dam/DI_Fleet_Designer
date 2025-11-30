@@ -1,6 +1,5 @@
 package com.javafx.vistaEliminar;
 
-
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +22,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class controladorEliminar implements Initializable {
-    
+
     Connection conexion;
     Statement st;
 
@@ -34,7 +33,6 @@ public class controladorEliminar implements Initializable {
     @FXML
     private Label eliminarText;
 
-    
     public void setControladorPrincipal(controladorDesign cp) {
         this.controladorPrincipal = cp;
     }
@@ -47,13 +45,13 @@ public class controladorEliminar implements Initializable {
 
     @FXML
     void botonEliminar(ActionEvent event) {
-        if(nave != null){
+        if (nave != null) {
             eliminarDeBDNave();
 
             if (controladorPrincipal != null) {
                 controladorPrincipal.refrescarTablaNaves(nave.getTipo());
             }
-        } else if(flota != null){
+        } else if (flota != null) {
             eliminarDeBDFlota();
 
             if (controladorPrincipal != null) {
@@ -62,7 +60,7 @@ public class controladorEliminar implements Initializable {
         } else {
             eliminarUsuarioActual();
         }
-        
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
@@ -86,8 +84,7 @@ public class controladorEliminar implements Initializable {
         try {
             Connection con = BBDD.getInstance().getConnection();
             PreparedStatement ps = con.prepareStatement(
-                "DELETE FROM nave WHERE id_nave = ?"
-            );
+                    "DELETE FROM nave WHERE id_nave = ?");
             ps.setInt(1, nave.getId_nave());
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -96,12 +93,12 @@ public class controladorEliminar implements Initializable {
     }
 
     private void eliminarDeBDFlota() {
-        try {
-            Connection con = BBDD.getInstance().getConnection();
-            PreparedStatement ps = con.prepareStatement(
-                "DELETE FROM flota WHERE id_flota = ?"
-            );
-            ps.setInt(1, nave.getId_nave());
+        if (flota == null)
+            return;
+
+        try (PreparedStatement ps = conexion.prepareStatement(
+                "DELETE FROM flota WHERE id_flota = ?")) {
+            ps.setInt(1, flota.getId_flota());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -110,12 +107,12 @@ public class controladorEliminar implements Initializable {
 
     private void eliminarUsuarioActual() {
         Usuario u = Sesion.getUsuario();
-        if (u == null) return;
+        if (u == null)
+            return;
 
         try {
             PreparedStatement ps = conexion.prepareStatement(
-                "DELETE FROM usuario WHERE id_usuario = ?"
-            );
+                    "DELETE FROM usuario WHERE id_usuario = ?");
             ps.setInt(1, u.getId_usuario());
             ps.executeUpdate();
 
@@ -128,13 +125,13 @@ public class controladorEliminar implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-            try {
-                conexion = BBDD.getInstance().getConnection();
-                if (conexion != null) {
-                    st = conexion.createStatement();
-                }
-            } catch (SQLException var4) {
-
+        try {
+            conexion = BBDD.getInstance().getConnection();
+            if (conexion != null) {
+                st = conexion.createStatement();
             }
+        } catch (SQLException var4) {
+
+        }
     }
 }

@@ -10,24 +10,33 @@
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.vistaLogin.controladorLogin">
    <children>
-      <Pane maxHeight="320.0" minWidth="480.0">
+      <Pane maxHeight="280.0" maxWidth="450.0" minWidth="450.0">
          <HBox.margin>
-            <Insets left="600.0" top="200.0" />
+            <Insets left="600.0" top="240.0" />
          </HBox.margin>
          <children>
-            <VBox minHeight="320.0" minWidth="480.0" spacing="30.0" style="-fx-background-color: lightblue;">
+            <VBox maxWidth="450.0" minHeight="280.0" minWidth="450.0" spacing="25.0" style="-fx-background-color: lightblue;">
                <children>
-                  <TextField fx:id="usuario" promptText="Usuario" />
-                  <PasswordField fx:id="contrasenia" promptText="Contraseña" />
-                  <Button defaultButton="true" minHeight="60.0" minWidth="450.0" mnemonicParsing="false" onAction="#botonLogin" text="Login">
+                  <TextField fx:id="usuario" maxWidth="350.0" minWidth="350.0" promptText="Usuario">
                      <VBox.margin>
-                        <Insets top="15.0" />
+                        <Insets left="35.0" />
+                     </VBox.margin></TextField>
+                  <PasswordField fx:id="contrasenia" maxWidth="350.0" minWidth="350.0" promptText="Contraseña">
+                     <VBox.margin>
+                        <Insets left="35.0" />
+                     </VBox.margin></PasswordField>
+                  <Button defaultButton="true" minHeight="30.0" minWidth="350.0" mnemonicParsing="false" onAction="#botonLogin" text="Login">
+                     <VBox.margin>
+                        <Insets left="35.0" top="20.0" />
                      </VBox.margin>
                   </Button>
-                  <HBox alignment="CENTER" prefHeight="80.0" prefWidth="450.0" spacing="50.0">
+                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="450.0" spacing="50.0">
                      <children>
-                        <Button minHeight="60.0" minWidth="200.0" mnemonicParsing="false" onAction="#botonSalir" text="Salir" />
-                        <Button minHeight="60.0" minWidth="200.0" mnemonicParsing="false" onAction="#botonRegistrate" text="Registrate" />
+                        <Button cancelButton="true" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" onAction="#botonSalir" text="Salir">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin></Button>
+                        <Button minHeight="30.0" minWidth="150.0" mnemonicParsing="false" onAction="#botonRegistrate" text="Registrate" />
                      </children>
                      <opaqueInsets>
                         <Insets />
@@ -35,10 +44,13 @@
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
                   </HBox>
                </children>
                <padding>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="35.0" />
                </padding>
             </VBox>
          </children>

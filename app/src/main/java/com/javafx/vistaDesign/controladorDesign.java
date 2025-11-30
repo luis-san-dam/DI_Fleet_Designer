@@ -1,6 +1,7 @@
 package com.javafx.vistaDesign;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -42,6 +44,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -78,7 +81,7 @@ public class controladorDesign implements Initializable {
 
     @FXML
     private ImageView iconoAcorazado;
-    
+
     @FXML
     private ImageView iconoCerrarSesion;
 
@@ -207,6 +210,11 @@ public class controladorDesign implements Initializable {
         tablaNaves.refresh();
     }
 
+    public void refrescarTablaFlotas(String tipo) {
+        tablaFlotas.setItems(dameListaFlotas(tipo));
+        tablaFlotas.refresh();
+    }
+
     @FXML
     void cerrarSesion(ActionEvent event) {
         Sesion.cerrarSesion();
@@ -266,7 +274,7 @@ public class controladorDesign implements Initializable {
         paneListaRanking.setVisible(true);
         paneListaNaves.setVisible(false);
         paneListaFlotas.setVisible(false);
-        
+
         bannerNaves.setVisible(false);
         bannerFlotas.setVisible(false);
 
@@ -305,7 +313,7 @@ public class controladorDesign implements Initializable {
         paneListaRanking.setVisible(true);
         paneListaNaves.setVisible(false);
         paneListaFlotas.setVisible(false);
-        
+
         bannerNaves.setVisible(false);
         bannerFlotas.setVisible(false);
 
@@ -351,21 +359,25 @@ public class controladorDesign implements Initializable {
         cargarBanner(bannerNaves, "bannerTitan");
     }
 
-    @FXML // TODO
+    @FXML
     void nuevaFlota(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ventanaNuevaFlota.fxml"));
             Parent root = loader.load();
 
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/estilos/estiloValidacionNaves.css").toExternalForm());
+
             Stage modal = new Stage();
             modal.setTitle("Fleet Designer");
-            modal.setScene(new Scene(root));
-
+            modal.setScene(scene);
             modal.initModality(Modality.APPLICATION_MODAL);
 
             Stage parentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             modal.initOwner(parentStage);
+
             modal.showAndWait();
+
             mostrarFlotas("Imperio");
 
         } catch (IOException e) {
@@ -431,7 +443,7 @@ public class controladorDesign implements Initializable {
         paneListaRanking.setVisible(true);
         paneListaNaves.setVisible(false);
         paneListaFlotas.setVisible(false);
-        
+
         bannerNaves.setVisible(false);
         bannerFlotas.setVisible(false);
 
@@ -485,7 +497,6 @@ public class controladorDesign implements Initializable {
         panelNuevaNave.toFront();
         panelNuevaNave.setVisible(true);
         panelNuevaFlota.setVisible(false);
-        
 
         panelTablaNaves.toFront();
         panelTablaNaves.setVisible(true);
@@ -503,10 +514,9 @@ public class controladorDesign implements Initializable {
 
     public ObservableList<Nave> dameListaNaves(String tipoNave) {
 
-        String query =
-            "SELECT n.* FROM nave n " +
-            "JOIN usuario u_owner ON n.id_usuario = u_owner.id_usuario " +
-            "WHERE n.tipo = ? " +
+        String query = "SELECT n.* FROM nave n " +
+                "JOIN usuario u_owner ON n.id_usuario = u_owner.id_usuario " +
+                "WHERE n.tipo = ? " +
                 "AND (n.id_usuario = ? OR u_owner.es_admin = 1)";
 
         try (PreparedStatement pst = conexion.prepareStatement(query)) {
@@ -519,17 +529,16 @@ public class controladorDesign implements Initializable {
 
             while (rs.next()) {
                 Nave nave = new Nave(
-                    rs.getInt("id_nave"),
-                    rs.getInt("id_usuario"),
-                    rs.getString("nombre"),
-                    rs.getString("tipo"),
-                    rs.getString("propulsion"),
-                    rs.getString("sistema_defensivo"),
-                    rs.getString("armadura"),
-                    rs.getString("escudo"),
-                    rs.getString("armamento"),
-                    rs.getString("imagen")
-                );
+                        rs.getInt("id_nave"),
+                        rs.getInt("id_usuario"),
+                        rs.getString("nombre"),
+                        rs.getString("tipo"),
+                        rs.getString("propulsion"),
+                        rs.getString("sistema_defensivo"),
+                        rs.getString("armadura"),
+                        rs.getString("escudo"),
+                        rs.getString("armamento"),
+                        rs.getString("imagen"));
                 listaNaves.add(nave);
             }
 
@@ -546,21 +555,20 @@ public class controladorDesign implements Initializable {
     public ObservableList<Flota> dameListaFlotas(String tipoFlota) {
         if (conexion != null) {
             listaFlotas.clear();
-            
-        String query =
-        "SELECT f.id_flota, f.id_usuario, f.nombre, f.faccion, SUM(f.cantidad) AS cantidad_total " +
-        "FROM flota f " +
-        "JOIN usuario u_owner ON f.id_usuario = u_owner.id_usuario " +
-        "WHERE f.faccion = ? " +
-        "  AND (f.id_usuario = ? OR u_owner.es_admin = 1) " +
-        "GROUP BY f.id_flota, f.id_usuario, f.nombre, f.faccion;";
 
-        try (PreparedStatement pst = conexion.prepareStatement(query)) {
+            String query = "SELECT f.id_flota, f.id_usuario, f.nombre, f.faccion, SUM(f.cantidad) AS cantidad_total " +
+                    "FROM flota f " +
+                    "JOIN usuario u_owner ON f.id_usuario = u_owner.id_usuario " +
+                    "WHERE f.faccion = ? " +
+                    "  AND (f.id_usuario = ? OR u_owner.es_admin = 1) " +
+                    "GROUP BY f.id_flota, f.id_usuario, f.nombre, f.faccion;";
 
-            pst.setString(1, tipoFlota);
-            pst.setInt(2, u.getId_usuario());
-            
-            rs = pst.executeQuery();
+            try (PreparedStatement pst = conexion.prepareStatement(query)) {
+
+                pst.setString(1, tipoFlota);
+                pst.setInt(2, u.getId_usuario());
+
+                rs = pst.executeQuery();
 
                 while (rs.next()) {
                     Flota flota = new Flota(rs.getInt("id_flota"),
@@ -585,17 +593,17 @@ public class controladorDesign implements Initializable {
 
             String query = "SELECT tipo FROM nave JOIN flota USING (id_nave) where id_flota=?";
 
-        try (PreparedStatement pst = conexion.prepareStatement(query)) {
+            try (PreparedStatement pst = conexion.prepareStatement(query)) {
 
-            pst.setInt(1, id_flota);
-            rs = pst.executeQuery();
+                pst.setInt(1, id_flota);
+                rs = pst.executeQuery();
 
                 while (rs.next()) {
                     String tipo = rs.getString("tipo");
                     if (!tipos.contains(tipo)) {
                         tipos.add(tipo);
                     }
-    
+
                 }
             } catch (SQLException e) {
                 System.out.println("SQL Error: " + e.getMessage());
@@ -636,7 +644,7 @@ public class controladorDesign implements Initializable {
             modal.initModality(Modality.APPLICATION_MODAL);
             modal.setScene(scene);
             modal.setTitle("Fleet Designer");
-            
+
             modal.showAndWait();
 
         } catch (IOException e) {
@@ -658,7 +666,7 @@ public class controladorDesign implements Initializable {
             modal.initModality(Modality.APPLICATION_MODAL);
             modal.setScene(new Scene(root));
             modal.setTitle("Fleet Designer");
-            
+
             modal.showAndWait();
 
         } catch (IOException e) {
@@ -666,25 +674,29 @@ public class controladorDesign implements Initializable {
         }
     }
 
-    private void editarFlota(Flota flota) { //TODO
+    private void editarFlota(Flota flota) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ventanaEditarFlota.fxml"));
             Parent root = loader.load();
 
             controladorEditarFlota controller = loader.getController();
+            controller.cargarFlotaExistente(flota);
 
-            controller.cargarFlota(flota);
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/estilos/estiloValidacionNaves.css").toExternalForm());
 
             Stage modal = new Stage();
             modal.initModality(Modality.APPLICATION_MODAL);
-            modal.setScene(new Scene(root));
+            modal.setScene(scene);
             modal.setTitle("Fleet Designer");
-            
+
             modal.showAndWait();
+
+            refrescarTablaFlotas(flota.getFaccion());
 
         } catch (IOException e) {
             e.printStackTrace();
-        };
+        }
     }
 
     private void borrarFlota(Flota flota) {
@@ -695,13 +707,16 @@ public class controladorDesign implements Initializable {
             controladorEliminar controller = loader.getController();
 
             controller.cargar(flota);
+            controller.setControladorPrincipal(this);
 
             Stage modal = new Stage();
             modal.initModality(Modality.APPLICATION_MODAL);
             modal.setScene(new Scene(root));
             modal.setTitle("Fleet Designer");
-            
+
             modal.showAndWait();
+
+            refrescarTablaFlotas(flota.getFaccion());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -713,15 +728,14 @@ public class controladorDesign implements Initializable {
         totales.clear();
         ids.clear();
 
-        String query =
-            "SELECT u.id_usuario, u.nombre_usuario, COUNT(n.id_nave) AS total_naves " +
-            "FROM usuario u " +
-            "LEFT JOIN nave n ON u.id_usuario = n.id_usuario " +
-            "GROUP BY u.id_usuario, u.nombre_usuario " +
-            "ORDER BY total_naves DESC";
+        String query = "SELECT u.id_usuario, u.nombre_usuario, COUNT(n.id_nave) AS total_naves " +
+                "FROM usuario u " +
+                "LEFT JOIN nave n ON u.id_usuario = n.id_usuario " +
+                "GROUP BY u.id_usuario, u.nombre_usuario " +
+                "ORDER BY total_naves DESC";
 
         try (PreparedStatement pst = conexion.prepareStatement(query);
-            ResultSet rs = pst.executeQuery()) {
+                ResultSet rs = pst.executeQuery()) {
 
             while (rs.next()) {
                 ids.add(rs.getInt("id_usuario"));
@@ -740,26 +754,26 @@ public class controladorDesign implements Initializable {
 
         if (nombres.size() > 0)
             primeroRanking.setText(nombres.get(0) + " ha creado " + totales.get(0) + " naves");
-        else 
+        else
             primeroRanking.setText("");
 
         if (nombres.size() > 1)
             segundoRanking.setText(nombres.get(1) + " ha creado " + totales.get(1) + " naves");
-        else 
+        else
             segundoRanking.setText("");
 
         if (nombres.size() > 2)
             terceroRanking.setText(nombres.get(2) + " ha creado " + totales.get(2) + " naves");
-        else 
+        else
             terceroRanking.setText("");
 
         StringBuilder sb = new StringBuilder();
 
         for (int i = 3; i < nombres.size(); i++) {
             sb.append(nombres.get(i))
-            .append(" ha creado ")
-            .append(totales.get(i))
-            .append(" naves\n");
+                    .append(" ha creado ")
+                    .append(totales.get(i))
+                    .append(" naves\n");
         }
 
         listadoUser.setText(sb.toString());
@@ -767,43 +781,58 @@ public class controladorDesign implements Initializable {
 
     private void cargarPanelPersonal() {
 
-    String query = 
-        "SELECT tipo, COUNT(*) AS total " +
-        "FROM nave " +
-        "WHERE id_usuario = ? " +
-        "GROUP BY tipo";
+        String query = "SELECT tipo, COUNT(*) AS total " +
+                "FROM nave " +
+                "WHERE id_usuario = ? " +
+                "GROUP BY tipo";
 
-    try (PreparedStatement pst = conexion.prepareStatement(query)) {
+        try (PreparedStatement pst = conexion.prepareStatement(query)) {
 
-        pst.setInt(1, u.getId_usuario());
-        ResultSet rs = pst.executeQuery();
+            pst.setInt(1, u.getId_usuario());
+            ResultSet rs = pst.executeQuery();
 
-        // Reiniciamos contadores a 0
-        nNavesCorveta.setText("0");
-        nNavesCrucero.setText("0");
-        nNavesDestructor.setText("0");
-        nNavesFragata.setText("0");
-        nNavesInsignia.setText("0");
-        nNavesAcorazado.setText("0");
-        nNavesTitan.setText("0");
-        nNavesColoso.setText("0");
+            // Reiniciamos contadores a 0
+            nNavesCorveta.setText("0");
+            nNavesCrucero.setText("0");
+            nNavesDestructor.setText("0");
+            nNavesFragata.setText("0");
+            nNavesInsignia.setText("0");
+            nNavesAcorazado.setText("0");
+            nNavesTitan.setText("0");
+            nNavesColoso.setText("0");
 
-        while (rs.next()) {
+            while (rs.next()) {
 
-            String tipo = rs.getString("tipo");
-            int total = rs.getInt("total");
+                String tipo = rs.getString("tipo");
+                int total = rs.getInt("total");
 
-            switch (tipo) {
-                case "Corveta":      nNavesCorveta.setText("Has creado " + String.valueOf(total) + " naves"); break;
-                case "Fragata":      nNavesFragata.setText("Has creado " + String.valueOf(total) + " naves"); break;
-                case "Destructor":   nNavesDestructor.setText("Has creado " + String.valueOf(total) + " naves"); break;
-                case "Crucero":      nNavesCrucero.setText("Has creado " + String.valueOf(total) + " naves"); break;
-                case "Acorazado":    nNavesAcorazado.setText("Has creado " + String.valueOf(total) + " naves"); break;
-                case "Titan":        nNavesTitan.setText("Has creado " + String.valueOf(total) + " naves"); break;
-                case "Coloso":       nNavesColoso.setText("Has creado " + String.valueOf(total) + " naves"); break;
-                case "Insignia":     nNavesInsignia.setText("Has creado " + String.valueOf(total) + " naves"); break;
+                switch (tipo) {
+                    case "Corveta":
+                        nNavesCorveta.setText("Has creado " + String.valueOf(total) + " naves");
+                        break;
+                    case "Fragata":
+                        nNavesFragata.setText("Has creado " + String.valueOf(total) + " naves");
+                        break;
+                    case "Destructor":
+                        nNavesDestructor.setText("Has creado " + String.valueOf(total) + " naves");
+                        break;
+                    case "Crucero":
+                        nNavesCrucero.setText("Has creado " + String.valueOf(total) + " naves");
+                        break;
+                    case "Acorazado":
+                        nNavesAcorazado.setText("Has creado " + String.valueOf(total) + " naves");
+                        break;
+                    case "Titan":
+                        nNavesTitan.setText("Has creado " + String.valueOf(total) + " naves");
+                        break;
+                    case "Coloso":
+                        nNavesColoso.setText("Has creado " + String.valueOf(total) + " naves");
+                        break;
+                    case "Insignia":
+                        nNavesInsignia.setText("Has creado " + String.valueOf(total) + " naves");
+                        break;
+                }
             }
-        }
 
         } catch (SQLException e) {
             System.out.println("ERROR PANEL PERSONAL: " + e.getMessage());
@@ -816,7 +845,7 @@ public class controladorDesign implements Initializable {
         iconoDestructor.setImage(new Image(getClass().getResourceAsStream("/icons/destructor.png")));
         iconoCrucero.setImage(new Image(getClass().getResourceAsStream("/icons/crucero.png")));
         iconoAcorazado.setImage(new Image(getClass().getResourceAsStream("/icons/acorazado.png")));
-        iconoTitan.setImage(new Image(getClass().getResourceAsStream("/icons/titan.png")));
+        iconoTitan.setImage(new Image(getClass().getResourceAsStream("/icons/titán.png")));
         iconoColoso.setImage(new Image(getClass().getResourceAsStream("/icons/coloso.png")));
         iconoInsignia.setImage(new Image(getClass().getResourceAsStream("/icons/insignia.png")));
     }
@@ -835,7 +864,11 @@ public class controladorDesign implements Initializable {
     }
 
     private Image cargarIconoPorTipo(String tipo) {
-        return new Image(getClass().getResourceAsStream("/icons/" + tipo.toLowerCase() + ".png"));
+        
+        String file = "/icons/" + tipo.toLowerCase() + ".png";
+        InputStream is = getClass().getResourceAsStream(file);
+
+        return new Image(is);
     }
 
     @Override
@@ -851,31 +884,34 @@ public class controladorDesign implements Initializable {
 
         iconoOpciones.setImage(new Image(getClass().getResourceAsStream("/icons/iconoOpcionesUsuario.png")));
         iconoCerrarSesion.setImage(new Image(getClass().getResourceAsStream("/icons/iconoLogOut.png")));
-        
+
         listaNaves = dameListaNaves("Corveta");
         cargarBanner(bannerNaves, "bannerCorveta");
 
-        String cellStyle = "-fx-alignment: CENTER; -fx-font-size: 14pt;"; 
+        String cellStyle = "-fx-alignment: CENTER; -fx-font-size: 12pt;";
         nombreNave.setStyle(cellStyle);
         tipoNave.setStyle(cellStyle);
         potenciaNave.setStyle(cellStyle);
 
         nombreNave.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tipoNave.setCellValueFactory(new PropertyValueFactory<>("tipo"));
-        potenciaNave.setCellValueFactory(cellData -> new SimpleStringProperty(calcularPotenciaNave(cellData.getValue())));
-        
+        potenciaNave
+                .setCellValueFactory(cellData -> new SimpleStringProperty(calcularPotenciaNave(cellData.getValue())));
+
         tablaNaves.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
-        
+
         tablaNaves.setRowFactory(tv -> {
             TableRow<Nave> row = new TableRow<>();
             row.setPrefHeight(80);
+            row.setPrefHeight(80);
+            row.setMaxHeight(80);
             return row;
         });
-        
+
         fotoNave.setCellFactory(column -> new TableCell<Nave, String>() {
             private final ImageView imageView = new ImageView();
             {
-                setAlignment(Pos.CENTER); 
+                setAlignment(Pos.CENTER);
             }
 
             @Override
@@ -884,21 +920,21 @@ public class controladorDesign implements Initializable {
 
                 if (empty || base64Image == null || base64Image.isEmpty()) {
                     setGraphic(null);
-                } else {
-                    try {
-                        byte[] imageBytes = java.util.Base64.getDecoder().decode(base64Image);
-                        Image img = new Image(new java.io.ByteArrayInputStream(imageBytes));
+                    return;
+                }
 
-                        imageView.setImage(img);
-                        
-                        imageView.setFitHeight(70); 
-                        imageView.setFitWidth(120);
+                try {
+                    byte[] bytes = java.util.Base64.getDecoder().decode(base64Image);
+                    Image img = new Image(new java.io.ByteArrayInputStream(bytes));
 
-                        imageView.setPreserveRatio(true);
-                        setGraphic(imageView);
-                    } catch (IllegalArgumentException e) {
-                        setGraphic(null);
-                    }
+                    imageView.setImage(img);
+                    imageView.setFitHeight(70);
+                    imageView.setFitWidth(120);
+                    imageView.setPreserveRatio(true);
+
+                    setGraphic(imageView);
+                } catch (Exception e) {
+                    setGraphic(null);
                 }
             }
         });
@@ -906,11 +942,9 @@ public class controladorDesign implements Initializable {
         fotoNave.setCellValueFactory(new PropertyValueFactory<>("imagen"));
         botonesNave.setCellFactory(col -> new TableCell<>() {
             private final ImageView iconEditar = new ImageView(
-                new Image(getClass().getResourceAsStream("/icons/iconoOpcionesNave.png"))
-            );
+                    new Image(getClass().getResourceAsStream("/icons/iconoOpcionesNave.png")));
             private final ImageView iconBorrar = new ImageView(
-                new Image(getClass().getResourceAsStream("/icons/iconoOpcionesUsuario.png"))
-            );
+                    new Image(getClass().getResourceAsStream("/icons/iconoBorrarNave.png")));
             private final Button btnEditar = new Button("", iconEditar);
             private final Button btnBorrar = new Button("", iconBorrar);
             private final HBox contenedor = new HBox(6, btnEditar, btnBorrar);
@@ -920,6 +954,8 @@ public class controladorDesign implements Initializable {
                 iconEditar.setFitHeight(60);
                 iconBorrar.setFitWidth(60);
                 iconBorrar.setFitHeight(60);
+
+                contenedor.setAlignment(Pos.CENTER);
 
                 btnEditar.setOnAction(event -> {
                     Nave nave = getTableView().getItems().get(getIndex());
@@ -945,9 +981,7 @@ public class controladorDesign implements Initializable {
                 }
 
                 Nave nave = getTableView().getItems().get(getIndex());
-                int idActual = Sesion.getUsuario().getId_usuario();
-
-                if (nave.getId_usuario() != idActual) {
+                if (nave.getId_usuario() != Sesion.getUsuario().getId_usuario()) {
                     setGraphic(null);
                     return;
                 }
@@ -959,6 +993,17 @@ public class controladorDesign implements Initializable {
         tablaNaves.setItems(listaNaves);
 
         listaFlotas = dameListaFlotas("Imperio");
+
+        nombreFlota.setStyle(cellStyle);
+        navesTotalesFlota.setStyle(cellStyle);
+
+        tablaFlotas.setRowFactory(tv -> {
+            TableRow<Flota> row = new TableRow<>();
+            row.setMinHeight(80);
+            row.setPrefHeight(80);
+            row.setMaxHeight(80);
+            return row;
+        });
 
         nombreFlota.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tiposFlota.setCellFactory(col -> new TableCell<Flota, Void>() {
@@ -975,42 +1020,59 @@ public class controladorDesign implements Initializable {
 
                 ObservableList<String> tipos = generarIconoTipoNaveFlota(flota.getId_flota());
 
-                HBox contenedor = new HBox(4);
-                contenedor.setAlignment(Pos.CENTER_LEFT);
+                List<String> orden = List.of("Corveta","Fragata","Destructor","Crucero","Acorazado","Titán","Coloso","Insignia");
+
+                tipos.sort(Comparator.comparingInt(orden::indexOf));
+
+                FlowPane flow = new FlowPane();
+                flow.setHgap(4);
+                flow.setVgap(0);
+                flow.setPrefWrapLength(262.5);
+                flow.setAlignment(Pos.CENTER_LEFT);
 
                 for (String tipo : tipos) {
                     ImageView img = new ImageView(cargarIconoPorTipo(tipo));
 
-                    img.setFitWidth(32);
-                    img.setFitHeight(32);
+                    img.setFitWidth(60);
+                    img.setFitHeight(40);
 
-                    contenedor.getChildren().add(img);
+                    flow.getChildren().add(img);
                 }
 
-                setGraphic(contenedor);
+                setGraphic(flow);
             }
         });
         navesTotalesFlota.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
         botonesFlota.setCellFactory(col -> new TableCell<>() {
-            private final Button btnEditar = new Button("Editar");
-            private final Button btnBorrar = new Button("Borrar");
-            private final HBox contenedor = new HBox(12, btnEditar, btnBorrar);
+            private final ImageView iconEditar = new ImageView(
+                    new Image(getClass().getResourceAsStream("/icons/iconoOpcionesNave.png"))
+                );
+            private final ImageView iconBorrar = new ImageView(
+                    new Image(getClass().getResourceAsStream("/icons/iconoBorrarNave.png"))
+                );
+
+            private final Button btnEditar = new Button("", iconEditar);
+            private final Button btnBorrar = new Button("", iconBorrar);
+            private final HBox contenedor = new HBox(6, btnEditar, btnBorrar);
+
             {
+                iconEditar.setFitWidth(60);
+                iconEditar.setFitHeight(60);
+                iconBorrar.setFitWidth(60);
+                iconBorrar.setFitHeight(60);
+
+                contenedor.setAlignment(Pos.CENTER);
+
                 btnEditar.setOnAction(event -> {
                     Flota flota = getTableView().getItems().get(getIndex());
                     editarFlota(flota);
-                    dameListaFlotas(flota.getFaccion());
+                    refrescarTablaFlotas(flota.getFaccion());
                 });
 
                 btnBorrar.setOnAction(event -> {
                     Flota flota = getTableView().getItems().get(getIndex());
                     borrarFlota(flota);
                 });
-
-                btnEditar.setPrefHeight(30);
-                btnBorrar.setPrefHeight(30);
-
-                contenedor.setAlignment(Pos.CENTER);
             }
 
             @Override
@@ -1019,9 +1081,18 @@ public class controladorDesign implements Initializable {
 
                 if (empty) {
                     setGraphic(null);
-                } else {
-                    setGraphic(contenedor);
+                    return;
                 }
+
+                Flota flota = getTableView().getItems().get(getIndex());
+                int idActual = Sesion.getUsuario().getId_usuario();
+
+                if (flota.getId_usuario() != idActual) {
+                    setGraphic(null);
+                    return;
+                }
+
+                setGraphic(contenedor);
             }
         });
         tablaFlotas.setItems(listaFlotas);

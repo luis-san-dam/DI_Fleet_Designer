@@ -84,6 +84,9 @@ public class controladorNuevaNave implements Initializable{
     private TextField nombreNave;
 
     @FXML
+    private Label nombreValidador;
+
+    @FXML
     private ImageView preview;
 
     @FXML
@@ -134,19 +137,44 @@ public class controladorNuevaNave implements Initializable{
 
         boolean imagenValida = imagenActualBase64 != null && !imagenActualBase64.isEmpty();
 
-        // Validar imagen
+        boolean nombreValido = nombreNaveDisponible();
+
+        if (!nombreValido) {
+            nombreNave.getStyleClass().add("text-field-error");
+            nombreValidador.setText("Nombre de nave ya existe");
+            nombreValidador.getStyleClass().add("label-error");
+        } else {
+            nombreNave.getStyleClass().removeAll("text-field-error");
+            nombreValidador.getStyleClass().removeAll("label-error");
+            nombreValidador.setText("Nombre:");
+        }
+
         if (!imagenValida) {
             aparienciaNave.getStyleClass().add("label-error");
         } else {
             aparienciaNave.getStyleClass().remove("label-error");
         }
 
-        if (camposValidos && imagenValida) {
+        if (camposValidos && imagenValida && nombreValido) {
             insertarNave();
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.close();
         }
+    }
+
+    private boolean nombreNaveDisponible() {
+        String sql = "SELECT COUNT(*) AS total FROM nave WHERE nombre = ?";
+        try (PreparedStatement pst = conexion.prepareStatement(sql)) {
+            pst.setString(1, nombreNave.getText().trim());
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total") == 0;  // true si no existe, false si ya hay una nave con ese nombre
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @FXML
@@ -238,6 +266,12 @@ public class controladorNuevaNave implements Initializable{
         } catch (SQLException var4) {
                 
         }
+
+        nombreNave.textProperty().addListener((obs, oldText, newText) -> {
+        nombreNave.getStyleClass().remove("text-field-error");
+        nombreValidador.setText("Nombre:");
+        nombreValidador.getStyleClass().removeAll("label-error");
+    });
 
         ObservableList<String> armaduras = FXCollections.observableArrayList(PiezasNaves.getArmaduras());
         armadura.setItems(armaduras);

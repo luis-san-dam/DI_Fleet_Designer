@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.vistaDesign.controladorDesign">
    <top>
@@ -20,9 +21,18 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="1000.0">
                <children>
-                  <Button minHeight="100.0" minWidth="333.0" mnemonicParsing="false" onAction="#ventanaNaves" text="Naves" />
-                  <Button minHeight="100.0" minWidth="333.0" mnemonicParsing="false" onAction="#ventanaFlotas" text="Flotas" />
-                  <Button minHeight="100.0" minWidth="334.0" mnemonicParsing="false" onAction="#ventanaRanking" text="Ranking" />
+                  <Button minHeight="100.0" minWidth="333.0" mnemonicParsing="false" onAction="#ventanaNaves" text="Naves">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Button>
+                  <Button minHeight="100.0" minWidth="333.0" mnemonicParsing="false" onAction="#ventanaFlotas" text="Flotas">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Button>
+                  <Button minHeight="100.0" minWidth="334.0" mnemonicParsing="false" onAction="#ventanaRanking" text="Ranking">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Button>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
@@ -69,12 +79,18 @@
                      <children>
                         <Pane fx:id="panelNuevaNave" minHeight="100.0" minWidth="350.0">
                            <children>
-                              <Button minHeight="100.0" minWidth="350.0" mnemonicParsing="false" onAction="#nuevaNave" text="Nueva Nave" />
+                              <Button minHeight="100.0" minWidth="350.0" mnemonicParsing="false" onAction="#nuevaNave" text="Nueva Nave">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font></Button>
                            </children>
                         </Pane>
                         <Pane fx:id="panelNuevaFlota" minHeight="100.0" minWidth="350.0" visible="false">
                            <children>
-                              <Button minHeight="100.0" minWidth="350.0" mnemonicParsing="false" onAction="#nuevaFlota" text="Nueva Flota" />
+                              <Button minHeight="100.0" minWidth="350.0" mnemonicParsing="false" onAction="#nuevaFlota" text="Nueva Flota">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font></Button>
                            </children>
                         </Pane>
                      </children>
@@ -332,14 +348,38 @@
                <children>
                   <VBox prefHeight="700.0" prefWidth="150.0">
                      <children>
-                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaCorveta" text="Corveta" />
-                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaFragata" text="Fragata" />
-                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaDestructor" text="Destructor" />
-                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaCrucero" text="Crucero" />
-                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaAcorazado" text="Acorazado" />
-                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaTitan" text="Titán" />
-                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaColoso" text="Coloso" />
-                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaInsignia" text="Insignia" />
+                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaCorveta" text="Corveta">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Button>
+                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaFragata" text="Fragata">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Button>
+                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaDestructor" text="Destructor">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Button>
+                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaCrucero" text="Crucero">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Button>
+                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaAcorazado" text="Acorazado">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Button>
+                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaTitan" text="Titán">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Button>
+                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaColoso" text="Coloso">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Button>
+                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaInsignia" text="Insignia">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Button>
                      </children>
                   </VBox>
                </children>
@@ -348,12 +388,30 @@
                <children>
                   <VBox prefHeight="700.0" prefWidth="150.0">
                      <children>
-                        <Button minHeight="116.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaImperio" text="Imperio" />
-                        <Button minHeight="116.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaRebeldes" text="Rebeldes" />
-                        <Button minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaPiratas" text="Piratas" />
-                        <Button minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaRepublica" text="República" />
-                        <Button minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaSeparatistas" text="Separatistas" />
-                        <Button minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaMercenarios" text="Mercenarios" />
+                        <Button minHeight="116.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaImperio" text="Imperio">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Button>
+                        <Button minHeight="116.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaRebeldes" text="Rebeldes">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Button>
+                        <Button minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaPiratas" text="Piratas">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Button>
+                        <Button minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaRepublica" text="República">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Button>
+                        <Button minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaSeparatistas" text="Separatistas">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Button>
+                        <Button minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaMercenarios" text="Mercenarios">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Button>
                      </children>
                   </VBox>
                </children>
@@ -362,8 +420,14 @@
                <children>
                   <VBox prefHeight="700.0" prefWidth="150.0">
                      <children>
-                        <Button minHeight="350.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaGlobal" text="Global" />
-                        <Button minHeight="350.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaPersonal" text="Personal" />
+                        <Button minHeight="350.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaGlobal" text="Global">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Button>
+                        <Button minHeight="350.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaPersonal" text="Personal">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Button>
                      </children>
                   </VBox>
                </children>

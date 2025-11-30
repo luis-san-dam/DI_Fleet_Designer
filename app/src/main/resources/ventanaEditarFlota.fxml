@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.vistaEditarFlota.controladorEditarFlota">
+<VBox maxHeight="1000.0" maxWidth="600.0" minWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.vistaEditarFlota.controladorEditarFlota">
    <children>
-      <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
+      <HBox alignment="CENTER_LEFT" maxHeight="50.0" minHeight="50.0" prefHeight="50.0">
          <children>
-            <Label minWidth="100.0" text="Nombre:">
+            <Label fx:id="labelNombreFlota" minWidth="100.0" text="Nombre:">
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
@@ -27,11 +27,11 @@
       </HBox>
       <AnchorPane>
          <children>
-            <ScrollPane>
+            <ScrollPane minWidth="600.0">
                <content>
-                  <VBox fx:id="contenedorNaves">
+                  <VBox fx:id="contenedorNaves" minWidth="600.0" prefHeight="250.0">
                      <children>
-                        <HBox fx:id="fila" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
+                        <HBox fx:id="fila" alignment="CENTER_LEFT" maxHeight="50.0" minHeight="50.0" minWidth="600.0" prefHeight="50.0">
                            <children>
                               <Label minWidth="100.0" text="Naves:">
                                  <HBox.margin>
@@ -55,12 +55,12 @@
       </AnchorPane>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="600.0">
          <children>
-            <Button minHeight="60.0" minWidth="255.0" mnemonicParsing="false" onAction="#botonCancelar" text="Cancelar">
+            <Button cancelButton="true" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" onAction="#botonCancelar" text="Cancelar">
                <HBox.margin>
-                  <Insets right="20.0" />
+                  <Insets left="20.0" right="20.0" />
                </HBox.margin>
             </Button>
-            <Button minHeight="60.0" minWidth="230.0" mnemonicParsing="false" onAction="#botonEditarFlota" text="Editar Flota" />
+            <Button defaultButton="true" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" onAction="#botonEditarFlota" text="Aceptar" />
          </children>
       </HBox>
    </children>

@@ -20,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -30,6 +31,9 @@ public class controladorOpciones implements Initializable {
     Connection conexion;
     Statement st;
     ResultSet rs;
+
+    @FXML
+    private Button botonBorrarUser;
 
     @FXML
     private PasswordField datoContraseniaRepetida;
@@ -268,6 +272,11 @@ public class controladorOpciones implements Initializable {
                 
             }
         cargarDatosUsuario();
+
+        if (Sesion.getUsuario().isEs_admin()) {
+            botonBorrarUser.setVisible(false);
+            botonBorrarUser.setManaged(false); // <-- Para que no deje el hueco en la interfaz
+        }
     }
 
 }

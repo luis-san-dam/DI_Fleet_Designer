@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
@@ -28,6 +29,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -40,6 +42,9 @@ public class controladorEditarNave implements Initializable {
     Statement st;
     Nave nave;
     String imagenActualBase64;
+    
+    @FXML
+    private Label aparienciaNave;
 
     @FXML
     private ComboBox<String> armadura;
@@ -75,6 +80,9 @@ public class controladorEditarNave implements Initializable {
     private TextField nombreNave;
 
     @FXML
+    private Label nombreValidador;
+
+    @FXML
     private ImageView preview;
 
     @FXML
@@ -91,23 +99,43 @@ public class controladorEditarNave implements Initializable {
 
     @FXML
     void botonEditar(ActionEvent event) {
-        ComboBox<String>[] armamentos = new ComboBox[]{
-            armamento1, armamento2, armamento3, armamento4,
-            armamento5, armamento6, armamento7, armamento8
+        ComboBox<String>[] armamentos = new ComboBox[] {
+                armamento1, armamento2, armamento3, armamento4,
+                armamento5, armamento6, armamento7, armamento8
         };
 
         boolean camposValidos = PiezasNaves.validarCamposObligatorios(
-            armadura, propulsion, sistemaDefensivo, escudo, nombreNave, armamentos
-        );
+                armadura, propulsion, sistemaDefensivo, escudo, nombreNave, armamentos);
 
         boolean imagenValida = imagenActualBase64 != null && !imagenActualBase64.isEmpty();
 
-        if (!camposValidos || !imagenValida) return;
+        boolean nombreValido = nombreNaveDisponible();
+
+        if (!nombreValido) {
+            nombreNave.getStyleClass().add("text-field-error");
+            nombreValidador.setText("Nombre de nave ya existe");
+            nombreValidador.getStyleClass().add("label-error");
+        } else {
+            nombreNave.getStyleClass().removeAll("text-field-error");
+            nombreValidador.setText("Nombre:");
+            nombreValidador.getStyleClass().removeAll("label-error");
+        }
+
+        if (!imagenValida) {
+            aparienciaNave.getStyleClass().add("label-error");
+        } else {
+            aparienciaNave.getStyleClass().remove("label-error");
+        }
+
+        if (!nombreValido || !imagenValida || !camposValidos) {
+            return;
+        }
 
         StringBuilder armamento = new StringBuilder();
         for (ComboBox<String> cb : armamentos) {
             if (cb.getValue() != null && !cb.getValue().isEmpty()) {
-                if (armamento.length() > 0) armamento.append("-");
+                if (armamento.length() > 0)
+                    armamento.append("-");
                 armamento.append(cb.getValue());
             }
         }
@@ -173,9 +201,8 @@ public class controladorEditarNave implements Initializable {
         String[] armamentos = nave.getArmamento().split("-");
 
         List<ComboBox<String>> combos = Arrays.asList(
-            armamento1, armamento2, armamento3, armamento4,
-            armamento5, armamento6, armamento7, armamento8
-        );
+                armamento1, armamento2, armamento3, armamento4,
+                armamento5, armamento6, armamento7, armamento8);
 
         for (int i = 0; i < combos.size(); i++) {
             if (i < armamentos.length) {
@@ -186,6 +213,21 @@ public class controladorEditarNave implements Initializable {
         }
     }
 
+    private boolean nombreNaveDisponible() {
+        String sql = "SELECT COUNT(*) AS total FROM nave WHERE nombre=? AND id_nave<>?";
+        try (PreparedStatement pst = conexion.prepareStatement(sql)) {
+            pst.setString(1, nombreNave.getText().trim());
+            pst.setInt(2, nave.getId_nave());
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total") == 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -194,7 +236,7 @@ public class controladorEditarNave implements Initializable {
                 st = conexion.createStatement();
             }
         } catch (SQLException var4) {
-        
+
         }
         ObservableList<String> armaduras = FXCollections.observableArrayList(PiezasNaves.getArmaduras());
         armadura.setItems(armaduras);
@@ -202,10 +244,16 @@ public class controladorEditarNave implements Initializable {
         PiezasNaves.validateComboBoxValue(armadura, armaduras, true);
         PiezasNaves.quitarErrorAlEscribir(armadura);
 
+        nombreNave.textProperty().addListener((obs, oldText, newText) -> {
+            nombreNave.getStyleClass().remove("text-field-error");
+            nombreValidador.setText("Nombre:");
+            nombreValidador.getStyleClass().removeAll("label-error");
+        });
+
         ObservableList<String> armamentosItems = FXCollections.observableArrayList(PiezasNaves.getArmamento());
-        ComboBox<String>[] armamentos = new ComboBox[]{
-            armamento1, armamento2, armamento3, armamento4,
-            armamento5, armamento6, armamento7, armamento8
+        ComboBox<String>[] armamentos = new ComboBox[] {
+                armamento1, armamento2, armamento3, armamento4,
+                armamento5, armamento6, armamento7, armamento8
         };
 
         for (int i = 0; i < armamentos.length; i++) {

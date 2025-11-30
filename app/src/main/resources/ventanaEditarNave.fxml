@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="400.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.vistaEditarNave.controladorEditarNave">
+<VBox maxHeight="570.0" maxWidth="600.0" minHeight="570.0" minWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.vistaEditarNave.controladorEditarNave">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
          <children>
-            <Label minWidth="100.0" text="Nombre:">
+            <Label fx:id="nombreValidador" minWidth="100.0" text="Nombre:">
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
@@ -120,14 +120,14 @@
             <ComboBox fx:id="armamento8" editable="true" maxWidth="150.0" minWidth="150.0" />
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
+      <HBox alignment="CENTER_LEFT" maxHeight="125.0" minHeight="125.0" prefHeight="50.0" prefWidth="600.0">
          <children>
-            <Label minWidth="100.0" text="Apariencia:">
+            <Label fx:id="aparienciaNave" minWidth="100.0" text="Apariencia:">
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
             </Label>
-            <Button minHeight="60.0" minWidth="150.0" mnemonicParsing="false" onAction="#botonInsertarImagen" text="Insertar Foto" />
+            <Button minHeight="30.0" minWidth="150.0" mnemonicParsing="false" onAction="#botonInsertarImagen" text="Insertar Foto" />
             <ImageView fx:id="preview" fitHeight="100.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true">
                <HBox.margin>
                   <Insets bottom="30.0" left="20.0" top="30.0" />
@@ -135,14 +135,14 @@
             </ImageView>
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="600.0">
+      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="600.0">
          <children>
-            <Button cancelButton="true" minHeight="60.0" minWidth="150.0" mnemonicParsing="false" onAction="#botonCancelar" text="Cancelar">
+            <Button cancelButton="true" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" onAction="#botonCancelar" text="Cancelar">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
             </Button>
-            <Button defaultButton="true" minHeight="60.0" minWidth="150.0" mnemonicParsing="false" onAction="#botonEditar" text="Editar Nave">
+            <Button defaultButton="true" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" onAction="#botonEditar" text="Aceptar">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin></Button>

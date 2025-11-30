@@ -96,11 +96,11 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button minHeight="60.0" minWidth="150.0" mnemonicParsing="false" onAction="#botonCancelar" text="Cancelar">
+            <Button cancelButton="true" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" onAction="#botonCancelar" text="Cancelar">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin></Button>
-            <Button minHeight="60.0" minWidth="150.0" mnemonicParsing="false" onAction="#botonRegistrarse" text="Registrarse">
+            <Button defaultButton="true" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" onAction="#botonRegistrarse" text="Aceptar">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin></Button>

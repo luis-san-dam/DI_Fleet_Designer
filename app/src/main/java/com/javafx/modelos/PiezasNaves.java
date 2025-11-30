@@ -192,10 +192,9 @@ public class PiezasNaves {
                     combo.getSelectionModel().clearSelection();
                     combo.getEditor().setText("");
 
-                    // Forzar refresco de la lista desplegable
                     combo.hide();
-                    combo.setItems(FXCollections.observableArrayList()); // limpiar temporalmente
-                    combo.setItems(items); // reasignar items originales
+                    combo.setItems(FXCollections.observableArrayList());
+                    combo.setItems(items);
                 }
             }
         });
