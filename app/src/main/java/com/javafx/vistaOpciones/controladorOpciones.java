@@ -275,7 +275,7 @@ public class controladorOpciones implements Initializable {
 
         if (Sesion.getUsuario().isEs_admin()) {
             botonBorrarUser.setVisible(false);
-            botonBorrarUser.setManaged(false); // <-- Para que no deje el hueco en la interfaz
+            botonBorrarUser.setManaged(false);
         }
     }
 
