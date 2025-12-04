@@ -23,6 +23,7 @@ import com.javafx.vistaEditarNave.controladorEditarNave;
 import com.javafx.vistaEliminar.controladorEliminar;
 import com.javafx.vistaOpciones.controladorOpciones;
 
+import javafx.animation.ScaleTransition;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -41,14 +42,18 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class controladorDesign implements Initializable {
 
@@ -77,7 +82,61 @@ public class controladorDesign implements Initializable {
     private TableColumn<Nave, HBox> botonesNave;
 
     @FXML
+    private Button btnAcorazado;
+
+    @FXML
+    private Button btnColoso;
+
+    @FXML
+    private Button btnCorveta;
+
+    @FXML
+    private Button btnCrucero;
+
+    @FXML
+    private Button btnDestructor;
+
+    @FXML
+    private Button btnFragata;
+
+    @FXML
+    private Button btnGlobal;
+
+    @FXML
+    private Button btnImperio;
+
+    @FXML
+    private Button btnInsignia;
+
+    @FXML
+    private Button btnMercenarios;
+
+    @FXML
+    private Button btnPersonal;
+
+    @FXML
+    private Button btnPiratas;
+
+    @FXML
+    private Button btnRebeldes;
+
+    @FXML
+    private Button btnRepublica;
+
+    @FXML
+    private Button btnSeparatistas;
+
+    @FXML
+    private Button btnTitan;
+
+    @FXML
     private TableColumn<Nave, String> fotoNave;
+
+    @FXML
+    private ImageView gifNuevaFlota;
+
+    @FXML
+    private ImageView gifNuevaNave;
 
     @FXML
     private ImageView iconoAcorazado;
@@ -150,12 +209,6 @@ public class controladorDesign implements Initializable {
 
     @FXML
     private ImageView iconoTitanLateral;
-
-    @FXML
-    private ImageView iconoVentanaFlotas;
-
-    @FXML
-    private ImageView iconoVentanaNaves;
 
     @FXML
     private ImageView iconoVentanaRankings;
@@ -907,15 +960,14 @@ public class controladorDesign implements Initializable {
             pst.setInt(1, u.getId_usuario());
             ResultSet rs = pst.executeQuery();
 
-            // Reiniciamos contadores a 0
-            nNavesCorveta.setText("0");
-            nNavesCrucero.setText("0");
-            nNavesDestructor.setText("0");
-            nNavesFragata.setText("0");
-            nNavesInsignia.setText("0");
-            nNavesAcorazado.setText("0");
-            nNavesTitan.setText("0");
-            nNavesColoso.setText("0");
+            nNavesCorveta.setText("Has creado 0 naves");
+            nNavesCrucero.setText("Has creado 0 naves");
+            nNavesDestructor.setText("Has creado 0 naves");
+            nNavesFragata.setText("Has creado 0 naves");
+            nNavesInsignia.setText("Has creado 0 naves");
+            nNavesAcorazado.setText("Has creado 0 naves");
+            nNavesTitan.setText("Has creado 0 naves");
+            nNavesColoso.setText("Has creado 0 naves");
 
             while (rs.next()) {
 
@@ -1035,9 +1087,15 @@ public class controladorDesign implements Initializable {
         iconoOpciones.setImage(new Image(getClass().getResourceAsStream("/icons/iconoOpcionesUsuario.png")));
         iconoCerrarSesion.setImage(new Image(getClass().getResourceAsStream("/icons/iconoLogOut.png")));
 
-        iconoVentanaNaves.setImage(new Image(getClass().getResourceAsStream("/icons/iconoVentanaNaves.png")));
-        iconoVentanaFlotas.setImage(new Image(getClass().getResourceAsStream("/icons/iconoVentanaFlotas.png")));
+        Circle clipOpciones = new Circle(iconoOpciones.getFitWidth() / 2, iconoOpciones.getFitHeight() / 2, 38);
+        iconoOpciones.setClip(clipOpciones);
 
+        Circle clipCerrar = new Circle(iconoCerrarSesion.getFitWidth() / 2, iconoCerrarSesion.getFitHeight() / 2, 38);
+        iconoCerrarSesion.setClip(clipCerrar);
+
+        gifNuevaNave.setImage(new Image(getClass().getResourceAsStream("/gif/gifNuevaNave.gif")));
+        gifNuevaFlota.setImage(new Image(getClass().getResourceAsStream("/gif/gifNuevaFlota.gif")));
+ 
         listaNaves = dameListaNaves("Corveta");
         cargarBanner(bannerNaves, "bannerCorveta");
         cargarIconosLaterales("naves");
@@ -1056,7 +1114,6 @@ public class controladorDesign implements Initializable {
 
         tablaNaves.setRowFactory(tv -> {
             TableRow<Nave> row = new TableRow<>();
-            row.setPrefHeight(80);
             row.setPrefHeight(80);
             row.setMaxHeight(80);
             return row;
@@ -1141,6 +1198,22 @@ public class controladorDesign implements Initializable {
                 }
 
                 setGraphic(contenedor);
+            }
+        });
+
+        tablaNaves.setRowFactory(tv -> new TableRow<>() {
+            @Override
+            protected void updateItem(Nave nave, boolean empty) {
+                super.updateItem(nave, empty);
+                setPrefHeight(80);
+                setMaxHeight(80);
+                if (empty || nave == null) {
+                    setStyle("");
+                } else if (nave.getId_usuario() != Sesion.getUsuario().getId_usuario()) {
+                    setStyle("-fx-background-color: #FFF176;");
+                } else {
+                    setStyle("");
+                }
             }
         });
 
@@ -1249,6 +1322,55 @@ public class controladorDesign implements Initializable {
                 setGraphic(contenedor);
             }
         });
+
+        tablaFlotas.setRowFactory(tv -> new TableRow<>() {
+            @Override
+            protected void updateItem(Flota flota, boolean empty) {
+                super.updateItem(flota, empty);
+                setPrefHeight(80);
+                setMaxHeight(80);
+                if (empty || flota == null) {
+                    setStyle("");
+                } else if (flota.getId_usuario() != Sesion.getUsuario().getId_usuario()) {
+                    setStyle("-fx-background-color: #FFF176;");
+                } else {
+                    setStyle("");
+                }
+            }
+        });
+        
+        
         tablaFlotas.setItems(listaFlotas);
+
+
+
+        Button[] botonesTipos = new Button[] {
+            btnAcorazado, btnColoso, btnCorveta, btnCrucero,
+            btnDestructor, btnFragata, btnInsignia, btnTitan,
+            btnImperio, btnRebeldes, btnPiratas, btnRepublica, 
+            btnSeparatistas, btnMercenarios, btnGlobal, btnPersonal
+        };
+
+        for (Button btn : botonesTipos) {
+            DropShadow sombra = new DropShadow(10, Color.GRAY);
+
+            btn.setOnMouseEntered(e -> {
+                ScaleTransition st = new ScaleTransition(Duration.millis(200), btn);
+                st.setToX(1.15);
+                st.setToY(1.05);
+                st.play();
+
+                btn.setEffect(sombra);
+            });
+
+            btn.setOnMouseExited(e -> {
+                ScaleTransition st = new ScaleTransition(Duration.millis(200), btn);
+                st.setToX(1.0);
+                st.setToY(1.0);
+                st.play();
+
+                btn.setEffect(null);
+            });
+        }
     }
 }

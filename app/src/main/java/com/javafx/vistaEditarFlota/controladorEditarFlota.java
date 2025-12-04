@@ -38,6 +38,8 @@ public class controladorEditarFlota implements Initializable {
     Statement st;
     ResultSet rs;
     ObservableList<String> opcionesUsuario;
+    private ObservableList<String> navesDisponibles;
+
     private Flota flotaOriginal;
 
     @FXML

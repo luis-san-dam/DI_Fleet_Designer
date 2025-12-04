@@ -21,35 +21,26 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="1000.0">
                <children>
-                  <Button contentDisplay="RIGHT" graphicTextGap="50.0" minHeight="100.0" minWidth="333.0" mnemonicParsing="false" onAction="#ventanaNaves" text="Naves">
+                  <Button contentDisplay="RIGHT" graphicTextGap="0.0" minHeight="100.0" minWidth="333.0" mnemonicParsing="false" onAction="#ventanaNaves" styleClass="botones-seccion" text="Naves">
                      <font>
                         <Font size="20.0" />
                      </font>
-                     <graphic>
-                        <ImageView fx:id="iconoVentanaNaves" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
-                     </graphic>
                      <HBox.margin>
                         <Insets />
                      </HBox.margin></Button>
-                  <Button contentDisplay="RIGHT" graphicTextGap="50.0" minHeight="100.0" minWidth="333.0" mnemonicParsing="false" onAction="#ventanaFlotas" text="Flotas">
+                  <Button contentDisplay="RIGHT" graphicTextGap="50.0" minHeight="100.0" minWidth="333.0" mnemonicParsing="false" onAction="#ventanaFlotas" styleClass="botones-seccion" text="Flotas">
                      <font>
                         <Font size="20.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fx:id="iconoVentanaFlotas" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
-                     </graphic></Button>
-                  <Button contentDisplay="RIGHT" graphicTextGap="50.0" minHeight="100.0" minWidth="334.0" mnemonicParsing="false" onAction="#ventanaRanking" text="Ranking">
+                     </font></Button>
+                  <Button contentDisplay="RIGHT" graphicTextGap="50.0" minHeight="100.0" minWidth="334.0" mnemonicParsing="false" onAction="#ventanaRanking" styleClass="botones-seccion" text="Ranking">
                      <font>
                         <Font size="20.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fx:id="iconoVentanaRankings" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
-                     </graphic></Button>
+                     </font></Button>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Button maxHeight="75.0" maxWidth="75.0" minHeight="75.0" minWidth="75.0" mnemonicParsing="false" onAction="#opciones">
+                  <Button maxHeight="80.0" maxWidth="80.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#opciones" styleClass="boton-redondo">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -57,7 +48,7 @@
                         <ImageView fx:id="iconoOpciones" fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic>
                   </Button>
-                  <Button cancelButton="true" maxHeight="75.0" maxWidth="75.0" minHeight="75.0" minWidth="75.0" mnemonicParsing="false" onAction="#cerrarSesion">
+                  <Button cancelButton="true" maxHeight="80.0" maxWidth="80.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#cerrarSesion" styleClass="boton-redondo">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -91,18 +82,24 @@
                      <children>
                         <Pane fx:id="panelNuevaNave" minHeight="100.0" minWidth="350.0">
                            <children>
-                              <Button minHeight="100.0" minWidth="350.0" mnemonicParsing="false" onAction="#nuevaNave" text="Nueva Nave">
+                              <Button contentDisplay="RIGHT" graphicTextGap="20.0" minHeight="100.0" minWidth="350.0" mnemonicParsing="false" onAction="#nuevaNave" styleClass="botones-nuevo" text="Nueva Nave">
                                  <font>
                                     <Font size="20.0" />
-                                 </font></Button>
+                                 </font>
+                                 <graphic>
+                                    <ImageView fx:id="gifNuevaNave" fitHeight="80.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic></Button>
                            </children>
                         </Pane>
                         <Pane fx:id="panelNuevaFlota" minHeight="100.0" minWidth="350.0" visible="false">
                            <children>
-                              <Button minHeight="100.0" minWidth="350.0" mnemonicParsing="false" onAction="#nuevaFlota" text="Nueva Flota">
+                              <Button contentDisplay="RIGHT" graphicTextGap="20.0" minHeight="100.0" minWidth="350.0" mnemonicParsing="false" onAction="#nuevaFlota" styleClass="botones-nuevo" text="Nueva Flota">
                                  <font>
                                     <Font size="20.0" />
-                                 </font></Button>
+                                 </font>
+                                 <graphic>
+                                    <ImageView fx:id="gifNuevaFlota" fitHeight="80.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic></Button>
                            </children>
                         </Pane>
                      </children>
@@ -358,58 +355,58 @@
          <children>
             <Pane fx:id="paneListaNaves" prefHeight="700.0" prefWidth="150.0">
                <children>
-                  <VBox prefHeight="700.0" prefWidth="150.0">
+                  <VBox prefHeight="700.0" prefWidth="150.0" style="-fx-background-color: #4b5563;">
                      <children>
-                        <Button contentDisplay="RIGHT" minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaCorveta" text="Corveta    ">
+                        <Button fx:id="btnCorveta" contentDisplay="RIGHT" minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaCorveta" styleClass="boton-icono" text="Corveta    ">
                            <font>
                               <Font size="15.0" />
                            </font>
                            <graphic>
                               <ImageView fx:id="iconoCorvetaLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic></Button>
-                        <Button contentDisplay="RIGHT" minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaFragata" text="Fragata    ">
+                        <Button fx:id="btnFragata" contentDisplay="RIGHT" minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaFragata" styleClass="boton-icono" text="Fragata    ">
                            <font>
                               <Font size="15.0" />
                            </font>
                            <graphic>
                               <ImageView fx:id="iconoFragataLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic></Button>
-                        <Button contentDisplay="RIGHT" minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaDestructor" text="Destructor">
+                        <Button fx:id="btnDestructor" contentDisplay="RIGHT" minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaDestructor" styleClass="boton-icono" text="Destructor">
                            <font>
                               <Font size="15.0" />
                            </font>
                            <graphic>
                               <ImageView fx:id="iconoDestructorLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic></Button>
-                        <Button contentDisplay="RIGHT" minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaCrucero" text="Crucero    ">
+                        <Button fx:id="btnCrucero" contentDisplay="RIGHT" minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaCrucero" styleClass="boton-icono" text="Crucero    ">
                            <font>
                               <Font size="15.0" />
                            </font>
                            <graphic>
                               <ImageView fx:id="iconoCruceroLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic></Button>
-                        <Button contentDisplay="RIGHT" minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaAcorazado" text="Acorazado">
+                        <Button fx:id="btnAcorazado" contentDisplay="RIGHT" minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaAcorazado" styleClass="boton-icono" text="Acorazado">
                            <font>
                               <Font size="15.0" />
                            </font>
                            <graphic>
                               <ImageView fx:id="iconoAcorazadoLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic></Button>
-                        <Button contentDisplay="RIGHT" minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaTitan" text="Titán         ">
+                        <Button fx:id="btnTitan" contentDisplay="RIGHT" minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaTitan" styleClass="boton-icono" text="Titán         ">
                            <font>
                               <Font size="15.0" />
                            </font>
                            <graphic>
                               <ImageView fx:id="iconoTitanLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic></Button>
-                        <Button contentDisplay="RIGHT" minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaColoso" text="Coloso      ">
+                        <Button fx:id="btnColoso" contentDisplay="RIGHT" minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaColoso" styleClass="boton-icono" text="Coloso      ">
                            <font>
                               <Font size="15.0" />
                            </font>
                            <graphic>
                               <ImageView fx:id="iconoColosoLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic></Button>
-                        <Button contentDisplay="RIGHT" minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaInsignia" text="Insignia    ">
+                        <Button fx:id="btnInsignia" contentDisplay="RIGHT" minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaInsignia" styleClass="boton-icono" text="Insignia    ">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -422,44 +419,44 @@
             </Pane>
             <Pane fx:id="paneListaFlotas" prefHeight="700.0" prefWidth="150.0" visible="false">
                <children>
-                  <VBox prefHeight="700.0" prefWidth="150.0">
+                  <VBox prefHeight="700.0" prefWidth="150.0" style="-fx-background-color: #4b5563;">
                      <children>
-                        <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" minHeight="116.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaImperio" text="Imperio        ">
+                        <Button fx:id="btnImperio" alignment="CENTER_RIGHT" contentDisplay="RIGHT" minHeight="116.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaImperio" styleClass="boton-icono" text="Imperio        ">
                            <font>
                               <Font size="15.0" />
                            </font>
                            <graphic>
                               <ImageView fx:id="iconoImperioLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic></Button>
-                        <Button contentDisplay="RIGHT" minHeight="116.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaRebeldes" text="Rebeldes      ">
+                        <Button fx:id="btnRebeldes" contentDisplay="RIGHT" minHeight="116.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaRebeldes" styleClass="boton-icono" text="Rebeldes      ">
                            <font>
                               <Font size="15.0" />
                            </font>
                            <graphic>
                               <ImageView fx:id="iconoRebeldesLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic></Button>
-                        <Button contentDisplay="RIGHT" minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaPiratas" text="Piratas          ">
+                        <Button fx:id="btnPiratas" contentDisplay="RIGHT" minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaPiratas" styleClass="boton-icono" text="Piratas          ">
                            <font>
                               <Font size="15.0" />
                            </font>
                            <graphic>
                               <ImageView fx:id="iconoPiratasLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic></Button>
-                        <Button contentDisplay="RIGHT" minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaRepublica" text="República     ">
+                        <Button fx:id="btnRepublica" contentDisplay="RIGHT" minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaRepublica" styleClass="boton-icono" text="República     ">
                            <font>
                               <Font size="15.0" />
                            </font>
                            <graphic>
                               <ImageView fx:id="iconoRepublicaLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic></Button>
-                        <Button contentDisplay="RIGHT" minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaSeparatistas" text="Separatistas ">
+                        <Button fx:id="btnSeparatistas" contentDisplay="RIGHT" minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaSeparatistas" styleClass="boton-icono" text="Separatistas ">
                            <font>
                               <Font size="15.0" />
                            </font>
                            <graphic>
                               <ImageView fx:id="iconoSeparatistasLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic></Button>
-                        <Button contentDisplay="RIGHT" minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaMercenarios" text="Mercenarios ">
+                        <Button fx:id="btnMercenarios" contentDisplay="RIGHT" minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaMercenarios" styleClass="boton-icono" text="Mercenarios ">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -472,13 +469,13 @@
             </Pane>
             <Pane fx:id="paneListaRanking" prefHeight="700.0" prefWidth="150.0" visible="false">
                <children>
-                  <VBox prefHeight="700.0" prefWidth="150.0">
+                  <VBox prefHeight="700.0" prefWidth="150.0" style="-fx-background-color: #4b5563;">
                      <children>
-                        <Button minHeight="350.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaGlobal" text="Global">
+                        <Button fx:id="btnGlobal" minHeight="350.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaGlobal" styleClass="boton-icono" text="Global">
                            <font>
                               <Font size="18.0" />
                            </font></Button>
-                        <Button minHeight="350.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaPersonal" text="Personal">
+                        <Button fx:id="btnPersonal" minHeight="350.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaPersonal" styleClass="boton-icono" text="Personal">
                            <font>
                               <Font size="18.0" />
                            </font></Button>

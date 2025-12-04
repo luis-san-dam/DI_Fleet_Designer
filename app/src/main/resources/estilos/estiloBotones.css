@@ -1,0 +1,54 @@
+.boton-icono {
+    -fx-background-color: #4b5563;
+    -fx-text-fill: white;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s ease;
+}
+
+.boton-redondo {      
+    -fx-border-radius: 50%;         
+    -fx-background-radius: 50%;     
+    -fx-cursor: hand;
+}
+
+.botones-seccion {
+    -fx-background-color: #E0E0E0; 
+    -fx-text-fill: #333333;       
+    -fx-font-size:16pt;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-border-color: #BDBDBD;
+    -fx-border-width: 1;
+    -fx-alignment: center;
+}
+
+.botones-seccion:hover {
+    -fx-background-color: #BDBDBD;
+    -fx-cursor: hand;
+}
+
+.botones-nuevo {
+    -fx-background-color: #E0E0E0; 
+    -fx-text-fill: #333333;
+    -fx-font-size: 15pt;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-border-color: #BDBDBD;
+    -fx-border-width: 1;
+}
+
+.botones-nuevo:hover {
+    -fx-background-color: #36d343;
+    -fx-cursor: hand;
+    -fx-text-fill: #333333;
+    -fx-font-size: 15pt;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-border-color: #028a08;
+    -fx-border-width: 1;
+}

@@ -21,6 +21,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -31,6 +34,12 @@ public class controladorLogin implements Initializable{
 
     @FXML
     private PasswordField contrasenia;
+
+    @FXML
+    private ImageView fondoGif;
+
+    @FXML
+    private StackPane rootLogin;
 
     @FXML
     private TextField usuario;
@@ -44,8 +53,14 @@ public class controladorLogin implements Initializable{
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/ventanaDesign.fxml"));
                 Parent root = loader.load();
 
+                Scene scene = new Scene(root);
+
+                scene.getStylesheets().add(
+                    getClass().getResource("/estilos/estiloBotones.css").toExternalForm()
+                );
+
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(new Scene(root));
+                stage.setScene(scene);
                 stage.setTitle("Fleet Designer");
                 stage.show();
 
@@ -178,6 +193,13 @@ public class controladorLogin implements Initializable{
         if (conexion == null) {
             System.out.println("ERROR: No se pudo obtener la conexión a la BD.");
         }
+
+        Image gif = new Image(getClass().getResource("/gif/LoginVideoGif.gif").toExternalForm());
+        fondoGif.setImage(gif);
+        fondoGif.setPreserveRatio(false);
+
+        fondoGif.fitWidthProperty().bind(rootLogin.widthProperty());
+        fondoGif.fitHeightProperty().bind(rootLogin.heightProperty());
     }
 
 }
