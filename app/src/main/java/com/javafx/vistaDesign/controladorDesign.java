@@ -83,31 +83,82 @@ public class controladorDesign implements Initializable {
     private ImageView iconoAcorazado;
 
     @FXML
+    private ImageView iconoAcorazadoLateral;
+
+    @FXML
     private ImageView iconoCerrarSesion;
 
     @FXML
     private ImageView iconoColoso;
 
     @FXML
+    private ImageView iconoColosoLateral;
+
+    @FXML
     private ImageView iconoCorveta;
+
+    @FXML
+    private ImageView iconoCorvetaLateral;
 
     @FXML
     private ImageView iconoCrucero;
 
     @FXML
+    private ImageView iconoCruceroLateral;
+
+    @FXML
     private ImageView iconoDestructor;
 
     @FXML
+    private ImageView iconoDestructorLateral;
+
+    @FXML
     private ImageView iconoFragata;
+    
+    @FXML
+    private ImageView iconoFragataLateral;
+
+    @FXML
+    private ImageView iconoImperioLateral;
 
     @FXML
     private ImageView iconoInsignia;
 
     @FXML
+    private ImageView iconoInsigniaLateral;
+
+    @FXML
+    private ImageView iconoMercenariosLateral;
+
+    @FXML
     private ImageView iconoOpciones;
 
     @FXML
+    private ImageView iconoPiratasLateral;
+
+    @FXML
+    private ImageView iconoRebeldesLateral;
+
+    @FXML
+    private ImageView iconoRepublicaLateral;
+
+    @FXML
+    private ImageView iconoSeparatistasLateral;
+
+    @FXML
     private ImageView iconoTitan;
+
+    @FXML
+    private ImageView iconoTitanLateral;
+
+    @FXML
+    private ImageView iconoVentanaFlotas;
+
+    @FXML
+    private ImageView iconoVentanaNaves;
+
+    @FXML
+    private ImageView iconoVentanaRankings;
 
     @FXML
     private Label listadoUser;
@@ -369,6 +420,15 @@ public class controladorDesign implements Initializable {
             scene.getStylesheets().add(getClass().getResource("/estilos/estiloValidacionNaves.css").toExternalForm());
 
             Stage modal = new Stage();
+
+            if(!modal.getIcons().contains(new Image(
+                getClass().getResource("/icons/IconoAPP.png").toExternalForm()
+            ))){
+                modal.getIcons().add(new Image(
+                getClass().getResource("/icons/IconoAPP.png").toExternalForm()
+            ));
+            }
+
             modal.setTitle("Fleet Designer");
             modal.setScene(scene);
             modal.initModality(Modality.APPLICATION_MODAL);
@@ -395,6 +455,15 @@ public class controladorDesign implements Initializable {
             scene.getStylesheets().add(getClass().getResource("/estilos/estiloValidacionNaves.css").toExternalForm());
 
             Stage modal = new Stage();
+
+            if(!modal.getIcons().contains(new Image(
+                getClass().getResource("/icons/IconoAPP.png").toExternalForm()
+            ))){
+                modal.getIcons().add(new Image(
+                getClass().getResource("/icons/IconoAPP.png").toExternalForm()
+            ));
+            }
+
             modal.setTitle("Fleet Designer");
             modal.setScene(scene);
 
@@ -426,6 +495,15 @@ public class controladorDesign implements Initializable {
             controller.setStagePrincipal(stagePrincipal);
 
             Stage modal = new Stage();
+
+            if(!modal.getIcons().contains(new Image(
+                getClass().getResource("/icons/IconoAPP.png").toExternalForm()
+            ))){
+                modal.getIcons().add(new Image(
+                getClass().getResource("/icons/IconoAPP.png").toExternalForm()
+            ));
+            }
+
             modal.setScene(scene);
             modal.setTitle("Fleet Designer");
             modal.initModality(Modality.WINDOW_MODAL);
@@ -481,6 +559,7 @@ public class controladorDesign implements Initializable {
 
         mostrarFlotas("Imperio");
         cargarBanner(bannerFlotas, "bannerImperio");
+        cargarIconosLaterales("flotas");
     }
 
     @FXML
@@ -506,6 +585,7 @@ public class controladorDesign implements Initializable {
 
         mostrarNaves("Corveta");
         cargarBanner(bannerNaves, "bannerCorveta");
+        cargarIconosLaterales("naves");
     }
 
     public void mostrarNaves(String tipoNave) {
@@ -641,6 +721,15 @@ public class controladorDesign implements Initializable {
             scene.getStylesheets().add(getClass().getResource("/estilos/estiloValidacionNaves.css").toExternalForm());
 
             Stage modal = new Stage();
+
+            if(!modal.getIcons().contains(new Image(
+                getClass().getResource("/icons/IconoAPP.png").toExternalForm()
+            ))){
+                modal.getIcons().add(new Image(
+                getClass().getResource("/icons/IconoAPP.png").toExternalForm()
+            ));
+            }
+
             modal.initModality(Modality.APPLICATION_MODAL);
             modal.setScene(scene);
             modal.setTitle("Fleet Designer");
@@ -663,6 +752,15 @@ public class controladorDesign implements Initializable {
             controller.setControladorPrincipal(this);
 
             Stage modal = new Stage();
+
+            if(!modal.getIcons().contains(new Image(
+                getClass().getResource("/icons/IconoAPP.png").toExternalForm()
+            ))){
+                modal.getIcons().add(new Image(
+                getClass().getResource("/icons/IconoAPP.png").toExternalForm()
+            ));
+            }
+
             modal.initModality(Modality.APPLICATION_MODAL);
             modal.setScene(new Scene(root));
             modal.setTitle("Fleet Designer");
@@ -686,6 +784,15 @@ public class controladorDesign implements Initializable {
             scene.getStylesheets().add(getClass().getResource("/estilos/estiloValidacionNaves.css").toExternalForm());
 
             Stage modal = new Stage();
+
+            if(!modal.getIcons().contains(new Image(
+                getClass().getResource("/icons/IconoAPP.png").toExternalForm()
+            ))){
+                modal.getIcons().add(new Image(
+                getClass().getResource("/icons/IconoAPP.png").toExternalForm()
+            ));
+            }
+
             modal.initModality(Modality.APPLICATION_MODAL);
             modal.setScene(scene);
             modal.setTitle("Fleet Designer");
@@ -710,6 +817,15 @@ public class controladorDesign implements Initializable {
             controller.setControladorPrincipal(this);
 
             Stage modal = new Stage();
+
+            if(!modal.getIcons().contains(new Image(
+                getClass().getResource("/icons/IconoAPP.png").toExternalForm()
+            ))){
+                modal.getIcons().add(new Image(
+                getClass().getResource("/icons/IconoAPP.png").toExternalForm()
+            ));
+            }
+
             modal.initModality(Modality.APPLICATION_MODAL);
             modal.setScene(new Scene(root));
             modal.setTitle("Fleet Designer");
@@ -863,6 +979,40 @@ public class controladorDesign implements Initializable {
         banner.getChildren().setAll(view);
     }
 
+    private void cargarIconosLaterales(String modo) {
+        if (modo.equals("naves")) {
+            cargarIconoLateral(iconoCorvetaLateral, "corveta");
+            cargarIconoLateral(iconoFragataLateral, "fragata");
+            cargarIconoLateral(iconoDestructorLateral, "destructor");
+            cargarIconoLateral(iconoCruceroLateral, "crucero");
+            cargarIconoLateral(iconoAcorazadoLateral, "acorazado");
+            cargarIconoLateral(iconoTitanLateral, "titán");
+            cargarIconoLateral(iconoColosoLateral, "coloso");
+            cargarIconoLateral(iconoInsigniaLateral, "insignia");
+
+        } else if (modo.equals("flotas")) {
+            cargarIconoLateral(iconoImperioLateral, "bannerImperioIcono");
+            cargarIconoLateral(iconoRebeldesLateral, "bannerRebeldesIcono");
+            cargarIconoLateral(iconoPiratasLateral, "bannerPiratasIcono");
+            cargarIconoLateral(iconoRepublicaLateral, "bannerRepublicaIcono");
+            cargarIconoLateral(iconoSeparatistasLateral, "bannerSeparatistasIcono");
+            cargarIconoLateral(iconoMercenariosLateral, "bannerMercenariosIcono");
+
+        }
+    }
+
+    private void cargarIconoLateral(ImageView view, String nombre) {
+        InputStream is = getClass().getResourceAsStream("/icons/" + nombre + ".png");
+        if (is != null) {
+            view.setImage(new Image(is));
+            view.setVisible(true);
+        } else {
+            view.setVisible(false);
+        }
+    }
+
+
+
     private Image cargarIconoPorTipo(String tipo) {
         
         String file = "/icons/" + tipo.toLowerCase() + ".png";
@@ -885,8 +1035,12 @@ public class controladorDesign implements Initializable {
         iconoOpciones.setImage(new Image(getClass().getResourceAsStream("/icons/iconoOpcionesUsuario.png")));
         iconoCerrarSesion.setImage(new Image(getClass().getResourceAsStream("/icons/iconoLogOut.png")));
 
+        iconoVentanaNaves.setImage(new Image(getClass().getResourceAsStream("/icons/iconoVentanaNaves.png")));
+        iconoVentanaFlotas.setImage(new Image(getClass().getResourceAsStream("/icons/iconoVentanaFlotas.png")));
+
         listaNaves = dameListaNaves("Corveta");
         cargarBanner(bannerNaves, "bannerCorveta");
+        cargarIconosLaterales("naves");
 
         String cellStyle = "-fx-alignment: CENTER; -fx-font-size: 12pt;";
         nombreNave.setStyle(cellStyle);

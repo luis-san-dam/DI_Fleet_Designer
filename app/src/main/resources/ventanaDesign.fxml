@@ -21,18 +21,30 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="1000.0">
                <children>
-                  <Button minHeight="100.0" minWidth="333.0" mnemonicParsing="false" onAction="#ventanaNaves" text="Naves">
+                  <Button contentDisplay="RIGHT" graphicTextGap="50.0" minHeight="100.0" minWidth="333.0" mnemonicParsing="false" onAction="#ventanaNaves" text="Naves">
                      <font>
                         <Font size="20.0" />
-                     </font></Button>
-                  <Button minHeight="100.0" minWidth="333.0" mnemonicParsing="false" onAction="#ventanaFlotas" text="Flotas">
+                     </font>
+                     <graphic>
+                        <ImageView fx:id="iconoVentanaNaves" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin></Button>
+                  <Button contentDisplay="RIGHT" graphicTextGap="50.0" minHeight="100.0" minWidth="333.0" mnemonicParsing="false" onAction="#ventanaFlotas" text="Flotas">
                      <font>
                         <Font size="20.0" />
-                     </font></Button>
-                  <Button minHeight="100.0" minWidth="334.0" mnemonicParsing="false" onAction="#ventanaRanking" text="Ranking">
+                     </font>
+                     <graphic>
+                        <ImageView fx:id="iconoVentanaFlotas" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic></Button>
+                  <Button contentDisplay="RIGHT" graphicTextGap="50.0" minHeight="100.0" minWidth="334.0" mnemonicParsing="false" onAction="#ventanaRanking" text="Ranking">
                      <font>
                         <Font size="20.0" />
-                     </font></Button>
+                     </font>
+                     <graphic>
+                        <ImageView fx:id="iconoVentanaRankings" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic></Button>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
@@ -348,38 +360,62 @@
                <children>
                   <VBox prefHeight="700.0" prefWidth="150.0">
                      <children>
-                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaCorveta" text="Corveta">
+                        <Button contentDisplay="RIGHT" minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaCorveta" text="Corveta    ">
                            <font>
-                              <Font size="18.0" />
-                           </font></Button>
-                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaFragata" text="Fragata">
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fx:id="iconoCorvetaLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                        <Button contentDisplay="RIGHT" minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaFragata" text="Fragata    ">
                            <font>
-                              <Font size="18.0" />
-                           </font></Button>
-                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaDestructor" text="Destructor">
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fx:id="iconoFragataLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                        <Button contentDisplay="RIGHT" minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaDestructor" text="Destructor">
                            <font>
-                              <Font size="18.0" />
-                           </font></Button>
-                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaCrucero" text="Crucero">
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fx:id="iconoDestructorLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                        <Button contentDisplay="RIGHT" minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaCrucero" text="Crucero    ">
                            <font>
-                              <Font size="18.0" />
-                           </font></Button>
-                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaAcorazado" text="Acorazado">
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fx:id="iconoCruceroLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                        <Button contentDisplay="RIGHT" minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaAcorazado" text="Acorazado">
                            <font>
-                              <Font size="18.0" />
-                           </font></Button>
-                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaTitan" text="Titán">
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fx:id="iconoAcorazadoLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                        <Button contentDisplay="RIGHT" minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaTitan" text="Titán         ">
                            <font>
-                              <Font size="18.0" />
-                           </font></Button>
-                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaColoso" text="Coloso">
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fx:id="iconoTitanLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                        <Button contentDisplay="RIGHT" minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaColoso" text="Coloso      ">
                            <font>
-                              <Font size="18.0" />
-                           </font></Button>
-                        <Button minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaInsignia" text="Insignia">
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fx:id="iconoColosoLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                        <Button contentDisplay="RIGHT" minHeight="87.5" minWidth="150.0" mnemonicParsing="false" onAction="#listaInsignia" text="Insignia    ">
                            <font>
-                              <Font size="18.0" />
-                           </font></Button>
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fx:id="iconoInsigniaLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
                      </children>
                   </VBox>
                </children>
@@ -388,30 +424,48 @@
                <children>
                   <VBox prefHeight="700.0" prefWidth="150.0">
                      <children>
-                        <Button minHeight="116.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaImperio" text="Imperio">
+                        <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" minHeight="116.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaImperio" text="Imperio        ">
                            <font>
-                              <Font size="18.0" />
-                           </font></Button>
-                        <Button minHeight="116.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaRebeldes" text="Rebeldes">
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fx:id="iconoImperioLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                        <Button contentDisplay="RIGHT" minHeight="116.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaRebeldes" text="Rebeldes      ">
                            <font>
-                              <Font size="18.0" />
-                           </font></Button>
-                        <Button minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaPiratas" text="Piratas">
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fx:id="iconoRebeldesLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                        <Button contentDisplay="RIGHT" minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaPiratas" text="Piratas          ">
                            <font>
-                              <Font size="18.0" />
-                           </font></Button>
-                        <Button minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaRepublica" text="República">
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fx:id="iconoPiratasLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                        <Button contentDisplay="RIGHT" minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaRepublica" text="República     ">
                            <font>
-                              <Font size="18.0" />
-                           </font></Button>
-                        <Button minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaSeparatistas" text="Separatistas">
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fx:id="iconoRepublicaLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                        <Button contentDisplay="RIGHT" minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaSeparatistas" text="Separatistas ">
                            <font>
-                              <Font size="18.0" />
-                           </font></Button>
-                        <Button minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaMercenarios" text="Mercenarios">
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fx:id="iconoSeparatistasLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                        <Button contentDisplay="RIGHT" minHeight="117.0" minWidth="150.0" mnemonicParsing="false" onAction="#listaMercenarios" text="Mercenarios ">
                            <font>
-                              <Font size="18.0" />
-                           </font></Button>
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fx:id="iconoMercenariosLateral" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
                      </children>
                   </VBox>
                </children>
