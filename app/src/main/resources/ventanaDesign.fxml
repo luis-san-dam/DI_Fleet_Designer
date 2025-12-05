@@ -9,6 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
@@ -21,18 +22,18 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="1000.0">
                <children>
-                  <Button contentDisplay="RIGHT" graphicTextGap="0.0" minHeight="100.0" minWidth="333.0" mnemonicParsing="false" onAction="#ventanaNaves" styleClass="botones-seccion" text="Naves">
+                  <Button fx:id="btnVentanaNaves" contentDisplay="RIGHT" graphicTextGap="0.0" minHeight="100.0" minWidth="333.0" mnemonicParsing="false" onAction="#ventanaNaves" styleClass="botones-seccion" text="Naves">
                      <font>
                         <Font size="20.0" />
                      </font>
                      <HBox.margin>
                         <Insets />
                      </HBox.margin></Button>
-                  <Button contentDisplay="RIGHT" graphicTextGap="50.0" minHeight="100.0" minWidth="333.0" mnemonicParsing="false" onAction="#ventanaFlotas" styleClass="botones-seccion" text="Flotas">
+                  <Button fx:id="btnVentanaFlotas" contentDisplay="RIGHT" graphicTextGap="50.0" minHeight="100.0" minWidth="333.0" mnemonicParsing="false" onAction="#ventanaFlotas" styleClass="botones-seccion" text="Flotas">
                      <font>
                         <Font size="20.0" />
                      </font></Button>
-                  <Button contentDisplay="RIGHT" graphicTextGap="50.0" minHeight="100.0" minWidth="334.0" mnemonicParsing="false" onAction="#ventanaRanking" styleClass="botones-seccion" text="Ranking">
+                  <Button fx:id="btnVentanaRanking" contentDisplay="RIGHT" graphicTextGap="50.0" minHeight="100.0" minWidth="334.0" mnemonicParsing="false" onAction="#ventanaRanking" styleClass="botones-seccion" text="Ranking">
                      <font>
                         <Font size="20.0" />
                      </font></Button>
@@ -40,20 +41,20 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Button maxHeight="80.0" maxWidth="80.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#opciones" styleClass="boton-redondo">
+                  <Button fx:id="btnOpciones" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onAction="#opciones" styleClass="boton-redondo">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                      <graphic>
-                        <ImageView fx:id="iconoOpciones" fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="iconoOpciones" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic>
                   </Button>
-                  <Button cancelButton="true" maxHeight="80.0" maxWidth="80.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#cerrarSesion" styleClass="boton-redondo">
+                  <Button fx:id="btnCerrarSesion" cancelButton="true" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onAction="#cerrarSesion" styleClass="boton-redondo">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                      <graphic>
-                        <ImageView fx:id="iconoCerrarSesion" fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="iconoCerrarSesion" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic>
                   </Button>
                </children>
@@ -75,14 +76,14 @@
                   <StackPane minWidth="700.0" prefHeight="150.0" prefWidth="200.0">
                      <children>
                         <Pane fx:id="bannerNaves" prefHeight="100.0" prefWidth="700.0" />
-                        <Pane fx:id="bannerFlotas" maxHeight="100.0" maxWidth="700.0" minHeight="100.0" minWidth="700.0" prefHeight="100.0" prefWidth="700.0" />
+                        <Pane fx:id="bannerFlotas" maxHeight="100.0" maxWidth="700.0" minHeight="100.0" minWidth="700.0" prefHeight="100.0" prefWidth="700.0" visible="false" />
                      </children>
                   </StackPane>
                   <StackPane minHeight="100.0" minWidth="350.0">
                      <children>
                         <Pane fx:id="panelNuevaNave" minHeight="100.0" minWidth="350.0">
                            <children>
-                              <Button contentDisplay="RIGHT" graphicTextGap="20.0" minHeight="100.0" minWidth="350.0" mnemonicParsing="false" onAction="#nuevaNave" styleClass="botones-nuevo" text="Nueva Nave">
+                              <Button fx:id="btnNuevaNave" contentDisplay="RIGHT" graphicTextGap="20.0" minHeight="100.0" minWidth="350.0" mnemonicParsing="false" onAction="#nuevaNave" styleClass="botones-nuevo" text="Nueva Nave">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -93,7 +94,7 @@
                         </Pane>
                         <Pane fx:id="panelNuevaFlota" minHeight="100.0" minWidth="350.0" visible="false">
                            <children>
-                              <Button contentDisplay="RIGHT" graphicTextGap="20.0" minHeight="100.0" minWidth="350.0" mnemonicParsing="false" onAction="#nuevaFlota" styleClass="botones-nuevo" text="Nueva Flota">
+                              <Button fx:id="btnNuevaFlota" contentDisplay="RIGHT" graphicTextGap="20.0" minHeight="100.0" minWidth="350.0" mnemonicParsing="false" onAction="#nuevaFlota" styleClass="botones-nuevo" text="Nueva Flota">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -146,13 +147,14 @@
                         </ScrollPane>
                      </children>
                   </AnchorPane>
-                  <Pane fx:id="panelGlobal" prefHeight="200.0" prefWidth="200.0" visible="false">
+                  <Pane fx:id="panelGlobal" maxHeight="600.0" maxWidth="1050.0" minHeight="600.0" minWidth="525.0" prefHeight="600.0" prefWidth="525.0" visible="false">
                      <children>
-                        <VBox minHeight="600.0" minWidth="525.0">
+                        <FlowPane fx:id="panelTilesFX" alignment="CENTER" columnHalignment="CENTER" maxHeight="200.0" maxWidth="525.0" minHeight="200.0" minWidth="1050.0" prefHeight="200.0" prefWidth="525.0" />
+                        <VBox layoutY="200.0" maxHeight="400.0" maxWidth="525.0" minHeight="400.0" minWidth="525.0" prefHeight="400.0" style="-fx-background-color: #F0E1FF;">
                            <children>
                               <ImageView fx:id="primeroRankingFoto" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                                  <VBox.margin>
-                                    <Insets left="187.5" top="80.0" />
+                                    <Insets left="187.5" top="10.0" />
                                  </VBox.margin>
                               </ImageView>
                               <Label fx:id="primeroRanking" alignment="CENTER" minWidth="525.0" text="&quot;&quot; ha creado &quot;&quot; naves">
@@ -166,7 +168,7 @@
                                        <children>
                                           <ImageView fx:id="segundoRankingFoto" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                              <VBox.margin>
-                                                <Insets left="85.0" top="50.0" />
+                                                <Insets left="85.0" top="10.0" />
                                              </VBox.margin>
                                           </ImageView>
                                           <Label fx:id="segundoRanking" alignment="CENTER" minWidth="262.5" text="&quot;&quot; ha creado &quot;&quot; naves">
@@ -180,7 +182,7 @@
                                        <children>
                                           <ImageView fx:id="terceroRankingFoto" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                              <VBox.margin>
-                                                <Insets left="85.0" top="50.0" />
+                                                <Insets left="85.0" top="10.0" />
                                              </VBox.margin>
                                           </ImageView>
                                           <Label fx:id="terceroRanking" alignment="CENTER" minWidth="262.5" text="&quot;&quot; ha creado &quot;&quot; naves">
@@ -194,15 +196,15 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <VBox layoutX="525.0" minHeight="600.0" minWidth="525.0">
+                        <VBox layoutX="525.0" layoutY="200.0" maxHeight="400.0" maxWidth="525.0" minHeight="400.0" minWidth="525.0" prefHeight="400.0" prefWidth="525.0">
                            <children>
                             <AnchorPane>
                                  <children>
-                                    <ScrollPane minHeight="600.0" minWidth="525.0">
+                                    <ScrollPane minHeight="400.0" minWidth="525.0">
                                        <content>
-                                          <Label fx:id="listadoUser" alignment="CENTER" minWidth="520.0" text="&quot;&quot; ha creado &quot;&quot; naves">
+                                          <Label fx:id="listadoUser" alignment="CENTER" maxHeight="400.0" maxWidth="520.0" minHeight="400.0" minWidth="520.0" prefHeight="400.0" prefWidth="520.0" style="-fx-background-color: #F0E1FF;" text="&quot;&quot; ha creado &quot;&quot; naves">
                                              <padding>
-                                                <Insets top="100.0" />
+                                                <Insets top="10.0" />
                                              </padding>
                                           </Label>
                                        </content>

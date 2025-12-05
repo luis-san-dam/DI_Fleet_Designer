@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -23,7 +24,12 @@ import com.javafx.vistaEditarNave.controladorEditarNave;
 import com.javafx.vistaEliminar.controladorEliminar;
 import com.javafx.vistaOpciones.controladorOpciones;
 
+import eu.hansolo.tilesfx.Tile;
+import eu.hansolo.tilesfx.TileBuilder;
+import eu.hansolo.tilesfx.skins.TileSkin;
+import eu.hansolo.tilesfx.tools.Helper;
 import javafx.animation.ScaleTransition;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,6 +38,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -45,12 +52,19 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -85,6 +99,9 @@ public class controladorDesign implements Initializable {
     private Button btnAcorazado;
 
     @FXML
+    private Button btnCerrarSesion;
+
+    @FXML
     private Button btnColoso;
 
     @FXML
@@ -112,6 +129,15 @@ public class controladorDesign implements Initializable {
     private Button btnMercenarios;
 
     @FXML
+    private Button btnNuevaFlota;
+
+    @FXML
+    private Button btnNuevaNave;
+
+    @FXML
+    private Button btnOpciones;
+
+    @FXML
     private Button btnPersonal;
 
     @FXML
@@ -128,6 +154,15 @@ public class controladorDesign implements Initializable {
 
     @FXML
     private Button btnTitan;
+
+    @FXML
+    private Button btnVentanaFlotas;
+
+    @FXML
+    private Button btnVentanaNaves;
+
+    @FXML
+    private Button btnVentanaRanking;
 
     @FXML
     private TableColumn<Nave, String> fotoNave;
@@ -277,6 +312,9 @@ public class controladorDesign implements Initializable {
     private AnchorPane panelTablaNaves;
 
     @FXML
+    private FlowPane panelTilesFX;
+
+    @FXML
     private TableColumn<Nave, String> potenciaNave;
 
     @FXML
@@ -309,6 +347,94 @@ public class controladorDesign implements Initializable {
     @FXML
     private TableColumn<Flota, Void> tiposFlota;
 
+    public class MiNumberTileSkin extends TileSkin {
+        private Text titleText;
+        private Text valueText;
+        private Text unitText;
+        private VBox unitBox;
+        private HBox valueArea;
+        private Label description;
+
+        private static final double TITLE_FONT_SIZE = 20;
+        private static final double VALUE_FONT_SIZE = 48;
+        private static final double UNIT_FONT_SIZE  = 15;
+        private static final double DESC_FONT_SIZE  = 16;
+
+
+        public MiNumberTileSkin(final Tile TILE) {
+            super(TILE);
+        }
+
+        @Override
+        protected void initGraphics() {
+            super.initGraphics();
+
+            titleText = new Text(tile.getTitle());
+            titleText.setFill(tile.getTitleColor());
+            titleText.setFont(Font.font(TITLE_FONT_SIZE));
+            Helper.enableNode(titleText, !tile.getTitle().isEmpty());
+
+            valueText = new Text(String.format(locale, formatString, tile.getValue()));
+            valueText.setFill(tile.getValueColor());
+            valueText.setTextOrigin(VPos.BASELINE);
+            valueText.setFont(Font.font(VALUE_FONT_SIZE));
+
+            unitText = new Text(tile.getUnit());
+            unitText.setFill(tile.getUnitColor());
+            unitText.setFont(Font.font(UNIT_FONT_SIZE));
+            Helper.enableNode(unitText, !tile.getUnit().isEmpty());
+
+            unitBox = new VBox(unitText);
+            unitBox.setAlignment(Pos.CENTER);
+
+            valueArea = new HBox(valueText, unitBox);
+            valueArea.setAlignment(Pos.CENTER);
+
+            description = new Label(tile.getDescription());
+            description.setTextFill(tile.getDescriptionColor());
+            description.setAlignment(Pos.CENTER);
+            description.setFont(Font.font(DESC_FONT_SIZE));
+            description.setWrapText(true);
+            Helper.enableNode(description, tile.isTextVisible());
+
+            getPane().getChildren().addAll(titleText, valueArea, description);
+        }
+
+        @Override
+        protected void resize() {
+            super.resize();
+
+            double w = width;
+            double h = height;
+
+            titleText.relocate((w - titleText.getLayoutBounds().getWidth()) / 2, h * 0.05);
+
+            valueArea.setPrefWidth(w);
+            valueArea.setLayoutX(0);
+            valueArea.setLayoutY(h * 0.35);
+
+            description.setPrefWidth(w * 0.9);
+            description.relocate(w * 0.05, h * 0.7);
+        }
+
+        @Override
+        protected void redraw() {
+            super.redraw();
+
+            titleText.setText(tile.getTitle());
+            titleText.setFill(tile.getTitleColor());
+
+            valueText.setText(String.format(locale, formatString, tile.getCurrentValue()));
+            valueText.setFill(tile.getValueColor());
+
+            unitText.setText(tile.getUnit());
+            unitText.setFill(tile.getUnitColor());
+
+            description.setText(tile.getDescription());
+            description.setTextFill(tile.getDescriptionColor());
+        }
+    }
+
     public void refrescarTablaNaves(String tipo) {
         tablaNaves.setItems(dameListaNaves(tipo));
         tablaNaves.refresh();
@@ -317,6 +443,39 @@ public class controladorDesign implements Initializable {
     public void refrescarTablaFlotas(String tipo) {
         tablaFlotas.setItems(dameListaFlotas(tipo));
         tablaFlotas.refresh();
+    }
+
+    private void mostrarRankingTop10() {
+
+        obtenerRanking();
+
+        panelTilesFX.getChildren().clear();
+
+        for (int i = 0; i < Math.min(10, nombres.size()); i++) {
+            Tile tile = TileBuilder.create()
+                    .skinType(Tile.SkinType.CUSTOM)
+                    .title(nombres.get(i))
+                    .unit("naves")
+                    .decimals(0)
+                    .textColor(Color.BLACK)
+                    .titleColor(Color.BLACK)     
+                    .unitColor(Color.BLACK)
+                    .valueColor(Color.BLACK)
+                    .prefSize(210, 100)
+                    .maxSize(210, 100)
+                    .value(totales.get(i))
+                    .build();
+                tile.setSkin(new MiNumberTileSkin(tile));
+            switch (i) {
+                case 0 -> tile.setBackgroundColor(Color.web("#FFD700")); // Oro
+                case 1 -> tile.setBackgroundColor(Color.web("#C0C0C0")); // Plata
+                case 2 -> tile.setBackgroundColor(Color.web("#CD7F32")); // Bronce
+                case 3, 4 -> tile.setBackgroundColor(Color.web("#3498DB")); // Azul
+                case 5, 6, 7 -> tile.setBackgroundColor(Color.web("#50C878")); // Esmeralda
+                case 8, 9 -> tile.setBackgroundColor(Color.web("#E0115F")); // Rubí
+            }
+            panelTilesFX.getChildren().add(tile);
+        }
     }
 
     @FXML
@@ -921,6 +1080,11 @@ public class controladorDesign implements Initializable {
 
         obtenerRanking();
 
+        primeroRankingFoto.setImage(new Image(getClass().getResourceAsStream("/icons/iconoCopaOro.png")));
+        segundoRankingFoto.setImage(new Image(getClass().getResourceAsStream("/icons/iconoCopaPlata.png")));
+        terceroRankingFoto.setImage(new Image(getClass().getResourceAsStream("/icons/iconoCopaBronce.png")));
+        
+
         if (nombres.size() > 0)
             primeroRanking.setText(nombres.get(0) + " ha creado " + totales.get(0) + " naves");
         else
@@ -946,6 +1110,7 @@ public class controladorDesign implements Initializable {
         }
 
         listadoUser.setText(sb.toString());
+        mostrarRankingTop10();
     }
 
     private void cargarPanelPersonal() {
@@ -1087,10 +1252,10 @@ public class controladorDesign implements Initializable {
         iconoOpciones.setImage(new Image(getClass().getResourceAsStream("/icons/iconoOpcionesUsuario.png")));
         iconoCerrarSesion.setImage(new Image(getClass().getResourceAsStream("/icons/iconoLogOut.png")));
 
-        Circle clipOpciones = new Circle(iconoOpciones.getFitWidth() / 2, iconoOpciones.getFitHeight() / 2, 38);
+        Circle clipOpciones = new Circle(iconoOpciones.getFitWidth() / 2, iconoOpciones.getFitHeight() / 2, 35);
         iconoOpciones.setClip(clipOpciones);
 
-        Circle clipCerrar = new Circle(iconoCerrarSesion.getFitWidth() / 2, iconoCerrarSesion.getFitHeight() / 2, 38);
+        Circle clipCerrar = new Circle(iconoCerrarSesion.getFitWidth() / 2, iconoCerrarSesion.getFitHeight() / 2, 35);
         iconoCerrarSesion.setClip(clipCerrar);
 
         gifNuevaNave.setImage(new Image(getClass().getResourceAsStream("/gif/gifNuevaNave.gif")));
@@ -1232,6 +1397,8 @@ public class controladorDesign implements Initializable {
             return row;
         });
 
+        tablaFlotas.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
+
         nombreFlota.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tiposFlota.setCellFactory(col -> new TableCell<Flota, Void>() {
             @Override
@@ -1372,5 +1539,189 @@ public class controladorDesign implements Initializable {
                 btn.setEffect(null);
             });
         }
+
+        Platform.runLater(() -> {
+            Scene scene = btnVentanaNaves.getScene();
+            scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.Q, KeyCombination.ALT_DOWN),
+                () -> btnVentanaNaves.fire()
+            );
+        });
+
+        Platform.runLater(() -> {
+            Scene scene = btnVentanaFlotas.getScene();
+            scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.W, KeyCombination.ALT_DOWN),
+                () -> btnVentanaFlotas.fire()
+            );
+        });
+
+        Platform.runLater(() -> {
+            Scene scene = btnVentanaRanking.getScene();
+            scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.E, KeyCombination.ALT_DOWN),
+                () -> btnVentanaRanking.fire()
+            );
+        });
+
+        Platform.runLater(() -> {
+            Scene scene = btnOpciones.getScene();
+            scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.O, KeyCombination.ALT_DOWN),
+                () -> btnOpciones.fire()
+            );
+        });
+
+        Platform.runLater(() -> {
+            Scene scene = btnCerrarSesion.getScene();
+            scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.P, KeyCombination.ALT_DOWN),
+                () -> btnCerrarSesion.fire()
+            );
+        });
+
+        Platform.runLater(() -> {
+            Scene scene = btnNuevaNave.getScene();
+            scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.N, KeyCombination.ALT_DOWN),
+                () -> btnNuevaNave.fire()
+            );
+        });
+
+        Platform.runLater(() -> {
+            Scene scene = btnNuevaFlota.getScene();
+            scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.F, KeyCombination.ALT_DOWN),
+                () -> btnNuevaFlota.fire()
+            );
+        });
+
+        Platform.runLater(() -> {
+            Scene scene = btnCorveta.getScene();
+            scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_DOWN),
+                () -> btnCorveta.fire()
+            );
+        });
+
+        Platform.runLater(() -> {
+            Scene scene = btnFragata.getScene();
+            scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN),
+                () -> btnFragata.fire()
+            );
+        });
+
+        Platform.runLater(() -> {
+            Scene scene = btnDestructor.getScene();
+            scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.D, KeyCombination.CONTROL_DOWN),
+                () -> btnDestructor.fire()
+            );
+        });
+
+        Platform.runLater(() -> {
+            Scene scene = btnCrucero.getScene();
+            scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN),
+                () -> btnCrucero.fire()
+            );
+        });
+
+        Platform.runLater(() -> {
+            Scene scene = btnAcorazado.getScene();
+            scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.G, KeyCombination.CONTROL_DOWN),
+                () -> btnAcorazado.fire()
+            );
+        });
+
+        Platform.runLater(() -> {
+            Scene scene = btnTitan.getScene();
+            scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.H, KeyCombination.CONTROL_DOWN),
+                () -> btnTitan.fire()
+            );
+        });
+
+        Platform.runLater(() -> {
+            Scene scene = btnColoso.getScene();
+            scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.J, KeyCombination.CONTROL_DOWN),
+                () -> btnColoso.fire()
+            );
+        });
+
+        Platform.runLater(() -> {
+            Scene scene = btnInsignia.getScene();
+            scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.K, KeyCombination.CONTROL_DOWN),
+                () -> btnInsignia.fire()
+            );
+        });
+
+        Platform.runLater(() -> {
+            Scene scene = btnImperio.getScene();
+            scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN),
+                () -> btnImperio.fire()
+            );
+        });
+
+        Platform.runLater(() -> {
+            Scene scene = btnRebeldes.getScene();
+            scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.X, KeyCombination.CONTROL_DOWN),
+                () -> btnRebeldes.fire()
+            );
+        });
+
+        Platform.runLater(() -> {
+            Scene scene = btnPiratas.getScene();
+            scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN),
+                () -> btnPiratas.fire()
+            );
+        });
+
+        Platform.runLater(() -> {
+            Scene scene = btnRepublica.getScene();
+            scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.V, KeyCombination.CONTROL_DOWN),
+                () -> btnRepublica.fire()
+            );
+        });
+
+        Platform.runLater(() -> {
+            Scene scene = btnSeparatistas.getScene();
+            scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.B, KeyCombination.CONTROL_DOWN),
+                () -> btnSeparatistas.fire()
+            );
+        });
+
+        Platform.runLater(() -> {
+            Scene scene = btnMercenarios.getScene();
+            scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN),
+                () -> btnMercenarios.fire()
+            );
+        });
+
+        Platform.runLater(() -> {
+            Scene scene = btnGlobal.getScene();
+            scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.Q, KeyCombination.CONTROL_DOWN),
+                () -> btnGlobal.fire()
+            );
+        });
+
+        Platform.runLater(() -> {
+            Scene scene = btnPersonal.getScene();
+            scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN),
+                () -> btnPersonal.fire()
+            );
+        });
     }
 }

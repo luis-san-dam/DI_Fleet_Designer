@@ -225,25 +225,15 @@ public class controladorEditarFlota implements Initializable {
         }
     }
 
-    private void crearNuevaFila(ComboBox<String> comboAnterior, ObservableList<String> opcionesTotales) {
+    private void crearNuevaFila(ComboBox<String> comboAnterior) {
         String seleccion = comboAnterior.getValue();
         if (seleccion == null || seleccion.isEmpty())
             return;
 
         comboAnterior.setDisable(true);
+        navesDisponibles.remove(seleccion);
 
-        ObservableList<String> nuevasOpciones = FXCollections.observableArrayList(opcionesTotales);
-        for (Node node : contenedorNaves.getChildren()) {
-            if (node instanceof HBox hbox) {
-                for (Node n : hbox.getChildren()) {
-                    if (n instanceof ComboBox cb && cb.getValue() != null) {
-                        nuevasOpciones.remove(cb.getValue());
-                    }
-                }
-            }
-        }
-        if (nuevasOpciones.isEmpty())
-            return;
+        if (navesDisponibles.isEmpty()) return;
 
         HBox fila = new HBox();
         fila.setMinWidth(600);
@@ -255,7 +245,7 @@ public class controladorEditarFlota implements Initializable {
         HBox.setMargin(labelNave, new Insets(0, 0, 0, 50));
         labelNave.setMinWidth(100);
 
-        ComboBox<String> nuevoCombo = new ComboBox<>(nuevasOpciones);
+        ComboBox<String> nuevoCombo = new ComboBox<>(FXCollections.observableArrayList(navesDisponibles));
         nuevoCombo.setMinWidth(150);
 
         Label labelCantidad = new Label("Cantidad:");
@@ -275,7 +265,7 @@ public class controladorEditarFlota implements Initializable {
 
         nuevoCombo.setOnAction(e -> {
             if (nuevoCombo.getValue() != null && !nuevoCombo.getValue().isEmpty()) {
-                crearNuevaFila(nuevoCombo, opcionesTotales);
+                crearNuevaFila(nuevoCombo);
             }
         });
     }
@@ -291,10 +281,13 @@ public class controladorEditarFlota implements Initializable {
 
     public ObservableList<String> obtenerNavesUsuario(int idUsuario) {
         ObservableList<String> naves = FXCollections.observableArrayList();
-        String query = "SELECT n.nombre " +
-                "FROM nave n " +
-                "JOIN flota f ON n.id_nave = f.id_nave " +
-                "WHERE f.id_usuario = ?";
+        String query = """
+            SELECT n.nombre
+            FROM nave n
+            JOIN usuario u ON n.id_usuario = u.id_usuario
+            WHERE n.id_usuario = ? OR u.es_admin = 1
+        """;
+
         try (PreparedStatement ps = conexion.prepareStatement(query)) {
             ps.setInt(1, idUsuario);
             ResultSet rs = ps.executeQuery();
@@ -337,12 +330,12 @@ public class controladorEditarFlota implements Initializable {
         nombreFlota.setText(fOriginal.getNombre());
 
         opcionesUsuario = obtenerNavesUsuario(Sesion.getUsuario().getId_usuario());
+        navesDisponibles = FXCollections.observableArrayList(opcionesUsuario);
 
         String query = "SELECT f.*, n.nombre AS nombre_nave " +
                 "FROM flota f " +
                 "JOIN nave n ON f.id_nave = n.id_nave " +
                 "WHERE f.id_flota = ? AND f.id_usuario = ?";
-
         try (PreparedStatement ps = conexion.prepareStatement(query)) {
             ps.setInt(1, fOriginal.getId_flota());
             ps.setInt(2, Sesion.getUsuario().getId_usuario());
@@ -351,16 +344,28 @@ public class controladorEditarFlota implements Initializable {
             while (rs.next()) {
                 String nombreNave = rs.getString("nombre_nave");
                 int cantidad = rs.getInt("cantidad");
-
                 crearFilaExistente(nombreNave, cantidad);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        naveEscogida.setItems(FXCollections.observableArrayList(opcionesUsuario));
-        naveEscogida.setOnAction(e -> crearNuevaFila(naveEscogida, opcionesUsuario));
+        for (Node node : contenedorNaves.getChildren()) {
+            if (node instanceof HBox hbox) {
+                for (Node n : hbox.getChildren()) {
+                    if (n instanceof ComboBox<?> cb && cb.getValue() != null) {
+                        navesDisponibles.remove(cb.getValue());
+                    }
+                }
+            }
+        }
+
+        naveEscogida.setItems(FXCollections.observableArrayList(navesDisponibles));
+        naveEscogida.setOnAction(e -> {
+            if (naveEscogida.getValue() != null && !naveEscogida.getValue().isEmpty()) {
+                crearNuevaFila(naveEscogida);
+            }
+        });
     }
 
     private void crearFilaExistente(String nombreNave, int cantidad) {
@@ -374,7 +379,7 @@ public class controladorEditarFlota implements Initializable {
         HBox.setMargin(labelNave, new Insets(0, 0, 0, 50));
         labelNave.setMinWidth(100);
 
-        ComboBox<String> combo = new ComboBox<>(FXCollections.observableArrayList(opcionesUsuario));
+        ComboBox<String> combo = new ComboBox<>(FXCollections.observableArrayList(navesDisponibles));
         combo.setValue(nombreNave);
         combo.setDisable(true);
         combo.setMinWidth(150);
@@ -390,7 +395,7 @@ public class controladorEditarFlota implements Initializable {
         fila.getChildren().addAll(labelNave, combo, labelCantidad, cantidadTF);
         contenedorNaves.getChildren().add(fila);
 
-        opcionesUsuario.remove(nombreNave);
+        navesDisponibles.remove(nombreNave);
     }
 
     @Override
