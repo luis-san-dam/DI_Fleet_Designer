@@ -26,7 +26,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -169,7 +168,7 @@ public class controladorNuevaNave implements Initializable{
             pst.setString(1, nombreNave.getText().trim());
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
-                return rs.getInt("total") == 0;  // true si no existe, false si ya hay una nave con ese nombre
+                return rs.getInt("total") == 0;
             }
         } catch (SQLException e) {
             e.printStackTrace();

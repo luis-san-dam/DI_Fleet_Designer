@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -17,8 +18,14 @@
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
+               <tooltip>
+                  <Tooltip text="Nombre único de la nave" />
+               </tooltip>
             </Label>
-            <TextField fx:id="nombreNave" minWidth="400.0" />
+            <TextField fx:id="nombreNave" minWidth="400.0">
+               <tooltip>
+                  <Tooltip text="Nombre único de la nave" />
+               </tooltip></TextField>
          </children>
          <VBox.margin>
             <Insets top="20.0" />
@@ -46,8 +53,14 @@
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
+               <tooltip>
+                  <Tooltip text="Sistema Defensivo" />
+               </tooltip>
             </Label>
-            <ComboBox fx:id="sistemaDefensivo" editable="true" maxWidth="150.0" minWidth="150.0" visibleRowCount="5" />
+            <ComboBox fx:id="sistemaDefensivo" editable="true" maxWidth="150.0" minWidth="150.0" visibleRowCount="5">
+               <tooltip>
+                  <Tooltip text="Sistema Defensivo" />
+               </tooltip></ComboBox>
             <Label minWidth="80.0" text="Escudo:">
                <HBox.margin>
                   <Insets left="20.0" />
@@ -62,8 +75,14 @@
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
+               <tooltip>
+                  <Tooltip text="Armamento Obligatorio" />
+               </tooltip>
             </Label>
-            <ComboBox fx:id="armamento1" editable="true" maxWidth="150.0" minWidth="150.0" visibleRowCount="5" />
+            <ComboBox fx:id="armamento1" editable="true" maxWidth="150.0" minWidth="150.0" visibleRowCount="5">
+               <tooltip>
+                  <Tooltip text="Armamento Obligatorio" />
+               </tooltip></ComboBox>
             <Label minWidth="80.0" text="Armamento 2:">
                <HBox.margin>
                   <Insets left="20.0" />

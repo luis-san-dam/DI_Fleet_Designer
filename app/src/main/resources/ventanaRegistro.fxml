@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
@@ -18,6 +19,9 @@
                      <VBox.margin>
                         <Insets left="50.0" top="20.0" />
                      </VBox.margin>
+                     <tooltip>
+                        <Tooltip text="Nombre único de usuario" />
+                     </tooltip>
                   </Label>
                   <Label fx:id="errorNombre" maxWidth="150.0">
                      <VBox.margin>
@@ -32,7 +36,10 @@
             <TextField fx:id="datoNombreUsuario" minWidth="400.0">
                <HBox.margin>
                   <Insets />
-               </HBox.margin></TextField>
+               </HBox.margin>
+               <tooltip>
+                  <Tooltip text="Nombre único de usuario" />
+               </tooltip></TextField>
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
@@ -43,6 +50,9 @@
                      <VBox.margin>
                         <Insets left="50.0" top="20.0" />
                      </VBox.margin>
+                     <tooltip>
+                        <Tooltip text="Email único de usuario" />
+                     </tooltip>
                   </Label>
                   <Label fx:id="errorEmail" maxWidth="150.0">
                      <VBox.margin>
@@ -57,7 +67,10 @@
             <TextField fx:id="datoEmailUsuario" minWidth="400.0">
                <HBox.margin>
                   <Insets />
-               </HBox.margin></TextField>
+               </HBox.margin>
+               <tooltip>
+                  <Tooltip text="Email único de usuario" />
+               </tooltip></TextField>
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
@@ -68,13 +81,19 @@
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
+                     <tooltip>
+                        <Tooltip text="Contraseña" />
+                     </tooltip>
                   </Label>
                </children>
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
             </VBox>
-            <PasswordField fx:id="datoContrasenia" minWidth="400.0" />
+            <PasswordField fx:id="datoContrasenia" minWidth="400.0">
+               <tooltip>
+                  <Tooltip text="Contraseña" />
+               </tooltip></PasswordField>
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
@@ -85,13 +104,19 @@
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
+                     <tooltip>
+                        <Tooltip text="Repetir contraseña" />
+                     </tooltip>
                   </Label>
                </children>
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
             </VBox>
-            <PasswordField fx:id="datoContraseniaRepetida" minWidth="400.0" />
+            <PasswordField fx:id="datoContraseniaRepetida" minWidth="400.0">
+               <tooltip>
+                  <Tooltip text="Repetir contraseña" />
+               </tooltip></PasswordField>
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">

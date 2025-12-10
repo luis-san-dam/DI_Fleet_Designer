@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -18,8 +19,14 @@
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
+               <tooltip>
+                  <Tooltip text="Nombre único de la flota" />
+               </tooltip>
             </Label>
-            <TextField fx:id="nombreFlota" minWidth="400.0" />
+            <TextField fx:id="nombreFlota" minWidth="400.0">
+               <tooltip>
+                  <Tooltip text="Nombre único de la flota" />
+               </tooltip></TextField>
          </children>
          <VBox.margin>
             <Insets top="20.0" />
@@ -50,6 +57,9 @@
                      </children>
                   </VBox>
                </content>
+               <tooltip>
+                  <Tooltip text="Mínimo 1 nave con cantidad superior a 1, de otro modo no se puede crear la flota" />
+               </tooltip>
             </ScrollPane>
          </children>
       </AnchorPane>

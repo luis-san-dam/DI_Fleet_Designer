@@ -78,6 +78,7 @@ public class controladorOpciones implements Initializable {
             Stage modal = new Stage();
             modal.setScene(new Scene(root));
             modal.initOwner(((Node) event.getSource()).getScene().getWindow());
+            modal.setResizable(false);
             modal.initModality(javafx.stage.Modality.WINDOW_MODAL);
             modal.setTitle("Fleet Designer");
             modal.showAndWait();
@@ -96,6 +97,7 @@ public class controladorOpciones implements Initializable {
                 Parent root = loader.load();
 
                 stagePrincipal.setScene(new Scene(root));
+                stagePrincipal.setResizable(false);
                 stagePrincipal.setTitle("Fleet Designer");
 
             } catch (Exception e) {
@@ -278,5 +280,4 @@ public class controladorOpciones implements Initializable {
             botonBorrarUser.setManaged(false);
         }
     }
-
 }

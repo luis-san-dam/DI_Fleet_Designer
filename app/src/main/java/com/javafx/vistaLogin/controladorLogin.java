@@ -61,6 +61,7 @@ public class controladorLogin implements Initializable{
 
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(scene);
+                stage.setResizable(false);
                 stage.setTitle("Fleet Designer");
                 stage.show();
 
@@ -83,6 +84,7 @@ public class controladorLogin implements Initializable{
         Parent root = loader.load();
 
         Stage modal = new Stage();
+        modal.setResizable(false);
         modal.setTitle("Fleet Designer");
         Scene scene = new Scene(root);
         
@@ -201,5 +203,4 @@ public class controladorLogin implements Initializable{
         fondoGif.fitWidthProperty().bind(rootLogin.widthProperty());
         fondoGif.fitHeightProperty().bind(rootLogin.heightProperty());
     }
-
 }

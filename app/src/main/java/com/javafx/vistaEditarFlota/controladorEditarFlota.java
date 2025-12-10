@@ -163,6 +163,7 @@ public class controladorEditarFlota implements Initializable {
 
                 Stage stageEliminar = new Stage();
                 stageEliminar.setScene(new Scene(root));
+                stageEliminar.setResizable(false);
                 stageEliminar.initModality(Modality.APPLICATION_MODAL);
                 stageEliminar.showAndWait();
 

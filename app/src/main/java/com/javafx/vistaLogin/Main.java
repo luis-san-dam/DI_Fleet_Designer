@@ -35,6 +35,7 @@ public class Main extends Application {
         
 
         primeraEscena.setScene(scene);
+        primeraEscena.setResizable(false);
         primeraEscena.setTitle("Fleet Designer");
         primeraEscena.show();
         

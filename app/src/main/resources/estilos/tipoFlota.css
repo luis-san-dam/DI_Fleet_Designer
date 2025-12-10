@@ -1,0 +1,34 @@
+.radio-button.custom-radio .radio {
+    -fx-padding: 0;
+    -fx-min-width: 0;
+    -fx-min-height: 0;
+    -fx-pref-width: 0;
+    -fx-pref-height: 0;
+    -fx-max-width: 0;
+    -fx-max-height: 0;
+    -fx-opacity: 0;
+}
+
+.custom-radio {
+    -fx-label-padding: 0;
+    -fx-graphic-text-gap: 0;
+    -fx-background-color: #f4d5d5;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #d9a5a5;
+    -fx-border-width: 2;
+    -fx-font-size: 12px;
+    -fx-text-fill: #3a0505;
+    -fx-alignment: center;
+    -fx-content-display: center;
+}
+
+.custom-radio:hover {
+    -fx-background-color: #e9bcbc;
+}
+
+.custom-radio:selected {
+    -fx-background-color: #b43a3a;
+    -fx-border-color: #701f1f;
+    -fx-text-fill: white;
+}

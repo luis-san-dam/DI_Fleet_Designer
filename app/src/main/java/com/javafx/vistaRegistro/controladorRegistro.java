@@ -180,7 +180,6 @@ public class controladorRegistro implements Initializable {
                 }
             } catch (SQLException var4) {
                 
-            }
+        }
     }
-    
 }

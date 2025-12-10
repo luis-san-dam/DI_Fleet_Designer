@@ -183,7 +183,7 @@ public class PiezasNaves {
 
     public static void validateComboBoxValue(ComboBox<String> combo, ObservableList<String> items, boolean obligatorio) {
         combo.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
-            if (!isNowFocused) { // cuando pierde focus
+            if (!isNowFocused) {
                 String value = combo.getEditor().getText();
 
                 if ((obligatorio && (value == null || !items.contains(value))) ||

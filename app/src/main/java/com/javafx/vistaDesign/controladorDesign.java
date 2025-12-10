@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -48,6 +47,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -63,7 +63,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -467,12 +466,12 @@ public class controladorDesign implements Initializable {
                     .build();
                 tile.setSkin(new MiNumberTileSkin(tile));
             switch (i) {
-                case 0 -> tile.setBackgroundColor(Color.web("#FFD700")); // Oro
-                case 1 -> tile.setBackgroundColor(Color.web("#C0C0C0")); // Plata
-                case 2 -> tile.setBackgroundColor(Color.web("#CD7F32")); // Bronce
-                case 3, 4 -> tile.setBackgroundColor(Color.web("#3498DB")); // Azul
-                case 5, 6, 7 -> tile.setBackgroundColor(Color.web("#50C878")); // Esmeralda
-                case 8, 9 -> tile.setBackgroundColor(Color.web("#E0115F")); // Rubí
+                case 0 -> tile.setBackgroundColor(Color.web("#FFD700"));
+                case 1 -> tile.setBackgroundColor(Color.web("#C0C0C0"));
+                case 2 -> tile.setBackgroundColor(Color.web("#CD7F32"));
+                case 3, 4 -> tile.setBackgroundColor(Color.web("#3498DB"));
+                case 5, 6, 7 -> tile.setBackgroundColor(Color.web("#50C878"));
+                case 8, 9 -> tile.setBackgroundColor(Color.web("#E0115F"));
             }
             panelTilesFX.getChildren().add(tile);
         }
@@ -487,6 +486,7 @@ public class controladorDesign implements Initializable {
             Parent root = loader.load();
 
             Stage stagePrincipal = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stagePrincipal.setResizable(false);
             stagePrincipal.setScene(new Scene(root));
             stagePrincipal.setTitle("Fleet Designer");
 
@@ -630,6 +630,7 @@ public class controladorDesign implements Initializable {
 
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/estilos/estiloValidacionNaves.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("/estilos/tipoFlota.css").toExternalForm());
 
             Stage modal = new Stage();
 
@@ -641,6 +642,7 @@ public class controladorDesign implements Initializable {
             ));
             }
 
+            modal.setResizable(false);
             modal.setTitle("Fleet Designer");
             modal.setScene(scene);
             modal.initModality(Modality.APPLICATION_MODAL);
@@ -665,6 +667,7 @@ public class controladorDesign implements Initializable {
 
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/estilos/estiloValidacionNaves.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("/estilos/tipoNave.css").toExternalForm());
 
             Stage modal = new Stage();
 
@@ -676,6 +679,7 @@ public class controladorDesign implements Initializable {
             ));
             }
 
+            modal.setResizable(false);
             modal.setTitle("Fleet Designer");
             modal.setScene(scene);
 
@@ -716,6 +720,7 @@ public class controladorDesign implements Initializable {
             ));
             }
 
+            modal.setResizable(false);
             modal.setScene(scene);
             modal.setTitle("Fleet Designer");
             modal.initModality(Modality.WINDOW_MODAL);
@@ -942,6 +947,7 @@ public class controladorDesign implements Initializable {
             ));
             }
 
+            modal.setResizable(false);
             modal.initModality(Modality.APPLICATION_MODAL);
             modal.setScene(scene);
             modal.setTitle("Fleet Designer");
@@ -973,6 +979,7 @@ public class controladorDesign implements Initializable {
             ));
             }
 
+            modal.setResizable(false);
             modal.initModality(Modality.APPLICATION_MODAL);
             modal.setScene(new Scene(root));
             modal.setTitle("Fleet Designer");
@@ -1005,6 +1012,8 @@ public class controladorDesign implements Initializable {
             ));
             }
 
+
+            modal.setResizable(false);
             modal.initModality(Modality.APPLICATION_MODAL);
             modal.setScene(scene);
             modal.setTitle("Fleet Designer");
@@ -1038,6 +1047,7 @@ public class controladorDesign implements Initializable {
             ));
             }
 
+            modal.setResizable(false);
             modal.initModality(Modality.APPLICATION_MODAL);
             modal.setScene(new Scene(root));
             modal.setTitle("Fleet Designer");
@@ -1330,6 +1340,8 @@ public class controladorDesign implements Initializable {
                 iconEditar.setFitHeight(60);
                 iconBorrar.setFitWidth(60);
                 iconBorrar.setFitHeight(60);
+                btnEditar.setTooltip(new Tooltip("Editar la nave"));
+                btnBorrar.setTooltip(new Tooltip("Borrar la nave"));
 
                 contenedor.setAlignment(Pos.CENTER);
 
@@ -1454,6 +1466,8 @@ public class controladorDesign implements Initializable {
                 iconEditar.setFitHeight(60);
                 iconBorrar.setFitWidth(60);
                 iconBorrar.setFitHeight(60);
+                btnEditar.setTooltip(new Tooltip("Editar la flota"));
+                btnBorrar.setTooltip(new Tooltip("Borrar la flota"));
 
                 contenedor.setAlignment(Pos.CENTER);
 

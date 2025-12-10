@@ -7,6 +7,7 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -15,22 +16,22 @@
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="60.0">
          <children>
-            <RadioButton fx:id="radioCorveta" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" selected="true" text="Corveta">
+            <RadioButton fx:id="radioCorveta" contentDisplay="TOP" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" selected="true" styleClass="custom-radio" text="Corveta">
                <toggleGroup>
                   <ToggleGroup fx:id="naveSeleccionada" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="radioFragata" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Fragata" toggleGroup="$naveSeleccionada" />
-            <RadioButton fx:id="radioDestructor" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Destructor" toggleGroup="$naveSeleccionada" />
-            <RadioButton fx:id="radioCrucero" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Crucero" toggleGroup="$naveSeleccionada" />
+            <RadioButton fx:id="radioFragata" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" styleClass="custom-radio" text="Fragata" toggleGroup="$naveSeleccionada" />
+            <RadioButton fx:id="radioDestructor" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" styleClass="custom-radio" text="Destructor" toggleGroup="$naveSeleccionada" />
+            <RadioButton fx:id="radioCrucero" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" styleClass="custom-radio" text="Crucero" toggleGroup="$naveSeleccionada" />
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="60.0">
          <children>
-            <RadioButton fx:id="radioAcorazado" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Acorazado" toggleGroup="$naveSeleccionada" />
-            <RadioButton fx:id="radioTitan" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Titán" toggleGroup="$naveSeleccionada" />
-            <RadioButton fx:id="radioColoso" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Coloso" toggleGroup="$naveSeleccionada" />
-            <RadioButton fx:id="radioInsignia" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Insignia" toggleGroup="$naveSeleccionada" />
+            <RadioButton fx:id="radioAcorazado" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" styleClass="custom-radio" text="Acorazado" toggleGroup="$naveSeleccionada" />
+            <RadioButton fx:id="radioTitan" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" styleClass="custom-radio" text="Titán" toggleGroup="$naveSeleccionada" />
+            <RadioButton fx:id="radioColoso" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" styleClass="custom-radio" text="Coloso" toggleGroup="$naveSeleccionada" />
+            <RadioButton fx:id="radioInsignia" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" styleClass="custom-radio" text="Insignia" toggleGroup="$naveSeleccionada" />
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
@@ -39,8 +40,14 @@
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
+               <tooltip>
+                  <Tooltip text="Nombre único de la nave" />
+               </tooltip>
             </Label>
-            <TextField fx:id="nombreNave" minWidth="400.0" />
+            <TextField fx:id="nombreNave" minWidth="400.0">
+               <tooltip>
+                  <Tooltip text="Nombre único de la nave" />
+               </tooltip></TextField>
          </children>
          <VBox.margin>
             <Insets />
@@ -68,8 +75,14 @@
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
+               <tooltip>
+                  <Tooltip text="Sistema Defensivo" />
+               </tooltip>
             </Label>
-            <ComboBox fx:id="sistemaDefensivo" editable="true" maxWidth="150.0" minWidth="150.0" visibleRowCount="5" />
+            <ComboBox fx:id="sistemaDefensivo" editable="true" maxWidth="150.0" minWidth="150.0" visibleRowCount="5">
+               <tooltip>
+                  <Tooltip text="Sistema Defensivo" />
+               </tooltip></ComboBox>
             <Label minWidth="80.0" text="Escudo:">
                <HBox.margin>
                   <Insets left="20.0" />
@@ -84,8 +97,14 @@
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
+               <tooltip>
+                  <Tooltip text="Armamento obligatorio" />
+               </tooltip>
             </Label>
-            <ComboBox fx:id="armamento1" editable="true" maxWidth="150.0" minWidth="150.0" visibleRowCount="5" />
+            <ComboBox fx:id="armamento1" editable="true" maxWidth="150.0" minWidth="150.0" visibleRowCount="5">
+               <tooltip>
+                  <Tooltip text="Armamento obligatorio" />
+               </tooltip></ComboBox>
             <Label minWidth="80.0" text="Armamento 2:">
                <HBox.margin>
                   <Insets left="20.0" />
